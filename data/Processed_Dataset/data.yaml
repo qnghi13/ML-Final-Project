@@ -1,0 +1,8 @@
+names:
+  0: Fall Detected
+  1: Walking
+  2: Sitting
+nc: 3
+path: f:\Machine learning\Project\Processed_Dataset
+train: train/images
+val: val/images

@@ -1,0 +1,22 @@
+# Python junk
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual Environments (Conda/Venv)
+env/
+venv/
+.venv/
+.conda/
+
+# IDE settings
+.vscode/
+.idea/
+
+# YOLO training logs (Nặng và không cần thiết)
+runs/
+*.mp4
+
+# OS generated files
+.DS_Store
+Thumbs.db
