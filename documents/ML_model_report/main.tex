@@ -1,0 +1,605 @@
+\documentclass[12pt]{scrartcl}
+
+% --- GÓI LỆNH CƠ BẢN ---
+\usepackage{graphicx} 
+\usepackage{caption} 
+\captionsetup[figure]{name=Figure} 
+\captionsetup[table]{name=Table} 
+
+\setlength{\parindent}{20pt}
+\usepackage{hyperref}
+\usepackage{tasks}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{indentfirst}
+\usepackage{array}
+\usepackage{amsmath}
+\usepackage{csquotes}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{subcaption}
+\usepackage{xcolor}
+\usepackage[utf8]{vietnam}
+\usepackage{tcolorbox}
+\usepackage{float}
+\usepackage{dirtree}
+% --- CẤU HÌNH MÀU SẮC & HỘP ---
+\newtcolorbox{gitbox}{
+  colback=gray!10,
+  tcbox raise=5pt,
+}
+
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+\usepackage{tabularx}
+\usepackage{listings}
+\lstset{frame=tb,
+  language=Python,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{green!70!black},
+  morecomment=[l]{//},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+% --- CẤU HÌNH KHÁC ---
+\setlength{\parindent}{0pt}
+\usepackage{tikz} 
+\usepackage{scrextend}
+\usetikzlibrary{calc}
+\setcounter{tocdepth}{2}
+
+\begin{document}
+
+% -----------------------------------------------------------------
+%   TRANG BÌA (TITLE PAGE)
+% -----------------------------------------------------------------
+\begin{titlepage}
+\begin{tikzpicture}[remember picture,overlay,inner sep=0,outer sep=0]
+     \draw[blue!70!black,line width=4pt] ([xshift=-1.5cm,yshift=-2cm]current page.north east) coordinate (A)--([xshift=1.5cm,yshift=-2cm]current page.north west) coordinate(B)--([xshift=1.5cm,yshift=2cm]current page.south west) coordinate (C)--([xshift=-1.5cm,yshift=2cm]current page.south east) coordinate(D)--cycle;
+
+     \draw ([yshift=0.5cm,xshift=-0.5cm]A)-- ([yshift=0.5cm,xshift=0.5cm]B)--
+     ([yshift=-0.5cm,xshift=0.5cm]B) --([yshift=-0.5cm,xshift=-0.5cm]B)--([yshift=0.5cm,xshift=-0.5cm]C)--([yshift=0.5cm,xshift=0.5cm]C)--([yshift=-0.5cm,xshift=0.5cm]C)-- ([yshift=-0.5cm,xshift=-0.5cm]D)--([yshift=0.5cm,xshift=-0.5cm]D)--([yshift=0.5cm,xshift=0.5cm]D)--([yshift=-0.5cm,xshift=0.5cm]A)--([yshift=-0.5cm,xshift=-0.5cm]A)--([yshift=0.5cm,xshift=-0.5cm]A);
+
+     \draw ([yshift=-0.3cm,xshift=0.3cm]A)-- ([yshift=-0.3cm,xshift=-0.3cm]B)--
+     ([yshift=0.3cm,xshift=-0.3cm]B) --([yshift=0.3cm,xshift=0.3cm]B)--([yshift=-0.3cm,xshift=0.3cm]C)--([yshift=-0.3cm,xshift=-0.3cm]C)--([yshift=0.3cm,xshift=-0.3cm]C)-- ([yshift=0.3cm,xshift=0.3cm]D)--([yshift=-0.3cm,xshift=0.3cm]D)--([yshift=-0.3cm,xshift=-0.3cm]D)--([yshift=0.3cm,xshift=-0.3cm]A)--([yshift=0.3cm,xshift=0.3cm]A)--([yshift=-0.3cm,xshift=0.3cm]A);
+\end{tikzpicture}
+
+\begin{center}
+    \vspace{7pt}
+    \textbf{UNIVERSITY OF SCIENCE} \\
+    \vspace{7pt}
+    \textbf{FACULTY OF INFORMATION TECHNOLOGY}
+\end{center}
+\vspace{10pt}
+\begin{center}
+    % Đảm bảo file hust.png có trong cùng thư mục với file .tex
+    \includegraphics[scale=0.5]{hust.png} 
+    
+    \vspace{27pt}
+    \fontsize{18pt}{17pt}\selectfont 
+    \textbf{Đồ án cuối kì} 
+    
+    \vspace{10pt}
+    \textbf{Xây dựng và Triển khai Hệ thống Học máy Ứng dụng}
+\end{center}
+
+\vspace{7pt}    
+\begin{center}
+    \fontsize{25pt}{27pt}\selectfont 
+    \textbf{\textrm{BÁO CÁO VỀ DỮ LIỆU}}\\
+\end{center}
+
+\vspace{25pt}
+\centering
+\textbf{Supervisor: Bùi Tiến Lên }
+
+\vspace{30pt}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{ll} 
+\textbf{Students:} \qquad & \begin{tabular}[t]{l l} 
+                                \textbf{Full Name} \qquad & \textbf{ID} \\
+                                Nguyễn Lê Quang & 23127109 \\
+                                Phan Hoàng Quang Nghị & 23127436 \\
+                                Nguyễn Tấn Văn & 23127515\\
+                            \end{tabular}
+\end{tabular}
+\end{table}
+
+\vspace{30pt}
+\begin{center}
+    \textbf{Ho Chi Minh City, 2025}
+\end{center}
+\end{titlepage}
+
+% -----------------------------------------------------------------
+%   MỤC LỤC VÀ NỘI DUNG CHÍNH
+% -----------------------------------------------------------------
+
+\tableofcontents
+\setlength{\parindent}{20pt}
+\newpage
+
+\section{GIỚI THIỆU BÀI TOÁN}
+
+Tóm tắt bài toán: Nhóm hướng tới việc xây dựng một hệ thống \textbf{thị giác máy tính (Computer Vision)} có khả năng tự động giám sát và phát hiện sự cố đột quỵ hoặc té ngã (Fall Detection) thông qua camera giám sát.
+
+Đặc tả bài toán học máy:
+
+\begin{itemize}
+    \item Loại bài toán: \textbf{Phát hiện vật thể (Object Detection)} và \textit{Phân loại hành vi (Action Classification)}.
+    \item Đầu vào (Input): Hình ảnh đơn lẻ (Frame) được trích xuất từ \textbf{camera thời gian thực}.
+    \item Đầu ra (Output):
+    \begin{itemize}
+        \item Tọa độ khung bao (Bounding Box) vị trí người trong ảnh.
+        \item Nhãn hành vi tương ứng: \textbf{Fall Detected} (Ngã/Đột quỵ) hoặc \textit{Non-Fall} (Đi lại/Ngồi bình thường).
+    \end{itemize}
+    \item Mục tiêu: Mô hình cần phân biệt chính xác tư thế ngã so với các tư thế sinh hoạt thường ngày để gửi \textbf{cảnh báo kịp thời}, đồng thời giảm thiểu tỷ lệ báo động giả.
+\end{itemize}
+
+\section{TỔNG QUAN DỮ LIỆU ĐẦU VÀO}
+
+\subsection{Phân chia dữ liệu huấn luyện (Train / Validation)}
+
+Dựa trên bộ dữ liệu \textbf{Fall Detection Dataset} đã được chuẩn hóa, nhóm áp dụng chiến lược phân chia dữ liệu theo phương pháp \textit{Hold-out} nhằm tách biệt rõ ràng giữa dữ liệu dùng cho quá trình học của mô hình (\textbf{Training Set}) và dữ liệu dùng để đánh giá hiệu năng trong quá trình huấn luyện (\textbf{Validation Set}).
+
+\textbf{Tỷ lệ phân chia dữ liệu} được thiết lập xấp xỉ:
+\[
+77\% \text{ (Train)} \quad / \quad 23\% \text{ (Validation)}
+\]
+
+\textbf{Số lượng mẫu chi tiết}:
+\begin{itemize}
+    \item Tập Huấn luyện (Training Set): \textbf{363 ảnh}
+    \item Tập Kiểm định (Validation Set): \textbf{110 ảnh}
+    \item Tổng số ảnh sau làm sạch: \textbf{473 ảnh}
+\end{itemize}
+
+\textbf{Lý do lựa chọn tỷ lệ phân chia}:
+\begin{itemize}
+    \item Do kích thước tổng thể của bộ dữ liệu tương đối nhỏ (dưới 500 mẫu), việc dành phần lớn dữ liệu cho tập huấn luyện là cần thiết để mô hình có đủ dữ liệu học các đặc trưng đa dạng của tư thế \textit{ngã}, \textit{đi lại} và \textit{ngồi}.
+    \item Tập Validation với 110 ảnh (chiếm 23\%) vẫn đảm bảo đủ lớn về mặt thống kê để đại diện cho phân phối dữ liệu thực tế, cho phép giám sát hiệu quả hiện tượng \textbf{Overfitting} và hỗ trợ quá trình tinh chỉnh siêu tham số (\textit{Hyperparameter Tuning}) một cách tin cậy không làm lãng phí quá nhiều dữ liệu huấn luyện.
+    \item Cấu trúc thư mục của bộ dữ liệu được tổ chức theo đúng định dạng chuẩn của \textbf{YOLO}, đảm bảo khả năng tương thích trực tiếp với các framework huấn luyện như \textit{Ultralytics YOLO}.
+\end{itemize}
+
+\subsection{Tiền xử lý và Tăng cường dữ liệu (Preprocessing \& Augmentation)}
+
+Để đảm bảo chất lượng dữ liệu đầu vào tối ưu cho các mô hình học sâu (\textit{Deep Learning}), nhóm đã xây dựng một quy trình tiền xử lý và tăng cường dữ liệu gồm các bước sau:
+
+\subsubsection{Làm sạch và Chuẩn hóa dữ liệu (Cleaning \& Normalization)}
+
+\begin{itemize}
+    \item \textbf{Khử trùng lặp dữ liệu}: Áp dụng thuật toán \textit{Perceptual Hashing (pHash)} để phát hiện và loại bỏ các ảnh trùng lặp hoặc có độ tương đồng lớn hơn 95\%, nhằm ngăn chặn hiện tượng \textbf{Data Leakage} giữa tập Train và Validation.
+    
+    \item \textbf{Lọc nhiễu nhãn}: Loại bỏ các \textit{bounding box} có diện tích quá nhỏ (nhỏ hơn 0.5\% diện tích ảnh) hoặc có tọa độ sai lệch, giúp tăng độ chính xác của nhãn huấn luyện.
+    
+    \item \textbf{Chuẩn hóa kích thước ảnh}: Toàn bộ ảnh đầu vào được đồng bộ về kích thước \textbf{640 $\times$ 640 pixels}. Đây là kích thước đầu vào tiêu chuẩn (\textit{imgsz}) cho các mô hình \textbf{YOLOv8 / YOLOv10} và \textbf{RT-DETR}, giúp cân bằng giữa tốc độ xử lý và khả năng phát hiện các đối tượng nhỏ.
+    
+    \item \textbf{Chuẩn hóa định dạng nhãn}: Tọa độ các \textit{bounding box} được chuẩn hóa về đoạn $[0,1]$ theo định dạng YOLO:
+    \[
+    (x_{center},\; y_{center},\; width,\; height)
+    \]
+    
+    \item \textbf{Quy hoạch nhãn (Class Mapping)}: Toàn bộ dữ liệu được ánh xạ về 3 lớp duy nhất:
+    \begin{itemize}
+        \item 0: \textbf{Fall Detected}
+        \item 1: \textbf{Walking}
+        \item 2: \textbf{Sitting}
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Tăng cường dữ liệu (Data Augmentation)}
+
+Trong quá trình huấn luyện, nhóm sử dụng chiến lược tăng cường dữ liệu (Data Augmentation) mặc định của framework Ultralytics YOLO bao gồm:
+
+\begin{itemize}
+    \item \textbf{Mosaic Augmentation (100\%)}: Ghép ngẫu nhiên 4 ảnh thành một ảnh huấn luyện duy nhất. Kỹ thuật này giúp mô hình học cách phát hiện đối tượng ở nhiều tỷ lệ kích thước khác nhau và trong các bối cảnh phức tạp.
+    
+    \item \textbf{Biến đổi màu sắc và nhiễu (Photometric Distortions)}:
+    \begin{itemize}
+        \item \textit{Blur} và \textit{MedianBlur} ($p = 0.01$): Mô phỏng hiện tượng ảnh mờ do chuyển động nhanh hoặc camera chất lượng thấp.
+        \item \textit{ToGray} ($p = 0.01$): Chuyển ảnh sang ảnh xám để mô hình tập trung học đặc trưng hình dạng thay vì phụ thuộc vào màu sắc.
+        \item \textit{CLAHE} ($p = 0.01$): Cân bằng biểu đồ thích ứng nhằm cải thiện độ tương phản trong điều kiện ánh sáng yếu.
+    \end{itemize}
+    
+    \item \textbf{Biến đổi hình học (Geometric Distortions)}:
+    \begin{itemize}
+        \item \textit{Scale} ($\pm 50\%$): Thay đổi tỷ lệ kích thước ảnh ngẫu nhiên để tăng khả năng nhận diện đối tượng ở các khoảng cách khác nhau.
+        \item \textit{Translation} ($10\%$): Dịch chuyển ảnh theo không gian để tránh việc mô hình chỉ học các đối tượng nằm ở trung tâm khung hình.
+    \end{itemize}
+\end{itemize}
+
+\section{LỰA CHỌN MÔ HÌNH VÀ KIẾN TRÚC}
+
+Dựa trên đặc thù của bài toán là \textbf{phát hiện hành động ngã trong thời gian thực (Real-time Fall Detection)} trên các thiết bị biên (\textit{edge devices}) hoặc máy chủ có tài nguyên tính toán hạn chế, nhóm nghiên cứu tập trung vào các mô hình thuộc nhóm \textbf{One-stage Object Detection} (phát hiện vật thể một giai đoạn). 
+
+Các mô hình thuộc nhóm này có ưu điểm là tốc độ suy luận nhanh, độ trễ thấp và dễ triển khai trong các hệ thống giám sát thời gian thực. Ba kiến trúc tiêu biểu được lựa chọn để thực nghiệm và so sánh trong nghiên cứu này bao gồm: \textbf{YOLOv8n}, \textbf{YOLOv10n} và \textbf{RT-DETR}.
+
+\subsection{Lý do lựa chọn mô hình}
+
+Nhóm quyết định lựa chọn ba kiến trúc đại diện cho các hướng tiếp cận khác nhau trong lĩnh vực Object Detection hiện đại, nhằm đánh giá toàn diện sự đánh đổi giữa \textit{độ chính xác}, \textit{tốc độ} và \textit{độ phức tạp mô hình}:
+
+\begin{itemize}
+    \item \textbf{YOLOv8 (Nano version)}: Đây là kiến trúc \textit{State-of-the-art (SOTA)} phổ biến hiện nay, nổi bật với sự cân bằng hiệu quả giữa tốc độ xử lý và độ chính xác. Việc lựa chọn phiên bản \textit{Nano} (\textbf{YOLOv8n}) nhằm tối ưu khả năng triển khai trên các thiết bị nhúng hoặc máy chủ chi phí thấp, phù hợp với yêu cầu thực tế của hệ thống cảnh báo ngã.
+    
+    \item \textbf{YOLOv10 (Nano version)}: Là phiên bản cải tiến mới nhất (năm 2024), YOLOv10 loại bỏ hoàn toàn bước \textit{Non-Maximum Suppression (NMS)} trong quá trình suy luận thông qua cơ chế \textit{Consistent Dual Assignments}. Mô hình này được lựa chọn nhằm kiểm chứng giả thuyết rằng việc loại bỏ NMS có thể giúp giảm độ trễ (\textit{latency}) khi xử lý video thời gian thực mà vẫn duy trì độ chính xác cao.
+    
+    \item \textbf{RT-DETR (Real-Time Detection Transformer)}: Đây là mô hình phát hiện vật thể dựa trên cơ chế \textbf{Attention} của Transformer thay vì thuần CNN như YOLO. Việc lựa chọn RT-DETR nhằm khai thác khả năng nắm bắt \textit{ngữ cảnh toàn cục (Global Context)}, giúp mô hình phân biệt tốt hơn giữa các hành động có hình thái tương đồng như \textit{ngã} và \textit{ngồi} — một thách thức lớn trong bài toán Fall Detection.
+\end{itemize}
+
+\subsection{Kiến trúc chi tiết các mô hình}
+
+\subsubsection{Kiến trúc YOLOv8n (Baseline)}
+
+YOLOv8n được sử dụng làm mô hình nền (\textit{baseline}) trong nghiên cứu. Kiến trúc tổng thể bao gồm ba thành phần chính:
+
+\begin{itemize}
+    \item \textbf{Backbone}: Sử dụng mạng \textbf{CSPDarknet} được cải tiến với module \textbf{C2f (Cross Stage Partial bottleneck with 2 convolutions)}. C2f giúp cải thiện khả năng truyền gradient (\textit{gradient flow}) và hiệu quả trích xuất đặc trưng so với module C3 trong YOLOv5.
+    
+    \item \textbf{Neck}: Áp dụng cấu trúc \textbf{PANet (Path Aggregation Network)} nhằm kết hợp các đặc trưng ở nhiều mức phân giải khác nhau, giúp tăng khả năng phát hiện đối tượng ở các kích thước đa dạng.
+    
+    \item \textbf{Head}: Thiết kế theo hướng \textbf{Anchor-free} với \textbf{Decoupled Head}, trong đó nhánh phân loại (\textit{Classification}) và nhánh hồi quy khung bao (\textit{Bounding Box Regression}) được tách biệt, giúp quá trình học ổn định và chính xác hơn.
+\end{itemize}
+
+\textbf{Số lượng tham số}: khoảng \textbf{3.0 triệu tham số}.
+
+\textit{(Hình 3.1: Kiến trúc mạng YOLOv8 với module C2f và Decoupled Head.)}
+
+\subsubsection{Kiến trúc YOLOv10n}
+
+YOLOv10n là phiên bản tối ưu mới nhất của dòng YOLO, tập trung vào việc giảm độ trễ suy luận:
+
+\begin{itemize}
+    \item \textbf{Cải tiến cốt lõi}: Thay thế cơ chế \textit{One-to-many matching} truyền thống bằng \textbf{Dual Label Assignments}, kết hợp giữa:
+    \begin{itemize}
+        \item \textit{One-to-many} trong giai đoạn huấn luyện để đảm bảo hội tụ tốt.
+        \item \textit{One-to-one} trong giai đoạn suy luận, cho phép loại bỏ hoàn toàn bước \textit{Non-Maximum Suppression (NMS)}.
+    \end{itemize}
+    
+    \item \textbf{Module kiến trúc}: Sử dụng các module \textbf{C2fCIB} và \textbf{PSA (Partial Self-Attention)} nhằm mở rộng vùng nhận thức (\textit{receptive field}) và cải thiện khả năng học ngữ cảnh mà không làm tăng đáng kể chi phí tính toán.
+\end{itemize}
+
+\textbf{Số lượng tham số}: khoảng \textbf{2.7 triệu tham số}, là mô hình nhẹ nhất trong ba mô hình được khảo sát.
+
+\textit{(Hình 3.2: Kiến trúc YOLOv10 với cơ chế suy luận không cần NMS.)}
+
+\subsubsection{Kiến trúc RT-DETR (Large)}
+
+RT-DETR đại diện cho hướng tiếp cận dựa trên Transformer trong bài toán phát hiện vật thể thời gian thực:
+
+\begin{itemize}
+    \item \textbf{Hybrid Encoder}: Kết hợp giữa \textbf{Backbone CNN} (như ResNet hoặc HGNet) để trích xuất đặc trưng không gian, và \textbf{Transformer Encoder} để mô hình hóa mối quan hệ toàn cục giữa các vùng trong ảnh ở nhiều tỷ lệ khác nhau.
+    
+    \item \textbf{Decoder}: Sử dụng cơ chế \textbf{Query Selection}, cho phép dự đoán trực tiếp các bounding box mà không cần sử dụng \textit{anchor box}, giúp đơn giản hóa quá trình suy luận.
+\end{itemize}
+
+\textbf{Số lượng tham số}: khoảng \textbf{32 triệu tham số}. Trong nghiên cứu này, nhóm sử dụng phiên bản \texttt{rtdetr-l.pt}, có kích thước lớn hơn đáng kể so với hai phiên bản Nano của YOLO, nhằm đánh giá liệu việc gia tăng độ phức tạp mô hình có mang lại cải thiện đáng kể về độ chính xác hay không.
+
+\textit{(Hình 3.3: Kiến trúc lai giữa CNN và Transformer của RT-DETR.)}
+
+\subsection{Cấu hình huấn luyện (Training Configuration)}
+
+Nhằm đảm bảo tính \textbf{công bằng và nhất quán} trong quá trình so sánh hiệu năng, tất cả các mô hình được huấn luyện trên cùng một bộ siêu tham số theo chiến lược \textbf{Manual Tuning Best Practices} do nhóm nghiên cứu tinh chỉnh. Việc thống nhất cấu hình huấn luyện giúp loại bỏ ảnh hưởng của siêu tham số và phản ánh đúng năng lực kiến trúc của từng mô hình.
+
+\subsubsection{Thông số huấn luyện cơ bản}
+
+\begin{itemize}
+    \item \textbf{Số vòng lặp (Epochs)}: \textbf{60}. Giá trị này được lựa chọn nhằm đảm bảo mô hình có đủ thời gian hội tụ với tập dữ liệu nhỏ (khoảng 500 ảnh).
+    
+    \item \textbf{Kích thước ảnh đầu vào (Image Size)}: \textbf{640 $\times$ 640 pixels}. Đây là độ phân giải tiêu chuẩn, cân bằng giữa độ chính xác phát hiện và tốc độ suy luận.
+    
+    \item \textbf{Batch size}: \textbf{16}. Phù hợp với giới hạn bộ nhớ của GPU NVIDIA T4 trên nền tảng Google Colab.
+    
+    \item \textbf{Patience (Early Stopping)}: \textbf{20}. Quá trình huấn luyện sẽ được dừng sớm nếu không có cải thiện về chỉ số đánh giá trong 20 epochs liên tiếp, nhằm hạn chế hiện tượng \textbf{Overfitting}.
+\end{itemize}
+
+\subsubsection{Hàm mất mát (Loss Function)}
+
+Các mô hình được huấn luyện với tổ hợp ba hàm mất mát tiêu chuẩn trong YOLO, mỗi thành phần đảm nhiệm một vai trò cụ thể trong quá trình tối ưu:
+
+\begin{itemize}
+    \item \textbf{Box Loss (IoU / CIoU)}: Đánh giá mức độ chồng lấn giữa khung bao dự đoán và khung bao thực tế, giúp mô hình định vị chính xác đối tượng.
+    
+    \item \textbf{Classification Loss (BCE -- Binary Cross Entropy)}: Đo lường độ chính xác trong việc phân loại hành động giữa các lớp \textit{Fall Detected}, \textit{Walking} và \textit{Sitting}.
+    
+    \item \textbf{Distribution Focal Loss (DFL)}: Tinh chỉnh ranh giới của bounding box bằng cách mô hình hóa phân phối xác suất của các tọa độ, giúp cải thiện độ chính xác định vị.
+\end{itemize}
+
+\subsubsection{Thuật toán tối ưu và Learning Rate}
+
+\begin{itemize}
+    \item \textbf{Optimizer}: \textbf{AdamW}. Thuật toán này được framework \textit{Ultralytics} tự động lựa chọn dựa trên kích thước và đặc thù của tập dữ liệu, cho khả năng hội tụ ổn định và giảm hiện tượng overfitting.
+    
+    \item \textbf{Initial Learning Rate ($lr_0$)}: \textbf{0.001429}.
+    
+    \item \textbf{Momentum}: \textbf{0.9}.
+    
+    \item \textbf{Weight Decay}: \textbf{0.0005}. Tham số này đóng vai trò như một cơ chế regularization, giúp hạn chế mô hình học quá khớp với dữ liệu huấn luyện.
+\end{itemize}
+
+\subsubsection{Chiến lược huấn luyện đặc biệt}
+
+\begin{itemize}
+    \item \textbf{Close Mosaic = 10}: Kỹ thuật tăng cường dữ liệu \textit{Mosaic Augmentation} (ghép 4 ảnh thành một ảnh huấn luyện) được tắt trong \textbf{10 epochs cuối} (từ epoch 51 đến 60).
+\end{itemize}
+
+Lý do của chiến lược này là để mô hình ổn định lại các tham số và học trực tiếp từ các ảnh gốc tự nhiên, tránh nhiễu do ảnh ghép nhân tạo khi mô hình đã đạt đến độ chính xác cao trong giai đoạn cuối huấn luyện.
+
+\subsubsection{Tóm tắt cấu hình huấn luyện}
+
+\begin{table}[H]
+\centering
+\caption{Tóm tắt cấu hình huấn luyện cho các mô hình}
+\begin{tabular}{|l|c|p{6.5cm}|}
+\hline
+\textbf{Tham số} & \textbf{Giá trị} & \textbf{Giải thích} \\
+\hline
+Framework & Ultralytics 8.3 & Thư viện huấn luyện YOLO \\ \hline
+Epochs & 60 & Số vòng lặp huấn luyện \\ \hline
+Batch size & 16 & Số ảnh trong mỗi lần cập nhật trọng số \\ \hline
+Image Size & 640 & Độ phân giải ảnh đầu vào \\ \hline
+Optimizer & AdamW & Thuật toán tối ưu trọng số \\ \hline
+Initial LR & 0.001429 & Learning rate ban đầu \\ \hline
+Weight Decay & 0.0005 & Giảm hiện tượng overfitting \\ \hline
+Close Mosaic & 10 epochs cuối & Tắt Mosaic Augmentation ở giai đoạn cuối \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Phương pháp tinh chỉnh siêu tham số}
+
+Thay vì sử dụng các phương pháp tìm kiếm siêu tham số tốn kém tài nguyên như \textit{Grid Search} hoặc \textit{Random Search}, nhóm nghiên cứu áp dụng phương pháp \textbf{Manual Tuning} dựa trên kinh nghiệm thực nghiệm.
+
+Quy trình tinh chỉnh được thực hiện theo các bước sau:
+
+\begin{itemize}
+    \item \textbf{Baseline}: Khởi đầu bằng việc huấn luyện mô hình với cấu hình mặc định (\textit{default}) do framework Ultralytics cung cấp, nhằm thiết lập mốc so sánh ban đầu.
+    
+    \item \textbf{Điều chỉnh số Epochs}: Thông qua việc quan sát các biểu đồ \textit{Training Loss} và \textit{Validation Loss}, nhóm nhận thấy mô hình có xu hướng hội tụ trong khoảng epoch 40--50. Do đó, giá trị Epochs được chốt ở mức \textbf{60} để đảm bảo hội tụ hoàn toàn mà vẫn tiết kiệm thời gian huấn luyện.
+    
+    \item \textbf{Điều chỉnh chiến lược Augmentation}: Qua thực nghiệm, nhóm nhận thấy dữ liệu gốc phản ánh sát thực tế hơn so với dữ liệu ghép từ Mosaic. Vì vậy, tham số \texttt{close\_mosaic = 10} được bổ sung nhằm tinh chỉnh và cải thiện chỉ số \textbf{mAP} trong giai đoạn cuối của quá trình huấn luyện.
+\end{itemize}
+
+\section{KẾT QUẢ THỰC NGHIỆM}
+
+Phần này trình bày chi tiết quá trình huấn luyện và đánh giá hiệu năng của từng mô hình được đề xuất trong nghiên cứu. Tất cả các mô hình đều được huấn luyện trong \textbf{60 epochs} với cùng một cấu hình siêu tham số nhằm đảm bảo tính công bằng trong so sánh. Các kết quả được ghi nhận dựa trên tập \textbf{Validation} và các chỉ số đánh giá tiêu chuẩn của bài toán Object Detection.
+
+\subsection{Kết quả thực nghiệm mô hình YOLOv8n}
+
+\subsubsection{Biểu đồ quá trình học (Learning Curves)}
+
+Hình~\ref{fig:yolov8n_learning_curve} minh họa sự biến thiên của hàm mất mát (\textit{Loss}) và các chỉ số đánh giá (\textit{Metrics}) trên tập huấn luyện và kiểm định của mô hình YOLOv8n trong suốt 60 epochs.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{Images/YOLOv8n/results.png}
+    \caption{Biểu đồ Loss và Metrics của mô hình YOLOv8n qua 60 epochs}
+    \label{fig:yolov8n_learning_curve}
+\end{figure}
+
+\textbf{Nhận xét quá trình hội tụ}:
+\begin{itemize}
+    \item \textbf{Trên tập huấn luyện (Training Loss)}:  
+Các đường biểu diễn \textit{train/box\_loss}, \textit{train/cls\_loss} và \textit{train/dfl\_loss} đều thể hiện xu hướng giảm đều đặn và mượt mà xuyên suốt từ Epoch 1 đến Epoch 60. Đặc biệt, thành phần \textit{train/cls\_loss} giảm mạnh từ mức xấp xỉ \textbf{2.89} xuống còn khoảng \textbf{0.53}. Kết quả này cho thấy mô hình học rất hiệu quả các đặc trưng phân biệt giữa các lớp hành động từ tập dữ liệu huấn luyện.
+    \item \textbf{Trên tập kiểm định (Validation Loss)}:  
+Các hàm mất mát trên tập Validation cũng có xu hướng giảm dần theo thời gian, phản ánh khả năng \textbf{tổng quát hóa (generalization)} tốt của mô hình, thay vì chỉ học vẹt dữ liệu huấn luyện (overfitting). Tuy nhiên, trong giai đoạn đầu huấn luyện (Epoch 1--30), các thành phần \textit{train/box\_loss}, \textit{train/cls\_loss} và \textit{train/dfl\_loss} đều xuất hiện sự biến động nhẹ. Từ Epoch 50 đến Epoch 60, các giá trị này trở nên ổn định hơn và giảm sâu, cho thấy mô hình đã hội tụ về vùng nghiệm tối ưu. 
+\end{itemize}
+
+\textbf{Phân tích hiện tượng dao động trong quá trình huấn luyện:}
+\begin{itemize}
+    \item Trong khoảng \textbf{30 epochs đầu tiên}, các biểu đồ huấn luyện, đặc biệt là các chỉ số trên tập Validation như \textit{val/box\_loss}, \textit{Precision} và \textit{Recall}, có sự dao động tương đối mạnh với biên độ lớn và đường biểu diễn gấp khúc. Hiện tượng này là hoàn toàn bình thường trong giai đoạn đầu, khi mô hình đang trong pha \textit{exploration} nhằm tìm kiếm bộ trọng số tối ưu.
+    \item Từ khoảng \textbf{Epoch 40 trở đi}, và đặc biệt rõ rệt sau \textbf{Epoch 50}, biên độ dao động của các đường đồ thị giảm đáng kể. Các chỉ số huấn luyện dần trở nên mượt mà hơn và tiến vào quỹ đạo ổn định, phản ánh quá trình hội tụ vững chắc của mô hình.
+\end{itemize}
+
+
+
+
+
+\subsubsection{Đánh giá định lượng trên tập Validation}
+
+Bảng~\ref{tab:yolov8n_metrics} trình bày kết quả định lượng tốt nhất của mô hình YOLOv8n tại \textbf{epoch 57}. Các số liệu được trích xuất trực tiếp từ file \texttt{results.csv} tại thời điểm mô hình đạt đỉnh hiệu năng.
+
+\begin{table}[H]
+\centering
+\caption{Kết quả đánh giá mô hình YOLOv8n trên tập Validation}
+\label{tab:yolov8n_metrics}
+\begin{tabular}{|l|c|p{6.5cm}|}
+\hline
+\textbf{Chỉ số (Metric)} & \textbf{Giá trị tốt nhất} & \textbf{Giải thích} \\ \hline
+\hline
+Precision (B) & 0.774 & Trong số các dự đoán là đúng, có 77,4\% là chính xác thực tế. \\ \hline
+Recall (B) & 0.861 & Mô hình phát hiện được 86,1\% số lượng đối tượng thực tế có trong ảnh. \\ \hline
+mAP@50 & 0.854 & Độ chính xác trung bình tại ngưỡng IoU = 0.5. \\ \hline
+mAP@50--95 & 0.598 & Độ chính xác trung bình trên các ngưỡng IoU chặt chẽ từ 0.5 đến 0.95. \\
+\hline
+\end{tabular}
+\end{table}
+
+\textbf{Nhận xét}:  
+Mô hình YOLOv8n cho thấy sự cân bằng tốt giữa độ chính xác và tính ổn định. Đặc biệt, chỉ số \textbf{Recall cao (0.861)} chứng tỏ mô hình rất phù hợp với các hệ thống cảnh báo ngã, nơi việc bỏ sót sự kiện nguy hiểm là không thể chấp nhận.
+
+\subsubsection{Phân tích Ma trận nhầm lẫn (Confusion Matrix)}
+
+Hình~\ref{fig:yolov8n_confusion} trình bày \textbf{ma trận nhầm lẫn chuẩn hóa} của mô hình YOLOv8n trên tập Validation, phản ánh chi tiết hiệu năng phân loại của mô hình đối với từng lớp hành động.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Images/YOLOv8n/confusion_matrix_normalized.png}
+    \caption{Ma trận nhầm lẫn chuẩn hóa của mô hình YOLOv8n}
+    \label{fig:yolov8n_confusion}
+\end{figure}
+
+\textbf{Phân tích kết quả}:
+
+\textbf{a) Các lớp được nhận diện tốt (Ưu điểm)}
+
+\begin{itemize}
+    \item \textbf{Fall Detected (Phát hiện ngã)}:  
+    Đây là lớp quan trọng nhất trong bài toán cảnh báo an toàn. Mô hình đạt \textbf{độ nhạy (Recall) rất cao, lên tới 0.93}, cho thấy \textbf{93\%} các trường hợp ngã thực tế đều được phát hiện chính xác.  
+    Tỷ lệ bỏ sót (dự đoán nhầm thành \textit{Background}) chỉ ở mức \textbf{0.01} (1\%), phản ánh khả năng phát hiện hành vi nguy hiểm rất đáng tin cậy.
+    
+    \item \textbf{Walking (Đi lại)}:  
+    Mô hình cũng thể hiện hiệu năng tốt đối với lớp \textit{Walking}, với \textbf{độ chính xác (Precision) đạt 0.91}. Điều này cho thấy mô hình ít nhầm lẫn hành vi đi lại với các hành vi khác, góp phần làm giảm số lượng cảnh báo sai trong hệ thống.
+\end{itemize}
+
+\textbf{b) Các lớp bị nhầm lẫn (Hạn chế)}
+
+\begin{itemize}
+    \item \textbf{Sitting (Ngồi)}:  
+    Lớp \textit{Sitting} có độ chính xác ở mức trung bình, đạt khoảng \textbf{0.74}. Phân tích chi tiết cho thấy:
+    \begin{itemize}
+        \item Khoảng \textbf{16\%} các trường hợp \textit{Sitting} bị mô hình dự đoán nhầm thành \textit{Walking}. Nguyên nhân có thể xuất phát từ sự tương đồng về tỷ lệ khung bao (\textit{bounding box}) hoặc đặc trưng phần thân trên của cơ thể trong một số góc quan sát.
+        
+        \item Khoảng \textbf{11\%} trường hợp \textit{Sitting} bị nhận nhầm là \textit{Background}, tức là mô hình không phát hiện được đối tượng.
+    \end{itemize}
+    
+    \item \textbf{Background (Nền / Không có đối tượng)}:  
+    Một vấn đề đáng chú ý được ghi nhận tại cột \textit{True Background} của ma trận nhầm lẫn. Cụ thể, \textbf{63\%} các mẫu thuộc lớp nền (hoặc các vùng không chứa hành vi quan tâm) bị dự đoán nhầm thành \textbf{Fall Detected}.
+    
+    \textbf{Phân tích}: Hiện tượng này dẫn đến tỷ lệ \textbf{Báo động giả (False Positive)} cao đối với hành vi ngã. Trong bối cảnh ứng dụng thực tế, điều này có nghĩa là hệ thống có thể phát ra cảnh báo ngã ngay cả khi không xảy ra sự cố, do mô hình nhầm lẫn các vật thể hoặc cấu trúc trong nền thành tư thế ngã.
+\end{itemize}
+
+\textbf{Nhận xét}:  
+Mặc dù mô hình đạt hiệu năng rất tốt trong việc phát hiện hành vi ngã, vấn đề báo động giả từ lớp \textit{Background} là một hạn chế quan trọng cần được khắc phục. Đây là cơ sở để đề xuất các hướng cải tiến trong tương lai, chẳng hạn như tăng cường dữ liệu nền, bổ sung lớp \textit{Lying} hoặc tích hợp thông tin ngữ cảnh theo thời gian.
+
+
+% YOLOv10n
+
+\subsection{Kết quả thực nghiệm mô hình YOLOv10n}
+
+\subsubsection{Biểu đồ quá trình học (Learning Curves)}
+
+Hình~\ref{fig:yolov10n_learning_curve} minh họa sự biến thiên của hàm mất mát (\textit{Loss}) và các chỉ số đánh giá (\textit{Metrics}) trên tập huấn luyện và kiểm định của mô hình YOLOv10n trong suốt 60 epochs.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{Images/YOLOv10n/results.png}
+    \caption{Biểu đồ Loss và Metrics của mô hình YOLOv10n qua 60 epochs}
+    \label{fig:yolov10n_learning_curve}
+\end{figure}
+
+\textbf{Nhận xét quá trình hội tụ}:
+
+
+
+\subsubsection{Đánh giá định lượng trên tập Validation}
+
+Bảng~\ref{tab:yolov10n_metrics} trình bày kết quả định lượng tốt nhất của mô hình YOLOv10n tại \textbf{epoch ...}. Các số liệu được trích xuất trực tiếp từ file \texttt{results.csv} tại thời điểm mô hình đạt đỉnh hiệu năng.
+
+\begin{table}[H]
+\centering
+\caption{Kết quả đánh giá mô hình YOLOv10n trên tập Validation}
+\label{tab:yolov10n_metrics}
+\begin{tabular}{|l|c|p{6.5cm}|}
+\hline
+\textbf{Chỉ số (Metric)} & \textbf{Giá trị tốt nhất} & \textbf{Giải thích} \\
+\hline
+Precision (B) & 0.774 & Tỷ lệ dự đoán đúng trong tổng số các lần mô hình phát hiện (báo động). \\ \hline
+Recall (B) & 0.861 & Tỷ lệ phát hiện được các trường hợp ngã thực tế; chỉ số quan trọng nhất trong bài toán an toàn. \\ \hline
+mAP@50 & 0.854 & Độ chính xác trung bình tại ngưỡng IoU = 0.5. \\ \hline
+mAP@50--95 & 0.598 & Độ chính xác trung bình trên các ngưỡng IoU chặt chẽ từ 0.5 đến 0.95. \\
+\hline
+\end{tabular}
+\end{table}
+
+\textbf{Nhận xét}:  
+
+
+\subsubsection{Phân tích Ma trận nhầm lẫn (Confusion Matrix)}
+
+Hình~\ref{fig:yolov10n_confusion} trình bày \textbf{ma trận nhầm lẫn chuẩn hóa} của mô hình YOLOv10n trên tập Validation, phản ánh chi tiết hiệu năng phân loại của mô hình đối với từng lớp hành động.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Images/YOLOv10n/confusion_matrix_normalized.png}
+    \caption{Ma trận nhầm lẫn chuẩn hóa của mô hình YOLOv10n}
+    \label{fig:yolov10n_confusion}
+\end{figure}
+
+\textbf{Phân tích kết quả}:
+
+
+
+% RTDETR
+
+\subsection{Kết quả thực nghiệm mô hình RTDETR}
+
+\subsubsection{Biểu đồ quá trình học (Learning Curves)}
+
+Hình~\ref{fig:rtdetr_learning_curve} minh họa sự biến thiên của hàm mất mát (\textit{Loss}) và các chỉ số đánh giá (\textit{Metrics}) trên tập huấn luyện và kiểm định của mô hình RTDETR trong suốt 60 epochs.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{Images/RTDETR/results.png}
+    \caption{Biểu đồ Loss và Metrics của mô hình RTDETR qua 60 epochs}
+    \label{fig:rtdetr_learning_curve}
+\end{figure}
+
+\textbf{Nhận xét quá trình hội tụ}:
+
+\begin{itemize}
+    \item \textbf{Hàm mất mát (Loss):} Quá trình huấn luyện cho thấy sự giảm mạnh của hàm mất mát phân loại (\texttt{train/cls\_loss}) từ mức rất cao (17.72 tại epoch đầu) xuống còn 0.279 ở epoch tối ưu. Các thành phần mất mát định vị như \texttt{train/giou\_loss} và \texttt{train/l1\_loss} cũng cho thấy xu hướng hội tụ tốt, giảm từ mức 0.61 xuống 0.16. Điều này chứng tỏ cơ chế attention của Transformer trong RT-DETR đã học được các đặc trưng ngữ nghĩa hiệu quả.
+    
+    \item \textbf{Độ chính xác (Metrics):} Chỉ số mAP@50 có sự tăng trưởng ổn định, đặc biệt trong giai đoạn đầu và đạt đỉnh 0.805. So với các kiến trúc CNN truyền thống, RT-DETR thể hiện khả năng học nhanh các đặc trưng phức tạp ngay từ những epoch đầu tiên.
+    
+    \item \textbf{Hiện tượng dao động:} Biểu đồ validation loss (\texttt{val/giou\_loss}, \texttt{val/l1\_loss}) có sự biến động nhẹ ở một số giai đoạn giữa, nhưng tổng thể vẫn bám sát đường training loss, cho thấy mô hình kiểm soát tốt hiện tượng Overfitting.
+    
+    \item \textbf{Epoch tối ưu:} Mô hình đạt hiệu năng tổng thể tốt nhất tại \textbf{epoch 58}, nơi sự cân bằng giữa Precision và Recall được tối ưu hóa.
+\end{itemize}
+
+\subsubsection{Đánh giá định lượng trên tập Validation}
+
+Bảng~\ref{tab:rtdetr_metrics} trình bày kết quả định lượng tốt nhất của mô hình RTDETR tại \textbf{epoch 58}. Các số liệu được trích xuất trực tiếp từ file \texttt{results.csv} tại thời điểm mô hình đạt đỉnh hiệu năng.
+
+\begin{table}[h]
+    \centering
+    \caption{Kết quả đánh giá mô hình RT-DETR trên tập Validation}
+    \label{tab:rtdetr_metrics}
+    \begin{tabular}{|l|c|p{8cm}|}
+        \hline
+        \textbf{Chỉ số (Metric)} & \textbf{Giá trị tốt nhất} & \textbf{Giải thích} \\
+        \hline
+        Precision (B) & 0.808 & Tỷ lệ dự đoán đúng rất cao, cho thấy mô hình ít đưa ra các cảnh báo giả (False Positives). \\ \hline
+
+        Recall (B) & 0.797 & Tỷ lệ phát hiện đúng các trường hợp thực tế xấp xỉ 80\%, đảm bảo độ bao phủ tốt các sự kiện. \\ \hline
+
+        mAP@50 & 0.805 & Độ chính xác trung bình ở mức cao tại ngưỡng IoU tiêu chuẩn. \\ \hline
+
+        mAP@50--95 & 0.580 & Hiệu năng ấn tượng trên các ngưỡng IoU chặt chẽ (0.5--0.95), cao hơn so với nhiều mô hình CNN cùng kích thước. \\
+        \hline
+    \end{tabular}
+\end{table}
+\textbf{Nhận xét}:  
+Mô hình RT-DETR đạt được chỉ số Precision vượt trội (0.808), cao hơn so với Recall (0.797). Điều này cho thấy mô hình có xu hướng ``thận trọng'', đảm bảo rằng khi đã đưa ra dự đoán thì độ tin cậy rất cao. Chỉ số mAP@50--95 đạt 0.580 là một kết quả rất tích cực, chứng tỏ các hộp bao (bounding box) được dự đoán sát với thực tế hơn, ít bị lệch so với ground truth.
+
+
+\subsubsection{Phân tích Ma trận nhầm lẫn (Confusion Matrix)}
+
+Hình~\ref{fig:rtdetr_confusion} trình bày \textbf{ma trận nhầm lẫn chuẩn hóa} của mô hình RTDETR trên tập Validation, phản ánh chi tiết hiệu năng phân loại của mô hình đối với từng lớp hành động.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Images/RTDETR/confusion_matrix_normalized.png}
+    \caption{Ma trận nhầm lẫn chuẩn hóa của mô hình RTDETR}
+    \label{fig:rtdetr_confusion}
+\end{figure}
+
+\textbf{Phân tích kết quả}:
+Ma trận nhầm lẫn cho thấy mô hình nhận diện Fall Detected đạt độ chính xác cao, với phần lớn các mẫu được dự đoán đúng. Lớp Walking cũng cho kết quả khá tốt, tuy nhiên vẫn tồn tại sự nhầm lẫn đáng kể với lớp Sitting, cho thấy ranh giới giữa hai hành vi này chưa rõ ràng. Lớp Sitting có tỷ lệ dự đoán đúng thấp hơn so với các lớp còn lại, chứng tỏ đây là lớp khó phân biệt. Đáng chú ý, lớp Background bị nhầm lẫn nhiều với các lớp hành động, đặc biệt là Fall Detected, cho thấy mô hình chưa học tốt đặc trưng của nền, dẫn đến nguy cơ xuất hiện cảnh báo ngã giả. Nhìn chung, mô hình hoạt động tốt với các hành động chính nhưng cần cải thiện khả năng phân biệt giữa các hành vi tương tự và lớp nền.
+
+\section{Thảo luận \& Phân tích lỗi}
+
+
+\end{document}
