@@ -55,7 +55,7 @@
 % --- CẤU HÌNH KHÁC ---
 \setlength{\parindent}{0pt}
 \usepackage{tikz} 
-\usepackage{scrextend}
+%\usepackage{scrextend}
 \usetikzlibrary{calc}
 \setcounter{tocdepth}{2}
 
@@ -255,8 +255,13 @@ YOLOv8n được sử dụng làm mô hình nền (\textit{baseline}) trong nghi
 
 \textbf{Số lượng tham số}: khoảng \textbf{3.0 triệu tham số}.
 
-\textit{(Hình 3.1: Kiến trúc mạng YOLOv8 với module C2f và Decoupled Head.)}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\linewidth, height=8cm, keepaspectratio]{Images/YOLOv8n/baseline.png} 
+    \caption{Kiến trúc mạng YOLOv8 với module C2f và Decoupled Head (Nguồn: Luo et al., 2024 [2]).}
+\end{figure}
 
+\newpage
 \subsubsection{Kiến trúc YOLOv10n}
 
 YOLOv10n là phiên bản tối ưu mới nhất của dòng YOLO, tập trung vào việc giảm độ trễ suy luận:
@@ -272,8 +277,13 @@ YOLOv10n là phiên bản tối ưu mới nhất của dòng YOLO, tập trung v
 \end{itemize}
 
 \textbf{Số lượng tham số}: khoảng \textbf{2.7 triệu tham số}, là mô hình nhẹ nhất trong ba mô hình được khảo sát.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\linewidth, height=8cm, keepaspectratio]{Images/YOLOv10n/baseline.png} 
+    \caption{Kiến trúc YOLOv10 với cơ chế suy luận không cần NMS (Nguồn: Cheng \& Kang, 2024 [3]).}
+\end{figure}
 
-\textit{(Hình 3.2: Kiến trúc YOLOv10 với cơ chế suy luận không cần NMS.)}
+\newpage
 
 \subsubsection{Kiến trúc RT-DETR (Large)}
 
@@ -287,8 +297,13 @@ RT-DETR đại diện cho hướng tiếp cận dựa trên Transformer trong b�
 
 \textbf{Số lượng tham số}: khoảng \textbf{32 triệu tham số}. Trong nghiên cứu này, nhóm sử dụng phiên bản \texttt{rtdetr-l.pt}, có kích thước lớn hơn đáng kể so với hai phiên bản Nano của YOLO, nhằm đánh giá liệu việc gia tăng độ phức tạp mô hình có mang lại cải thiện đáng kể về độ chính xác hay không.
 
-\textit{(Hình 3.3: Kiến trúc lai giữa CNN và Transformer của RT-DETR.)}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\linewidth, height=8cm, keepaspectratio]{Images/RTDETR/baseline.png} 
+    \caption{Kiến trúc lai giữa CNN và Transformer của RT-DETR (Nguồn: Lv et al., CVPR 2024 [1]).}
+\end{figure}
 
+\newpage
 \subsection{Cấu hình huấn luyện (Training Configuration)}
 
 Nhằm đảm bảo tính \textbf{công bằng và nhất quán} trong quá trình so sánh hiệu năng, tất cả các mô hình được huấn luyện trên cùng một bộ siêu tham số theo chiến lược \textbf{Manual Tuning Best Practices} do nhóm nghiên cứu tinh chỉnh. Việc thống nhất cấu hình huấn luyện giúp loại bỏ ảnh hưởng của siêu tham số và phản ánh đúng năng lực kiến trúc của từng mô hình.
@@ -346,13 +361,13 @@ Lý do của chiến lược này là để mô hình ổn định lại các th
 \hline
 \textbf{Tham số} & \textbf{Giá trị} & \textbf{Giải thích} \\
 \hline
-Framework & Ultralytics 8.3 & Thư viện huấn luyện YOLO \\ \hline
-Epochs & 60 & Số vòng lặp huấn luyện \\ \hline
-Batch size & 16 & Số ảnh trong mỗi lần cập nhật trọng số \\ \hline
-Image Size & 640 & Độ phân giải ảnh đầu vào \\ \hline
-Optimizer & AdamW & Thuật toán tối ưu trọng số \\ \hline
-Initial LR & 0.001429 & Learning rate ban đầu \\ \hline
-Weight Decay & 0.0005 & Giảm hiện tượng overfitting \\ \hline
+Framework & Ultralytics 8.3 & Thư viện huấn luyện YOLO \\
+Epochs & 60 & Số vòng lặp huấn luyện \\
+Batch size & 16 & Số ảnh trong mỗi lần cập nhật trọng số \\
+Image Size & 640 & Độ phân giải ảnh đầu vào \\
+Optimizer & AdamW & Thuật toán tối ưu trọng số \\
+Initial LR & 0.001429 & Learning rate ban đầu \\
+Weight Decay & 0.0005 & Giảm hiện tượng overfitting \\
 Close Mosaic & 10 epochs cuối & Tắt Mosaic Augmentation ở giai đoạn cuối \\
 \hline
 \end{tabular}
@@ -417,11 +432,11 @@ Bảng~\ref{tab:yolov8n_metrics} trình bày kết quả định lượng tốt 
 \label{tab:yolov8n_metrics}
 \begin{tabular}{|l|c|p{6.5cm}|}
 \hline
-\textbf{Chỉ số (Metric)} & \textbf{Giá trị tốt nhất} & \textbf{Giải thích} \\ \hline
+\textbf{Chỉ số (Metric)} & \textbf{Giá trị tốt nhất} & \textbf{Giải thích} \\
 \hline
-Precision (B) & 0.774 & Trong số các dự đoán là đúng, có 77,4\% là chính xác thực tế. \\ \hline
-Recall (B) & 0.861 & Mô hình phát hiện được 86,1\% số lượng đối tượng thực tế có trong ảnh. \\ \hline
-mAP@50 & 0.854 & Độ chính xác trung bình tại ngưỡng IoU = 0.5. \\ \hline
+Precision (B) & 0.774 & Trong số các dự đoán là đúng, có 77,4\% là chính xác thực tế. \\
+Recall (B) & 0.861 & Mô hình phát hiện được 86,1\% số lượng đối tượng thực tế có trong ảnh. \\
+mAP@50 & 0.854 & Độ chính xác trung bình tại ngưỡng IoU = 0.5. \\
 mAP@50--95 & 0.598 & Độ chính xác trung bình trên các ngưỡng IoU chặt chẽ từ 0.5 đến 0.95. \\
 \hline
 \end{tabular}
@@ -479,43 +494,104 @@ Mặc dù mô hình đạt hiệu năng rất tốt trong việc phát hiện h�
 
 \subsection{Kết quả thực nghiệm mô hình YOLOv10n}
 
+% \subsubsection{Biểu đồ quá trình học (Learning Curves)}
+
+% Hình~\ref{fig:yolov10n_learning_curve} minh họa sự biến thiên của hàm mất mát (\textit{Loss}) và các chỉ số đánh giá (\textit{Metrics}) trên tập huấn luyện và kiểm định của mô hình YOLOv10n trong suốt 60 epochs.
+
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=0.95\textwidth]{Images/YOLOv10n/results.png}
+%     \caption{Biểu đồ Loss và Metrics của mô hình YOLOv10n qua 60 epochs}
+%     \label{fig:yolov10n_learning_curve}
+% \end{figure}
+
+% \textbf{Nhận xét quá trình hội tụ}:
+
 \subsubsection{Biểu đồ quá trình học (Learning Curves)}
 
-Hình~\ref{fig:yolov10n_learning_curve} minh họa sự biến thiên của hàm mất mát (\textit{Loss}) và các chỉ số đánh giá (\textit{Metrics}) trên tập huấn luyện và kiểm định của mô hình YOLOv10n trong suốt 60 epochs.
+Hình~\ref{fig:yolov10n_learning_curve} minh họa sự biến thiên của hàm mất mát (Loss) và các chỉ số đánh giá (Metrics) trên tập huấn luyện và kiểm định của mô hình YOLOv10n trong suốt 60 epochs.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.95\textwidth]{Images/YOLOv10n/results.png}
     \caption{Biểu đồ Loss và Metrics của mô hình YOLOv10n qua 60 epochs}
-    \label{fig:yolov10n_learning_curve}
+    \label{fig:yolov10n_learning_curve} % Định danh để tạo liên kết
 \end{figure}
 
-\textbf{Nhận xét quá trình hội tụ}:
+\textbf{Phân tích chi tiết quá trình hội tụ}:
 
+Dựa trên dữ liệu định lượng từ file nhật ký huấn luyện (\texttt{results.csv}), ta có các nhận xét sau:
 
+\begin{itemize}
+    \item \textbf{Hàm mất mát (Loss)}: 
+    Mô hình YOLOv10n thể hiện tốc độ hội tụ cực kỳ nhanh trong giai đoạn đầu. Cụ thể, hàm mất mát phân loại trên tập huấn luyện (\textit{train/cls\_loss}) giảm sốc từ mức \textbf{9.60} (epoch 1) xuống còn khoảng \textbf{5.4} chỉ sau 9 epochs đầu tiên, và kết thúc ở mức \textbf{1.39} tại epoch 60. Điều này cho thấy kiến trúc \textit{Dual Assignments} giúp mô hình định hướng học rất nhanh.
+    
+    \item \textbf{Khả năng tổng quát hóa (Generalization)}: 
+    Trên tập kiểm định (Validation), các chỉ số loss (\textit{val/box\_loss}, \textit{val/cls\_loss}) cũng giảm dần theo xu hướng của tập train. Tuy nhiên, giá trị \textit{val/cls\_loss} dừng lại ở mức khoảng \textbf{2.00}, cao hơn so với tập train (1.39), cho thấy mô hình bắt đầu có dấu hiệu chững lại và khó tối ưu thêm (bão hòa) sau epoch 50.
+    
+    \item \textbf{Chỉ số mAP}: 
+    Đường biểu diễn mAP@50 và mAP@50-95 tăng trưởng đều đặn và đạt đỉnh vào khoảng \textbf{epoch 53} (với mAP@50 $\approx$ 0.80 và mAP@50-95 $\approx$ 0.56). Sau thời điểm này, các chỉ số đi ngang và có biến động nhẹ, chứng tỏ việc huấn luyện thêm (sau 60 epochs) có thể không mang lại lợi ích đáng kể.
+\end{itemize}
 
+\vspace{0.5cm} % Tạo khoảng cách nhỏ cho thoáng
+\noindent \textbf{Phân tích sự khác biệt về giá trị Hàm mất mát (Loss Analysis)}
+
+Một điểm đáng chú ý khi so sánh quá trình huấn luyện là biên độ giá trị tuyệt đối của các hàm mất mát (Box, Class, DFL) ở mô hình YOLOv10n luôn duy trì ở mức cao hơn đáng kể so với YOLOv8n.
+
+\begin{itemize}
+    \item \textbf{Quan sát thực nghiệm}: Tại epoch cuối cùng (epoch 60), hàm mất mát phân loại (\textit{train/cls\_loss}) của YOLOv10n dừng lại ở mức \textbf{1.39}, trong khi YOLOv8n giảm sâu xuống còn \textbf{0.53} (thấp hơn 2.6 lần). Tương tự, \textit{train/box\_loss} của YOLOv10n ($\approx$ 1.39) cũng cao gấp đôi so với YOLOv8n ($\approx$ 0.63).
+    
+    \item \textbf{Giải thích kỹ thuật}: Hiện tượng này chủ yếu xuất phát từ sự khác biệt trong cơ chế tính toán bên trong. YOLOv10 áp dụng chiến lược \textbf{Dual Label Assignments} (Gán nhãn kép), sử dụng song song hai nhánh \textit{One-to-many} và \textit{One-to-one} trong quá trình huấn luyện. Việc này tạo ra số lượng mẫu dương (positive anchors) lớn hơn nhiều để tính lỗi, dẫn đến tổng giá trị Loss tích lũy sẽ tự nhiên lớn hơn so với cơ chế đơn nhánh của YOLOv8.
+    
+    \item \textbf{Đánh giá tác động}: Mặc dù giá trị Loss cao do cơ chế cộng dồn, nhưng việc đường cong Loss của YOLOv10n không thể giảm sâu xuống mức thấp (dưới 1.0) như YOLOv8n cũng tương đồng với kết quả thực nghiệm là độ chính xác (mAP) và độ nhạy (Recall) của mô hình này thấp hơn. Điều này cho thấy mô hình vẫn gặp khó khăn nhất định trong việc tối ưu hóa phân loại các mẫu khó.
+\end{itemize}
+
+\textbf{Kết luận}: Quá trình huấn luyện ổn định, không gặp lỗi gradient (loss NaN) hay dao động quá mạnh. Mô hình học nhanh nhưng khả năng cải thiện độ chính xác tinh chỉnh (fine-tuning) ở các epoch cuối kém hơn so với YOLOv8n.
+
+% \subsubsection{Đánh giá định lượng trên tập Validation}
+
+% Bảng~\ref{tab:yolov10n_metrics} trình bày kết quả định lượng tốt nhất của mô hình YOLOv10n tại \textbf{epoch ...}. Các số liệu được trích xuất trực tiếp từ file \texttt{results.csv} tại thời điểm mô hình đạt đỉnh hiệu năng.
+
+% \begin{table}[H]
+% \centering
+% \caption{Kết quả đánh giá mô hình YOLOv10n trên tập Validation}
+% \label{tab:yolov10n_metrics}
+% \begin{tabular}{|l|c|p{6.5cm}|}
+% \hline
+% \textbf{Chỉ số (Metric)} & \textbf{Giá trị tốt nhất} & \textbf{Giải thích} \\
+% \hline
+% Precision (B) & 0.774 & Tỷ lệ dự đoán đúng trong tổng số các lần mô hình phát hiện (báo động). \\
+% Recall (B) & 0.861 & Tỷ lệ phát hiện được các trường hợp ngã thực tế; chỉ số quan trọng nhất trong bài toán an toàn. \\
+% mAP@50 & 0.854 & Độ chính xác trung bình tại ngưỡng IoU = 0.5. \\
+% mAP@50--95 & 0.598 & Độ chính xác trung bình trên các ngưỡng IoU chặt chẽ từ 0.5 đến 0.95. \\
+% \hline
+% \end{tabular}
+% \end{table}
+
+% \textbf{Nhận xét}:  
 \subsubsection{Đánh giá định lượng trên tập Validation}
 
-Bảng~\ref{tab:yolov10n_metrics} trình bày kết quả định lượng tốt nhất của mô hình YOLOv10n tại \textbf{epoch ...}. Các số liệu được trích xuất trực tiếp từ file \texttt{results.csv} tại thời điểm mô hình đạt đỉnh hiệu năng.
+Bảng~\ref{tab:yolov10n_metrics} trình bày kết quả định lượng tốt nhất của mô hình YOLOv10n tại \textbf{epoch 53} (thời điểm đạt chỉ số mAP@50-95 cao nhất). Các số liệu được trích xuất trực tiếp từ nhật ký huấn luyện thực tế.
 
 \begin{table}[H]
 \centering
-\caption{Kết quả đánh giá mô hình YOLOv10n trên tập Validation}
+\caption{Kết quả đánh giá mô hình YOLOv10n trên tập Validation (Epoch 53)}
 \label{tab:yolov10n_metrics}
 \begin{tabular}{|l|c|p{6.5cm}|}
 \hline
-\textbf{Chỉ số (Metric)} & \textbf{Giá trị tốt nhất} & \textbf{Giải thích} \\
+\textbf{Chỉ số (Metric)} & \textbf{Giá trị} & \textbf{Giải thích} \\
 \hline
-Precision (B) & 0.774 & Tỷ lệ dự đoán đúng trong tổng số các lần mô hình phát hiện (báo động). \\ \hline
-Recall (B) & 0.861 & Tỷ lệ phát hiện được các trường hợp ngã thực tế; chỉ số quan trọng nhất trong bài toán an toàn. \\ \hline
-mAP@50 & 0.854 & Độ chính xác trung bình tại ngưỡng IoU = 0.5. \\ \hline
-mAP@50--95 & 0.598 & Độ chính xác trung bình trên các ngưỡng IoU chặt chẽ từ 0.5 đến 0.95. \\
+Precision (B) & 0.799 & Tỷ lệ dự đoán đúng trong các lần báo động. Cao hơn so với YOLOv8n (0.774). \\
+Recall (B) & 0.707 & Độ nhạy phát hiện đối tượng thực tế. Đây là điểm yếu lớn nhất của mô hình này (bỏ sót gần 30\% sự kiện). \\
+mAP@50 & 0.804 & Độ chính xác trung bình ở mức khá tại ngưỡng IoU 0.5. \\
+mAP@50--95 & 0.564 & Độ chính xác định vị khung bao thấp hơn mức 0.598 của YOLOv8n. \\
+\textbf{Tốc độ suy luận} & \textbf{3.4 ms} & Ưu điểm lớn nhất: Nhanh hơn đáng kể nhờ cơ chế loại bỏ NMS. \\
 \hline
 \end{tabular}
 \end{table}
 
-\textbf{Nhận xét}:  
-
+\textbf{Nhận xét}: 
+Kết quả thực nghiệm cho thấy sự đánh đổi rõ rệt của kiến trúc YOLOv10n: Tối ưu hóa tối đa cho \textbf{tốc độ xử lý (3.4ms/ảnh)}, nhưng hy sinh đáng kể về \textbf{Độ nhạy (Recall chỉ đạt 0.707)}. Trong bài toán giám sát an toàn cho người cao tuổi, việc bỏ sót các trường hợp ngã (False Negatives) mang lại rủi ro cao, do đó mô hình này chỉ phù hợp làm phương án dự phòng cho các thiết bị phần cứng có tài nguyên cực kỳ hạn chế.
 
 \subsubsection{Phân tích Ma trận nhầm lẫn (Confusion Matrix)}
 
@@ -530,8 +606,25 @@ Hình~\ref{fig:yolov10n_confusion} trình bày \textbf{ma trận nhầm lẫn ch
 
 \textbf{Phân tích kết quả}:
 
+Quan sát ma trận nhầm lẫn và bảng số liệu chi tiết, ta nhận thấy mô hình YOLOv10n thể hiện một đặc tính phân loại cực đoan, với sự chênh lệch lớn giữa khả năng phát hiện và độ chính xác thực tế:
 
+\begin{itemize}
+    \item \textbf{Hiện tượng "Báo động giả" nghiêm trọng (Catastrophic False Positive)}: 
+    Đây là điểm yếu chí mạng nhất của mô hình. Cột \textit{True Background} cho thấy có tới \textbf{91\%} các mẫu nền (vùng không có người) bị nhận diện nhầm là \textbf{Fall Detected}. 
+    \\ \textit{Hệ quả:} Trong môi trường thực tế, điều này đồng nghĩa với việc hệ thống sẽ liên tục phát cảnh báo ngã ngay cả khi phòng trống, khiến chức năng giám sát trở nên nhiễu loạn và mất độ tin cậy.
 
+    \item \textbf{Độ nhạy cao với hành vi Ngã (High Recall)}: 
+    Mô hình đạt chỉ số Recall rất cao đối với lớp \textit{Fall Detected}, lên tới \textbf{0.87} (phát hiện đúng 87\% số ca ngã). 
+    \\ \textit{Lý giải:} Tuy nhiên, kết hợp với lỗi báo động giả ở trên, ta thấy rằng chỉ số này cao là do mô hình bị \textit{Over-prediction} (dự đoán quá mức) về lớp Ngã. Khi mô hình có xu hướng gán nhãn mọi thứ là "Ngã", nó sẽ bắt trúng hầu hết các ca ngã thật, nhưng đồng thời cũng gán sai cho rất nhiều đối tượng khác.
+
+    \item \textbf{Mất khả năng nhận diện Nền (Zero Background Accuracy)}: 
+    Ô giao nhau giữa \textit{Pred Background} và \textit{True Background} có giá trị \textbf{0.00}. Điều này khẳng định mô hình YOLOv10n trong thực nghiệm này gần như thất bại hoàn toàn trong việc học đặc trưng của lớp "không có gì".
+
+    \item \textbf{Các lớp hành vi thường ngày (Walking \& Sitting)}: 
+    Hai lớp này có độ chính xác ở mức trung bình (\textbf{0.65} và \textbf{0.68}). Đáng chú ý, mô hình có xu hướng bỏ sót người (dự đoán thành Background) ở hai lớp này cao hơn hẳn so với lớp Ngã.
+\end{itemize}
+
+\textbf{Kết luận}: Mặc dù YOLOv10n có ưu điểm vượt trội về tốc độ và chỉ số Recall cho lớp Ngã trông có vẻ ấn tượng (0.87), nhưng tỷ lệ báo động giả lên tới 91\% trên nền khiến mô hình này \textbf{không đủ điều kiện để triển khai thực tế} nếu không có các biện pháp hậu xử lý (post-processing) cực kỳ chặt chẽ.
 % RTDETR
 
 \subsection{Kết quả thực nghiệm mô hình RTDETR}
@@ -571,16 +664,17 @@ Bảng~\ref{tab:rtdetr_metrics} trình bày kết quả định lượng tốt n
         \hline
         \textbf{Chỉ số (Metric)} & \textbf{Giá trị tốt nhất} & \textbf{Giải thích} \\
         \hline
-        Precision (B) & 0.808 & Tỷ lệ dự đoán đúng rất cao, cho thấy mô hình ít đưa ra các cảnh báo giả (False Positives). \\ \hline
+        Precision (B) & 0.808 & Tỷ lệ dự đoán đúng rất cao, cho thấy mô hình ít đưa ra các cảnh báo giả (False Positives). \\
 
-        Recall (B) & 0.797 & Tỷ lệ phát hiện đúng các trường hợp thực tế xấp xỉ 80\%, đảm bảo độ bao phủ tốt các sự kiện. \\ \hline
+        Recall (B) & 0.797 & Tỷ lệ phát hiện đúng các trường hợp thực tế xấp xỉ 80\%, đảm bảo độ bao phủ tốt các sự kiện. \\
 
-        mAP@50 & 0.805 & Độ chính xác trung bình ở mức cao tại ngưỡng IoU tiêu chuẩn. \\ \hline
+        mAP@50 & 0.805 & Độ chính xác trung bình ở mức cao tại ngưỡng IoU tiêu chuẩn. \\
 
         mAP@50--95 & 0.580 & Hiệu năng ấn tượng trên các ngưỡng IoU chặt chẽ (0.5--0.95), cao hơn so với nhiều mô hình CNN cùng kích thước. \\
         \hline
     \end{tabular}
 \end{table}
+
 \textbf{Nhận xét}:  
 Mô hình RT-DETR đạt được chỉ số Precision vượt trội (0.808), cao hơn so với Recall (0.797). Điều này cho thấy mô hình có xu hướng ``thận trọng'', đảm bảo rằng khi đã đưa ra dự đoán thì độ tin cậy rất cao. Chỉ số mAP@50--95 đạt 0.580 là một kết quả rất tích cực, chứng tỏ các hộp bao (bounding box) được dự đoán sát với thực tế hơn, ít bị lệch so với ground truth.
 
@@ -597,9 +691,203 @@ Hình~\ref{fig:rtdetr_confusion} trình bày \textbf{ma trận nhầm lẫn chu�
 \end{figure}
 
 \textbf{Phân tích kết quả}:
-Ma trận nhầm lẫn cho thấy mô hình nhận diện Fall Detected đạt độ chính xác cao, với phần lớn các mẫu được dự đoán đúng. Lớp Walking cũng cho kết quả khá tốt, tuy nhiên vẫn tồn tại sự nhầm lẫn đáng kể với lớp Sitting, cho thấy ranh giới giữa hai hành vi này chưa rõ ràng. Lớp Sitting có tỷ lệ dự đoán đúng thấp hơn so với các lớp còn lại, chứng tỏ đây là lớp khó phân biệt. Đáng chú ý, lớp Background bị nhầm lẫn nhiều với các lớp hành động, đặc biệt là Fall Detected, cho thấy mô hình chưa học tốt đặc trưng của nền, dẫn đến nguy cơ xuất hiện cảnh báo ngã giả. Nhìn chung, mô hình hoạt động tốt với các hành động chính nhưng cần cải thiện khả năng phân biệt giữa các hành vi tương tự và lớp nền.
+Confusion matrix được chuẩn hoá theo nhãn thật (True), do đó các giá trị trên đường chéo chính phản ánh độ thu hồi (recall) của từng lớp. Kết quả cho thấy mô hình đạt hiệu năng cao trong việc nhận diện hành vi Fall Detected, với recall đạt 0.94, cũng như lớp Walking với recall 0.87. Điều này chứng tỏ mô hình có khả năng học tốt các đặc trưng phân biệt của hai hành vi này.
+\\\\
+Ngược lại, lớp Sitting đạt recall thấp hơn (0.74), trong đó một tỷ lệ đáng kể các mẫu bị nhầm lẫn sang lớp Walking (21$\%$). Hiện tượng này phản ánh sự chồng lấn về đặc trưng động học giữa hai hành vi, đặc biệt trong các giai đoạn chuyển tiếp tư thế.
+\\\
+Đáng chú ý, lớp background gần như không được nhận diện chính xác (recall xấp xỉ 0), khi 91$\%$) số mẫu thuộc lớp này bị mô hình dự đoán nhầm thành Fall Detected. Kết quả này cho thấy mô hình tồn tại xu hướng thiên lệch mạnh về lớp ngã, dẫn đến tỷ lệ báo động giả cao và làm giảm đáng kể tính khả dụng trong các hệ thống giám sát thực tế.
+\\\\
+Tổng thể, mặc dù mô hình thể hiện khả năng phát hiện ngã hiệu quả, nhưng hiệu năng phân biệt giữa các hành vi không-ngã, đặc biệt là background, vẫn còn hạn chế. Do đó, các hướng cải thiện trong tương lai cần tập trung vào việc cân bằng dữ liệu huấn luyện, tăng cường học các mẫu nền (background), cũng như áp dụng các kỹ thuật điều chỉnh hàm mất mát và ngưỡng quyết định nhằm giảm thiểu hiện tượng báo động giả.
 
-\section{Thảo luận \& Phân tích lỗi}
+\section{THẢO LUẬN \& PHÂN TÍCH LỖI}
 
+\subsection{Hiện tượng Overfitting và Underfitting}
+
+Dựa trên việc phân tích các biểu đồ hàm mất mát (\textit{Loss}) và các chỉ số đánh giá (\textit{Metrics}) trên tập huấn luyện (\textbf{Train}) và tập kiểm định (\textbf{Validation/Test}) của ba mô hình được khảo sát, nhóm nghiên cứu đưa ra các nhận định về trạng thái huấn luyện và khả năng tổng quát hóa như sau:
+
+\subsubsection*{YOLOv8n -- Trạng thái huấn luyện tốt (Good Fit)} 
+YOLOv8n là mô hình thể hiện sự cân bằng tốt nhất giữa khả năng học và khả năng tổng quát hóa.  
+Các biểu đồ Loss (Hình~\ref{fig:yolov8n_learning_curve} và dữ liệu từ file \texttt{results.csv}) cho thấy cả \textit{train/box\_loss} và \textit{val/box\_loss} đều giảm đều đặn theo thời gian. Độ chênh lệch (\textit{generalization gap}) giữa hai đường cong này được duy trì ở mức nhỏ và chấp nhận được.
+
+Không xuất hiện dấu hiệu \textbf{Underfitting}, khi mô hình đạt độ chính xác cao với \textbf{$mAP@50 \approx 0.85$}.  
+Dấu hiệu \textbf{Overfitting} chỉ xuất hiện rất nhẹ sau epoch 50, khi \textit{val/loss} có xu hướng đi ngang trong khi \textit{train/loss} vẫn tiếp tục giảm. Tuy nhiên, nhờ cơ chế \textbf{Early Stopping} (\texttt{patience = 20}) cùng với các kỹ thuật regularization (như Dropout tích hợp trong kiến trúc), hiện tượng này không trở nên nghiêm trọng và không ảnh hưởng đáng kể đến hiệu năng tổng thể.
+
+\subsubsection*{YOLOv10n -- Overfitting cục bộ} 
+
+Đối với YOLOv10n, dữ liệu thực nghiệm cho thấy sự chênh lệch rõ rệt giữa hiệu năng trên tập Train và Validation. Cụ thể, trong khi \textit{train/cls\_loss} giảm rất sâu xuống mức khoảng \textbf{1.39}, thì \textit{val/cls\_loss} lại bị bão hòa ở mức cao (xấp xỉ \textbf{2.00}) ngay từ epoch 50.
+
+Kết quả thực tế cho thấy mô hình có xu hướng \textbf{học vẹt (overfitting)} các đặc trưng của hành động ngã, dẫn đến việc nhận diện sai nhiều vùng nền (\textit{background}) thành hành vi \textit{Fall Detected}. Điều này làm gia tăng đáng kể tỷ lệ \textbf{báo động giả (False Positive)}, ảnh hưởng tiêu cực đến tính ứng dụng của hệ thống trong thực tế.
+
+\textbf{Biện pháp khắc phục}: Mặc dù đã áp dụng các kỹ thuật \textit{Weight Decay} (0.0005) và \textit{Mosaic Augmentation} nhằm tăng cường khả năng tổng quát hóa. Tuy nhiên, kiến trúc \textbf{Dual-Assignments} của YOLOv10n dường như yêu cầu lượng dữ liệu huấn luyện lớn hơn hoặc các chiến lược regularization mạnh hơn để phát huy hiệu quả trên tập dữ liệu có quy mô nhỏ như trong nghiên cứu này.
+
+\subsubsection*{RT-DETR -- Khả năng tổng quát hóa tốt (Robust / Good Fit)} 
+
+RT-DETR là mô hình thể hiện khả năng tổng quát hóa tốt nhất trong ba mô hình được khảo sát. Mặc dù có kích thước lớn (khoảng \textbf{32 triệu tham số}), nhưng nhờ cơ chế \textbf{Attention toàn cục} của Transformer, các đường cong \textit{Validation Loss} của mô hình rất ổn định và ít dao động hơn so với các mô hình dựa trên CNN thuần túy.
+
+Khoảng cách giữa các đường cong Train và Validation là nhỏ nhất trong ba mô hình, cho thấy RT-DETR học được các đặc trưng \textbf{ngữ nghĩa thực sự} của hành động thay vì chỉ ghi nhớ dữ liệu huấn luyện. Điều này giúp mô hình duy trì hiệu năng ổn định ngay cả trên tập dữ liệu nhỏ.
+
+\subsection{Phân tích các trường hợp sai (Error Analysis)}
+
+Thông qua việc trực quan hóa kết quả dự đoán trên tập kiểm định, nhóm nhận thấy cả 3 mô hình vẫn gặp khó khăn trong việc phân biệt các ranh giới hành động có sự tương đồng cao về mặt hình học. Dưới đây là phân tích chi tiết ba trường hợp sai điển hình, đại diện cho các nhóm lỗi chính của mô hình.
+
+\subsubsection{Lỗi bỏ sót ngã (False Negative) do tư thế phục hồi}
+
+Đây là nhóm lỗi nguy hiểm nhất trong bài toán y tế, khi hành động ngã không được phát hiện kịp thời để đưa ra cảnh báo.
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Images/fall003_gt.jpg}
+        \caption{Nhãn thật (Ground Truth): Fall Detected}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Images/fall003_pred.jpg}
+        \caption{Dự đoán (Prediction): Sitting (0.50)}
+    \end{subfigure}
+    \caption{Ví dụ lỗi False Negative do tư thế phục hồi sau ngã}
+\end{figure}
+
+\textbf{Phân tích nguyên nhân:}
+\begin{itemize}
+    \item \textbf{Sự mơ hồ về tư thế (Pose Ambiguity):} Trong giai đoạn hậu ngã (\textit{post-fall}), nạn nhân thường cố gắng ngồi dậy hoặc với lấy vật hỗ trợ. Khi đó, phần thân trên có xu hướng thẳng đứng so với mặt sàn.
+    \item \textbf{Hạn chế của đặc trưng hình học 2D:} Mô hình YOLOv8n chủ yếu dựa vào tỷ lệ khung bao (Bounding Box Aspect Ratio) và hướng trục cơ thể. Việc thân trên thẳng đứng khiến mô hình nhầm lẫn tư thế này với hành động \textit{Sitting}.
+    \item \textbf{Thiếu khai thác ngữ cảnh:} Các yếu tố quan trọng như chiếc gậy chống, tư thế chân duỗi thẳng bất thường chưa được mô hình tận dụng hiệu quả để đưa ra quyết định chính xác.
+\end{itemize}
+
+\subsubsection{Lỗi bỏ sót ngã (False Negative) do môi trường phức tạp}
+
+Các môi trường có cấu trúc hình học đặc biệt như cầu thang hoặc góc tường thường gây nhiễu cho việc nhận diện tư thế người.
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Images/fall010_gt.jpg}
+        \caption{Nhãn thật (Ground Truth): Fall Detected}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Images/fall010_pred.jpg}
+        \caption{Dự đoán (Prediction): Sitting (0.70)}
+    \end{subfigure}
+    \caption{Ví dụ lỗi False Negative do môi trường cầu thang}
+\end{figure}
+
+\textbf{Phân tích nguyên nhân:}
+\begin{itemize}
+    \item \textbf{Nhiễu nền (Background Clutter):} Các bậc thang vô tình tạo ra hình dạng giống một tư thế ngồi tự nhiên.
+    \item \textbf{Sự chồng lấn đặc trưng (Feature Overlap):} Cơ thể người bị gập theo hình dạng bậc thang (đầu gối co, lưng tựa) có độ tương đồng ngữ nghĩa cao với tư thế ngồi nghỉ trên cầu thang.
+    \item \textbf{Thiếu dữ liệu đa dạng:} Tập huấn luyện chủ yếu chứa các mẫu ngã trên mặt phẳng, khiến mô hình chưa học được các đặc trưng ngã trên bề mặt lồi lõm hoặc gấp khúc.
+\end{itemize}
+
+\subsubsection{Lỗi phân loại sai hành động thường nhật (Misclassification)}
+
+Mặc dù không nguy hiểm bằng lỗi bỏ sót ngã, việc phân loại sai các hành động sinh hoạt bình thường có thể gây nhiễu trong hệ thống giám sát.
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Images/notfallen008_gt.jpg}
+        \caption{Nhãn thật (Ground Truth): Sitting}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Images/notfallen008_pred.jpg}
+        \caption{Dự đoán (Prediction): Walking (0.90)}
+    \end{subfigure}
+    \caption{Ví dụ lỗi phân loại sai hành động sinh hoạt thường nhật}
+\end{figure}
+
+\textbf{Phân tích nguyên nhân:}
+\begin{itemize}
+    \item \textbf{Nhận diện sai phần chân:} Tư thế ngồi vắt chéo chân khiến vị trí hai đầu gối so le nhau, dễ bị mô hình hiểu nhầm là chuyển động bước đi.
+    \item \textbf{Hạn chế của Object Detection 2D:} Phần ghế ngồi bị khuất hoặc hòa lẫn vào nền phía sau, khiến mô hình không nhận diện được ngữ cảnh ``đang ngồi trên ghế''.
+\end{itemize}
+
+\subsubsection{Tổng kết nguyên nhân lỗi}
+
+Từ các trường hợp phân tích trên, có thể rút ra các nguyên nhân chính gây sai số cho mô hình YOLOv8n như sau:
+\begin{itemize}
+    \item \textbf{Thiếu thông tin thời gian (Temporal Information):} Ảnh tĩnh không thể phân biệt rõ giữa hành động ``đang ngồi'' và ``đang ngã''.
+    \item \textbf{Sự chồng lấn đặc trưng hình học:} Các tư thế Ngã -- Ngồi -- Đi có sự tương đồng cao trong không gian 2D.
+    \item \textbf{Dữ liệu huấn luyện chưa đa dạng bối cảnh:} Thiếu các mẫu ngã trên cầu thang và các tư thế ngồi phức tạp.
+\end{itemize}
+
+
+\subsection{So sánh và Đánh giá hiệu năng mô hình}
+
+Để đảm bảo tính công bằng trong so sánh, tất cả các mô hình đều được huấn luyện và đánh giá trên cùng một cấu hình phần cứng (GPU Tesla T4) và bộ siêu tham số thống nhất, bao gồm 60 epochs huấn luyện, kích thước ảnh đầu vào $640 \times 640$ và batch size bằng 16.
+
+Bảng~\ref{tab:model_comparison} trình bày các chỉ số hiệu năng cốt lõi của ba mô hình YOLOv8n, YOLOv10n và RT-DETR (Large) trên tập Validation.
+
+\begin{table}[H]
+\centering
+\caption{So sánh hiệu năng giữa YOLOv8n, YOLOv10n và RT-DETR}
+\label{tab:model_comparison}
+\begin{tabular}{lccc}
+\hline
+\textbf{Tiêu chí} & \textbf{YOLOv8n} & \textbf{YOLOv10n} & \textbf{RT-DETR (L)} \\
+\hline
+Số tham số (M) & 3.0 & \textbf{2.7} & 32.8 \\
+Độ phức tạp (GFLOPs) & 8.1 & \textbf{6.5} & 103.4 \\
+Thời gian suy luận (ms) & 4.6 & \textbf{3.4} & 17.9 \\
+Precision & 0.774 & 0.799 & \textbf{0.809} \\
+Recall & \textbf{0.861} & 0.708 & 0.801 \\
+mAP@50 & \textbf{0.854} & 0.803 & 0.805 \\
+Recall (Fall Detected) & \textbf{0.930} & 0.803 & 0.915 \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsubsection{YOLOv8n -- Sự cân bằng tối ưu (Best Overall)}
+
+YOLOv8n là mô hình đạt hiệu năng tổng thể tốt nhất trên tập dữ liệu thử nghiệm. Mô hình đạt giá trị \textbf{mAP@50 cao nhất (0.854)} trong số ba mô hình được đánh giá. Đặc biệt, chỉ số \textbf{Recall cho lớp ``Fall Detected'' đạt tới 0.93}, cho thấy mô hình phát hiện chính xác tới 93\% các trường hợp ngã trong thực tế.
+
+Đây là yếu tố then chốt đối với các hệ thống cảnh báo y tế hoặc an toàn, nơi việc bỏ sót sự kiện nguy hiểm có thể gây hậu quả nghiêm trọng. Bên cạnh đó, thời gian suy luận chỉ 4.6 ms/ảnh hoàn toàn đáp ứng yêu cầu xử lý thời gian thực.
+
+\textbf{Kết luận:} YOLOv8n là ứng cử viên phù hợp nhất cho triển khai thực tế nhờ sự cân bằng tối ưu giữa độ chính xác, độ nhạy và tốc độ.
+
+\subsubsection{YOLOv10n -- Tối ưu tốc độ và hiệu suất (Efficiency King)}
+
+YOLOv10n nổi bật với kiến trúc loại bỏ Non-Maximum Suppression (NMS), giúp mô hình đạt thời gian suy luận nhanh nhất, chỉ \textbf{3.4 ms/ảnh}, đồng thời sở hữu số lượng tham số thấp nhất (2.7M).
+
+Nhờ đó, YOLOv10n đặc biệt phù hợp cho các thiết bị biên có tài nguyên hạn chế như hệ thống IoT hoặc các nền tảng nhúng cũ. Tuy nhiên, mô hình đánh đổi tốc độ bằng độ nhạy, với \textbf{Recall tổng thể chỉ đạt 0.708}. Riêng đối với lớp ``Fall Detected'', việc bỏ sót gần 20\% các trường hợp (Recall = 0.803) là một rủi ro đáng kể trong bối cảnh ứng dụng y tế.
+
+\subsubsection{RT-DETR -- Kiến trúc Transformer (Heavyweight)}
+
+RT-DETR (phiên bản Large) sử dụng kiến trúc Transformer với hơn 32 triệu tham số và độ phức tạp tính toán vượt quá 100 GFLOPs. Mặc dù vậy, giá trị \textbf{mAP@50 (0.805)} không vượt qua được mô hình YOLOv8n nhỏ gọn hơn.
+
+Điểm mạnh của RT-DETR nằm ở chỉ số \textbf{Precision cao nhất (0.809)}, cho thấy khi mô hình đưa ra cảnh báo, độ tin cậy rất cao và ít xảy ra báo động giả. Tuy nhiên, chi phí tính toán lớn và tốc độ suy luận chậm (17.9 ms/ảnh) khiến mô hình kém phù hợp cho các hệ thống thời gian thực trên phần cứng hạn chế.
+
+\textbf{Nhận định:} RT-DETR thể hiện tiềm năng mạnh mẽ của kiến trúc Transformer, nhưng có xu hướng ``dư thừa'' đối với tập dữ liệu nhỏ và bài toán phát hiện ngã trong nghiên cứu này.
+
+\subsubsection{Lựa chọn mô hình triển khai cuối cùng}
+
+Dựa trên các phân tích định lượng và định tính ở trên, nhóm quyết định lựa chọn \textbf{YOLOv8n} làm mô hình chính để triển khai hệ thống phát hiện ngã. Quyết định này dựa trên các yếu tố sau:
+\begin{itemize}
+    \item Đạt \textbf{Recall lớp Ngã cao nhất (93\%)}, đảm bảo an toàn cho người dùng.
+    \item Thời gian suy luận nhanh (4.6 ms/ảnh), đáp ứng tốt yêu cầu xử lý thời gian thực.
+    \item Kiến trúc gọn nhẹ, dễ triển khai và tương thích tốt với nhiều nền tảng phần cứng.
+\end{itemize}
+
+
+\section{TÀI LIỆU THAM KHẢO}
+
+\begin{enumerate}
+    \item [1] W. Lv et al., "DETRs Beat YOLOs on Real-time Object Detection," in Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR), 2024, pp. 16965–16974.
+    \item [2] Y. Luo, N. Pan, Y. Zhang, Y. Zhang, and X. Wu, "YOLO-Drone: An Optimized YOLOv8 Network for Tiny UAV Object Detection," Sensors, vol. 24, no. 15, p. 4858, Jul. 2024. doi: 10.3390/s24154858.
+    \item [3] H. Cheng and F. Kang, "Corrosion Detection and Grading Method for Hydraulic Metal Structures Based on an Improved YOLOv10 Sequential Architecture," Applied Sciences, vol. 14, no.[1] 24, p. 12009, Dec. 2024.[1] doi: 10.3390/app142412009.
+    \item [4] G. Jocher, A. Chaurasia, and J. Qiu, "Ultralytics YOLO," Jan. 2023. [Online].
+    \item [5] N. Carion, F. Massa, G. Synnaeve, N. Usunier, A. Kirillov, and S. Zagoruyko, "End-to-End Object Detection with Transformers," in European Conference on Computer Vision (ECCV), 2020, pp. 213–229.
+    \item [6] N. Lu, Y. Wu, L. Feng, and J. Song, "Deep Learning for Fall Detection: Three-Dimensional CNN Combined With LSTM on Video Kinematic Data," IEEE Journal of Biomedical and Health Informatics, vol. 23, no. 1, pp. 314–323, Jan. 2019.
+    \item [7] "Artificial intelligence: a modern approach", 2020, Russell, S. and Norvig, P.
+    \item [8] “Deep learning”, 2016, Goodfellow, I., Bengio, Y., and Courville, A
+\end{enumerate}
 
 \end{document}

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.12.13)  13 DEC 2025 23:48
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.12.13)  15 DEC 2025 21:37
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1292,16 +1292,6 @@ Package: listings 2025/11/14 1.11b (Carsten Heinz)
 y
 File: lstlang1.sty 2025/11/14 1.11b listings language file
 )
-(C:\Users\GIGABYTE\AppData\Local\Programs\MiKTeX\tex/latex/koma-script\screxten
-d.sty
-
-Package scrextend Warning: This package was made to extend other classes but
-(scrextend)                KOMA-Script classes by some features of the
-(scrextend)                KOMA-Script classes.
-(scrextend)                It should never be used with a KOMA-Script class.
-(scrextend)                Loading of the package will be aborted.
-
-)
 (C:\Users\GIGABYTE\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/
 tikz/libraries\tikzlibrarycalc.code.tex
 File: tikzlibrarycalc.code.tex 2025-08-29 v3.1.11a (3.1.11a)
@@ -1392,25 +1382,9 @@ Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: float package is loaded.
 Package caption Info: hyperref package is loaded.
 Package caption Info: listings package is loaded.
-Package caption Info: scrextend package is loaded.
-
-
-! Package caption Error: For a successful cooperation we need at least version
-(caption)                `2002/07/01 v3.0' of package scrextend,
-(caption)                but only version
-(caption)                `'
-(caption)                is available.
-
-See the caption package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.62 \begin{document}
-                     
-? return
-OK, entering \nonstopmode...
 Package caption Info: End \AtBeginDocument code.
 Package hyperref Info: Link coloring OFF on input line 62.
+
 Package pgfplots notification 'compat/show suggested version=true': document ha
 s been generated with the most recent feature set (\pgfplotsset{compat=1.18}).
 
@@ -1454,123 +1428,154 @@ Overfull \hbox (6.41315pt too wide) in paragraph at lines 237--238
  mîi nh§t (n«m 2024), YOLOv10
  []
 
+<Images/YOLOv8n/baseline.png, id=79, 2055.68pt x 1626.075pt>
+File: Images/YOLOv8n/baseline.png Graphic file (type png)
+<use Images/YOLOv8n/baseline.png>
+Package pdftex.def Info: Images/YOLOv8n/baseline.png  used on input line 260.
+(pdftex.def)             Requested size: 287.7305pt x 227.59932pt.
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
 [6]
-Overfull \hbox (17.65204pt too wide) in paragraph at lines 271--272
+Overfull \hbox (17.65204pt too wide) in paragraph at lines 276--277
 []\T5/cmr/bx/n/12 Module ki¸n tróc\T5/cmr/m/n/12 : Sû döng c¡c mod-ule \T5/cmr/
 bx/n/12 C2fCIB \T5/cmr/m/n/12 v  \T5/cmr/bx/n/12 PSA (Par-tial Self-Attention)
  []
 
+<Images/YOLOv10n/baseline.png, id=85, 853.1875pt x 793.96625pt>
+File: Images/YOLOv10n/baseline.png Graphic file (type png)
+<use Images/YOLOv10n/baseline.png>
+Package pdftex.def Info: Images/YOLOv10n/baseline.png  used on input line 282.
+(pdftex.def)             Requested size: 244.593pt x 227.61537pt.
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[7 <./Images/YOLOv8n/baseline.png>]
 LaTeX Font Info:    Trying to load font information for T5+cmtt on input line 2
-88.
+98.
+
 (C:\Users\GIGABYTE\AppData\Local\Programs\MiKTeX\tex/latex/vntex\t5cmtt.fd
 File: t5cmtt.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
-[7]
-Underfull \hbox (badness 1308) in paragraph at lines 356--357
+<Images/RTDETR/baseline.png, id=93, 1927.2pt x 635.37375pt>
+File: Images/RTDETR/baseline.png Graphic file (type png)
+<use Images/RTDETR/baseline.png>
+Package pdftex.def Info: Images/RTDETR/baseline.png  used on input line 302.
+(pdftex.def)             Requested size: 313.68091pt x 103.41667pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[8 <./Images/YOLOv10n/baseline.png>] [9 <./Images/RTDETR/baseline.png>]
+Underfull \hbox (badness 1308) in paragraph at lines 371--372
 []|\T5/cmr/m/n/12 T­t Mo-saic Aug-men-ta-tion ð giai
  []
 
-[8]
-
-LaTeX Warning: Reference `fig:yolov8n_learning_curve' on page 9 undefined on in
-put line 383.
-
-<Images/YOLOv8n/results.png, id=93, 867.24pt x 433.62pt>
+[10]
+<Images/YOLOv8n/results.png, id=119, 867.24pt x 433.62pt>
 File: Images/YOLOv8n/results.png Graphic file (type png)
 <use Images/YOLOv8n/results.png>
-Package pdftex.def Info: Images/YOLOv8n/results.png  used on input line 387.
+Package pdftex.def Info: Images/YOLOv8n/results.png  used on input line 402.
 (pdftex.def)             Requested size: 425.72302pt x 212.86603pt.
-[9] [10 <./Images/YOLOv8n/results.png>]
-
-LaTeX Warning: Reference `tab:yolov8n_metrics' on page 11 undefined on input li
-ne 412.
-
-
-LaTeX Warning: Reference `fig:yolov8n_confusion' on page 11 undefined on input 
-line 435.
-
-<Images/YOLOv8n/confusion_matrix_normalized.png, id=107, 867.24pt x 650.43pt>
+ [11] [12 <./Images/YOLOv8n/results.png>]
+<Images/YOLOv8n/confusion_matrix_normalized.png, id=133, 867.24pt x 650.43pt>
 File: Images/YOLOv8n/confusion_matrix_normalized.png Graphic file (type png)
 <use Images/YOLOv8n/confusion_matrix_normalized.png>
 Package pdftex.def Info: Images/YOLOv8n/confusion_matrix_normalized.png  used o
-n input line 439.
+n input line 454.
 (pdftex.def)             Requested size: 358.50612pt x 268.88132pt.
-[11] [12 <./Images/YOLOv8n/confusion_matrix_normalized.png>]
-
-LaTeX Warning: Reference `fig:yolov10n_learning_curve' on page 13 undefined on 
-input line 484.
-
-<Images/YOLOv10n/results.png, id=121, 867.24pt x 433.62pt>
+ [13] [14 <./Images/YOLOv8n/confusion_matrix_normalized.png>]
+<Images/YOLOv10n/results.png, id=149, 867.24pt x 433.62pt>
 File: Images/YOLOv10n/results.png Graphic file (type png)
 <use Images/YOLOv10n/results.png>
-Package pdftex.def Info: Images/YOLOv10n/results.png  used on input line 488.
+Package pdftex.def Info: Images/YOLOv10n/results.png  used on input line 516.
 (pdftex.def)             Requested size: 425.72302pt x 212.86603pt.
+ [15 <./Images/YOLOv10n/results.png>] [16]
+Overfull \hbox (4.57562pt too wide) in paragraph at lines 593--595
+[]\T5/cmr/bx/n/12 Nhªn x²t\T5/cmr/m/n/12 : K¸t qu£ thüc nghi»m cho th§y sü ^^_¡
+nh ^^_êi rã r»t cõa ki¸n tróc YOLOv10n:
+ []
 
-LaTeX Warning: Reference `tab:yolov10n_metrics' on page 13 undefined on input l
-ine 499.
-
-[13 <./Images/YOLOv10n/results.png>]
-
-LaTeX Warning: Reference `fig:yolov10n_confusion' on page 14 undefined on input
- line 522.
-
-<Images/YOLOv10n/confusion_matrix_normalized.png, id=131, 867.24pt x 650.43pt>
+<Images/YOLOv10n/confusion_matrix_normalized.png, id=163, 867.24pt x 650.43pt>
 File: Images/YOLOv10n/confusion_matrix_normalized.png Graphic file (type png)
 <use Images/YOLOv10n/confusion_matrix_normalized.png>
 Package pdftex.def Info: Images/YOLOv10n/confusion_matrix_normalized.png  used 
-on input line 526.
+on input line 602.
 (pdftex.def)             Requested size: 358.50612pt x 268.88132pt.
-[14 <./Images/YOLOv10n/confusion_matrix_normalized.png>]
-
-LaTeX Warning: Reference `fig:rtdetr_learning_curve' on page 15 undefined on in
-put line 541.
-
-<Images/RTDETR/results.png, id=140, 867.24pt x 433.62pt>
+[17] [18 <./Images/YOLOv10n/confusion_matrix_normalized.png>]
+<Images/RTDETR/results.png, id=178, 867.24pt x 433.62pt>
 File: Images/RTDETR/results.png Graphic file (type png)
 <use Images/RTDETR/results.png>
-Package pdftex.def Info: Images/RTDETR/results.png  used on input line 545.
+Package pdftex.def Info: Images/RTDETR/results.png  used on input line 638.
 (pdftex.def)             Requested size: 425.72302pt x 212.86603pt.
-
-LaTeX Warning: Reference `tab:rtdetr_metrics' on page 15 undefined on input lin
-e 564.
-
-[15 <./Images/RTDETR/results.png>]
-Overfull \hbox (2.10002pt too wide) in paragraph at lines 570--583
+ [19 <./Images/RTDETR/results.png>]
+Overfull \hbox (2.10002pt too wide) in paragraph at lines 663--676
  [][] 
  []
 
-[16]
-
-LaTeX Warning: Reference `fig:rtdetr_confusion' on page 17 undefined on input l
-ine 591.
-
-<Images/RTDETR/confusion_matrix_normalized.png, id=154, 867.24pt x 650.43pt>
+<Images/RTDETR/confusion_matrix_normalized.png, id=189, 867.24pt x 650.43pt>
 File: Images/RTDETR/confusion_matrix_normalized.png Graphic file (type png)
 <use Images/RTDETR/confusion_matrix_normalized.png>
 Package pdftex.def Info: Images/RTDETR/confusion_matrix_normalized.png  used on
- input line 595.
+ input line 688.
 (pdftex.def)             Requested size: 358.50612pt x 268.88132pt.
-[17 <./Images/RTDETR/confusion_matrix_normalized.png>] [18] (main.aux)
+[20]
+Underfull \hbox (badness 10000) in paragraph at lines 693--701
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 693--701
+
+ []
+
+[21 <./Images/RTDETR/confusion_matrix_normalized.png>] [22]
+<Images/fall003_gt.jpg, id=211, 355.3275pt x 354.57469pt>
+File: Images/fall003_gt.jpg Graphic file (type jpg)
+<use Images/fall003_gt.jpg>
+Package pdftex.def Info: Images/fall003_gt.jpg  used on input line 741.
+(pdftex.def)             Requested size: 215.10094pt x 214.6509pt.
+<Images/fall003_pred.jpg, id=212, 357.58594pt x 370.38374pt>
+File: Images/fall003_pred.jpg Graphic file (type jpg)
+<use Images/fall003_pred.jpg>
+Package pdftex.def Info: Images/fall003_pred.jpg  used on input line 747.
+(pdftex.def)             Requested size: 215.10094pt x 222.80276pt.
+ [23 <./Images/fall003_gt.jpg> <./Images/fall003_pred.jpg>]
+<Images/fall010_gt.jpg, id=220, 356.83313pt x 356.83313pt>
+File: Images/fall010_gt.jpg Graphic file (type jpg)
+<use Images/fall010_gt.jpg>
+Package pdftex.def Info: Images/fall010_gt.jpg  used on input line 768.
+(pdftex.def)             Requested size: 215.10094pt x 215.10336pt.
+<Images/fall010_pred.jpg, id=221, 356.83313pt x 356.83313pt>
+File: Images/fall010_pred.jpg Graphic file (type jpg)
+<use Images/fall010_pred.jpg>
+Package pdftex.def Info: Images/fall010_pred.jpg  used on input line 774.
+(pdftex.def)             Requested size: 215.10094pt x 215.10336pt.
+<Images/notfallen008_gt.jpg, id=222, 356.83313pt x 356.83313pt>
+File: Images/notfallen008_gt.jpg Graphic file (type jpg)
+<use Images/notfallen008_gt.jpg>
+Package pdftex.def Info: Images/notfallen008_gt.jpg  used on input line 795.
+(pdftex.def)             Requested size: 215.10094pt x 215.10336pt.
+<Images/notfallen008_pred.jpg, id=223, 360.59718pt x 360.59718pt>
+File: Images/notfallen008_pred.jpg Graphic file (type jpg)
+<use Images/notfallen008_pred.jpg>
+Package pdftex.def Info: Images/notfallen008_pred.jpg  used on input line 801.
+(pdftex.def)             Requested size: 215.10094pt x 215.09996pt.
+ [24 <./Images/fall010_gt.jpg> <./Images/fall010_pred.jpg>] [25 <./Images/notfa
+llen008_gt.jpg> <./Images/notfallen008_pred.jpg>] [26] [27] [28] (main.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-11-06>
  ***********
-
-
-LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
  ) 
 Here is how much of TeX's memory you used:
- 40989 strings out of 467871
- 951389 string characters out of 5416923
- 1706587 words of memory out of 5000000
- 69202 multiletter control sequences out of 15000+600000
- 645410 words of font info for 73 fonts, out of 8000000 for 9000
+ 41085 strings out of 467871
+ 953609 string characters out of 5416923
+ 1705587 words of memory out of 5000000
+ 69268 multiletter control sequences out of 15000+600000
+ 646381 words of font info for 74 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 108i,14n,108p,11209b,708s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 108i,14n,108p,11209b,622s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\GIGABYTE\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\t
 crm1200.pk><C:/Users/GIGABYTE/AppData/Local/Programs/MiKTeX/fonts/type1/public/
 amsfonts/cm/cmmi12.pfb><C:/Users/GIGABYTE/AppData/Local/Programs/MiKTeX/fonts/t
@@ -1579,14 +1584,15 @@ TeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/GIGABYTE/AppData/Local/P
 rograms/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/GIGABYTE/AppDa
 ta/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/GI
 GABYTE/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vnbx12.pfb><C:/Users
-/GIGABYTE/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vnr12.pfb><C:/Use
-rs/GIGABYTE/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vnssbx10.pfb><C
-:/Users/GIGABYTE/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vnti12.pfb
-><C:/Users/GIGABYTE/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vntt12.
-pfb>
-Output written on main.pdf (18 pages, 1399787 bytes).
+/GIGABYTE/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vnr10.pfb><C:/Use
+rs/GIGABYTE/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vnr12.pfb><C:/U
+sers/GIGABYTE/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vnssbx10.pfb>
+<C:/Users/GIGABYTE/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vnti12.p
+fb><C:/Users/GIGABYTE/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vntt1
+2.pfb>
+Output written on main.pdf (28 pages, 3344571 bytes).
 PDF statistics:
- 270 PDF objects out of 1000 (max. 8388607)
- 64 named destinations out of 1000 (max. 500000)
- 160 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 382 PDF objects out of 1000 (max. 8388607)
+ 96 named destinations out of 1000 (max. 500000)
+ 237 words of extra memory for PDF output out of 10000 (max. 10000000)
 
