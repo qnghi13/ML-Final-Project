@@ -29,6 +29,7 @@ class FallDetector:
         self.cooldown_duration = 60 # 60 giây im lặng sau khi báo động
         self.is_alert_active = False
 
+
     def detect(self, frame):
         """
         Input: Frame ảnh gốc
@@ -38,7 +39,9 @@ class FallDetector:
         results = self.model(frame, verbose=False, conf=self.conf)
         
         current_frame_has_fall = False
-        
+
+        max_conf = 0.0
+
         # Vẽ box và check xem có class 0 (Fall) không
         for r in results:
             boxes = r.boxes
@@ -51,6 +54,7 @@ class FallDetector:
                 if cls_id == self.FALL_CLASS_ID:
                     # Phát hiện NGÃ
                     current_frame_has_fall = True
+                    max_conf = conf
                     color = (0, 0, 255) # Đỏ
                     label = f"FALL {conf:.2f}"
                 else:
@@ -105,4 +109,4 @@ class FallDetector:
             cv2.putText(frame, status_text, (20, 40), 
                         cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
 
-        return frame, trigger_alert
+        return frame, trigger_alert, max_conf
