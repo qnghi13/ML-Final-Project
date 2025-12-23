@@ -5,10 +5,18 @@ import logging
 from telegram import Update, KeyboardButton, ReplyKeyboardMarkup
 from telegram.ext import ApplicationBuilder, ContextTypes, CommandHandler, MessageHandler, filters
 from app.database import update_telegram_mapping, init_db
+import os 
+from dotenv import load_dotenv 
+
+load_dotenv()
 
 # --- THAY TOKEN CỦA BẠN VÀO ĐÂY ---
-TOKEN = "8310192660:AAFbakBZZLF571Csl6WRLnkMzlJbRbqG2d4"  # <--- NHỚ DÁN TOKEN VÀO
+TOKEN = os.getenv("TELEGRAM_TOKEN")  # <--- NHỚ DÁN TOKEN VÀO
 
+if not TOKEN:
+    print("❌ LỖI: Chưa cấu hình TELEGRAM_TOKEN trong file .env")
+    sys.exit(1)
+    
 # Đảm bảo DB đã tạo
 init_db()
 

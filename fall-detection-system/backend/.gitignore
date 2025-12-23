@@ -1,0 +1,16 @@
+# 1. Bỏ qua thư mục môi trường ảo (Nặng hàng trăm MB, không ai push cái này cả)
+venv/
+.env
+
+# 2. Bỏ qua Database (Chứa dữ liệu người dùng thật)
+*.db
+*.sqlite3
+
+# 3. Bỏ qua thư mục ảnh bằng chứng (Chứa ảnh bạn test ngã)
+evidence/
+__pycache__/
+
+# 4. Bỏ qua các file rác hệ thống
+.DS_Store
+.vscode/
+.idea/

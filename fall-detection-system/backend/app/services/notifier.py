@@ -3,10 +3,13 @@ import requests
 import threading
 import os
 from datetime import datetime
+from dotenv import load_dotenv
 from app.database import get_linked_chat_ids
 
 # --- THAY TOKEN GIỐNG BÊN FILE BOT ---
-TELEGRAM_TOKEN = "8310192660:AAFbakBZZLF571Csl6WRLnkMzlJbRbqG2d4"
+
+load_dotenv()
+TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
 
 def send_alert_task(image_path, confidence):
     """Hàm gửi tin nhắn thực sự"""
