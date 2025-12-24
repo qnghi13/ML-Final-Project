@@ -28,10 +28,10 @@ def generate_frames():
             frame = camera.get_frame()
             if frame is None: break
             
-            processed_frame, is_alert, conf_score = detector.detect(frame)
+            processed_frame, status_code, conf_score = detector.detect(frame)
             
             # --- LOGIC GỬI CẢNH BÁO ---
-            if is_alert:
+            if status_code == 2:  # Báo động đỏ
                 current_time = time.time()
                 if (current_time - global_last_alert_time) > COOLDOWN_SECONDS:
                     print("!!! PHÁT HIỆN NGÃ - TRIGGER ALERT !!!")
