@@ -119,66 +119,110 @@
 // export default Dashboard;
 
 // src/pages/Dashboard.jsx
+// import React from 'react';
+// import { Row, Col, Card, Statistic, Typography, Space } from 'antd';
+// import {
+//     VideoCameraOutlined,
+//     CheckCircleOutlined,
+//     WifiOutlined
+// } from '@ant-design/icons';
+// import LiveStream from '../components/VideoPlayer/LiveStream';
+
+// const { Title } = Typography;
+
+// const Dashboard = () => {
+//     return (
+//         <div className="dashboard-container">
+//             {/* 1. Phần Thống kê (Statistics) trên cùng */}
+//             <div style={{ marginBottom: '24px' }}>
+//                 <Row gutter={24}>
+//                     {/* Hộp 1: Trạng thái hệ thống */}
+//                     <Col xs={24} sm={12}>
+//                         <Card bordered={false} style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
+//                             <Statistic
+//                                 title="Trạng thái hệ thống"
+//                                 value="Online"
+//                                 valueStyle={{ color: '#3f8600', fontWeight: 'bold' }}
+//                                 prefix={<CheckCircleOutlined />}
+//                             />
+//                         </Card>
+//                     </Col>
+
+//                     {/* Hộp 2: Tên Camera đang kết nối (Thay cho số lượng) */}
+//                     <Col xs={24} sm={12}>
+//                         <Card bordered={false} style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
+//                             <Statistic
+//                                 title="Thiết bị đang giám sát"
+//                                 value="Camera 01 - Phòng Khách" // Tên giả định
+//                                 valueStyle={{ fontSize: '20px', fontWeight: '500', color: '#1890ff' }}
+//                                 prefix={<WifiOutlined />}
+//                             />
+//                         </Card>
+//                     </Col>
+//                 </Row>
+//             </div>
+
+//             {/* 2. Phần Chính: CHỈ HIỂN THỊ 1 CAMERA DUY NHẤT */}
+//             <Row>
+//                 <Col span={24}>
+//                     <Title level={4} style={{ marginBottom: 16 }}>
+//                         <Space><VideoCameraOutlined /> Giám sát trực tiếp</Space>
+//                     </Title>
+
+//                     {/* Component LiveStream chiếm trọn chiều ngang */}
+//                     <div style={{ background: '#fff', padding: '10px', borderRadius: '8px', boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
+//                         <LiveStream
+//                             // Có thể bỏ prop label ở đây nếu muốn gọn, hoặc giữ lại tùy ý
+//                             label="Main Feed"
+//                             // Link video backend (Tạm thời để trống hoặc link test)
+//                             url="http://localhost:8000/video_feed"
+//                             isConnected={true}
+//                         />
+//                     </div>
+//                 </Col>
+//             </Row>
+//         </div>
+//     );
+// };
+
+// export default Dashboard;
+
+
+
 import React from 'react';
-import { Row, Col, Card, Statistic, Typography, Space } from 'antd';
-import {
-    VideoCameraOutlined,
-    CheckCircleOutlined,
-    WifiOutlined
-} from '@ant-design/icons';
+import { Row, Col, Card, Typography, Space, Statistic } from 'antd';
+import { VideoCameraOutlined, SafetyCertificateOutlined, BellOutlined } from '@ant-design/icons';
 import LiveStream from '../components/VideoPlayer/LiveStream';
 
 const { Title } = Typography;
 
 const Dashboard = () => {
     return (
-        <div className="dashboard-container">
-            {/* 1. Phần Thống kê (Statistics) trên cùng */}
-            <div style={{ marginBottom: '24px' }}>
-                <Row gutter={24}>
-                    {/* Hộp 1: Trạng thái hệ thống */}
-                    <Col xs={24} sm={12}>
-                        <Card bordered={false} style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
-                            <Statistic
-                                title="Trạng thái hệ thống"
-                                value="Online"
-                                valueStyle={{ color: '#3f8600', fontWeight: 'bold' }}
-                                prefix={<CheckCircleOutlined />}
-                            />
-                        </Card>
-                    </Col>
+        <div style={{ padding: '24px' }}>
+            <Title level={2}>Dashboard Giám Sát</Title>
+            
+            {/* Thống kê nhanh */}
+            <Row gutter={16} style={{ marginBottom: 24 }}>
+                <Col span={8}>
+                    <Card>
+                        <Statistic title="Trạng thái hệ thống" value="Hoạt động" valueStyle={{ color: '#3f8600' }} prefix={<SafetyCertificateOutlined />} />
+                    </Card>
+                </Col>
+                <Col span={8}>
+                    <Card>
+                        <Statistic title="Cảnh báo hôm nay" value={0} prefix={<BellOutlined />} />
+                    </Card>
+                </Col>
+            </Row>
 
-                    {/* Hộp 2: Tên Camera đang kết nối (Thay cho số lượng) */}
-                    <Col xs={24} sm={12}>
-                        <Card bordered={false} style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
-                            <Statistic
-                                title="Thiết bị đang giám sát"
-                                value="Camera 01 - Phòng Khách" // Tên giả định
-                                valueStyle={{ fontSize: '20px', fontWeight: '500', color: '#1890ff' }}
-                                prefix={<WifiOutlined />}
-                            />
-                        </Card>
-                    </Col>
-                </Row>
-            </div>
-
-            {/* 2. Phần Chính: CHỈ HIỂN THỊ 1 CAMERA DUY NHẤT */}
-            <Row>
+            {/* Camera Chính */}
+            <Row gutter={[24, 24]}>
                 <Col span={24}>
-                    <Title level={4} style={{ marginBottom: 16 }}>
-                        <Space><VideoCameraOutlined /> Giám sát trực tiếp</Space>
-                    </Title>
-
-                    {/* Component LiveStream chiếm trọn chiều ngang */}
-                    <div style={{ background: '#fff', padding: '10px', borderRadius: '8px', boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
-                        <LiveStream
-                            // Có thể bỏ prop label ở đây nếu muốn gọn, hoặc giữ lại tùy ý
-                            label="Main Feed"
-                            // Link video backend (Tạm thời để trống hoặc link test)
-                            url="http://localhost:8000/video_feed"
-                            isConnected={true}
-                        />
-                    </div>
+                    <Card title={<Space><VideoCameraOutlined /> Camera Live Feed</Space>} style={{ width: '100%' }}>
+                        <div style={{ background: '#000', borderRadius: '8px', minHeight: '480px', display: 'flex', justifyContent: 'center', overflow: 'hidden' }}>
+                            <LiveStream />
+                        </div>
+                    </Card>
                 </Col>
             </Row>
         </div>

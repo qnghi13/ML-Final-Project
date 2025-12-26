@@ -49,30 +49,34 @@ import React, { useState } from 'react';
 import { Layout } from 'antd';
 import { Outlet } from 'react-router-dom';
 import Sidebar from './Sidebar';
-import Header from './Header';
-import AlertPopup from '../Alerts/AlertPopup';
+import Header from './Header'; // Giả sử bạn đã có file này
+import AlertPopup from '../Alerts/AlertPopup'; // Đường dẫn popup của bạn
+
 const { Content, Footer } = Layout;
 
 const MainLayout = () => {
     const [collapsed, setCollapsed] = useState(false);
 
     return (
-        // 1. Đổi minHeight thành height: '100vh' để khóa chiều cao bằng màn hình
         <Layout style={{ height: '100vh' }}>
-
-            {/* Sidebar bên trái */}
+            {/* Sidebar bên trái: Truyền props collapsed xuống */}
             <Sidebar collapsed={collapsed} />
 
             {/* Layout chính bên phải */}
             <Layout style={{
                 transition: 'all 0.2s',
-                // 2. Thêm dòng này: Cho phép phần bên phải cuộn dọc khi nội dung dài
-                overflowY: 'auto',
-                height: '100vh'
+                height: '100vh',
+                overflow: 'hidden' // Khóa scroll của container ngoài
             }}>
+                {/* Header: Truyền props để nút toggle hoạt động */}
                 <Header collapsed={collapsed} setCollapsed={setCollapsed} />
 
-                <Content style={{ margin: '24px 16px 0', flex: 'none' }}>
+                {/* Phần nội dung cuộn được */}
+                <Content style={{ 
+                    margin: '24px 16px 0', 
+                    overflowY: 'auto', // Scroll nằm ở đây
+                    height: '100%' 
+                }}>
                     <div
                         style={{
                             padding: 24,
@@ -82,13 +86,14 @@ const MainLayout = () => {
                             boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
                         }}
                     >
+                        {/* Outlet: Nơi Dashboard hoặc HistoryPage hiển thị */}
                         <Outlet />
                     </div>
-                </Content>
 
-                <Footer style={{ textAlign: 'center', color: '#8c8c8c' }}>
-                    Stroke Warning System ©2025 Created by YourTeam - Powered by AI
-                </Footer>
+                    <Footer style={{ textAlign: 'center', color: '#8c8c8c' }}>
+                        Safety Vision AI ©2024
+                    </Footer>
+                </Content>
             </Layout>
 
             <AlertPopup />

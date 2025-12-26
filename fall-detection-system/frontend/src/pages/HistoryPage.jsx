@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Table, Tag, Button, Modal, Image, Typography, Card, message } from 'antd';
-import { EyeOutlined, HistoryOutlined, CheckCircleOutlined, SyncOutlined } from '@ant-design/icons';
+import { Table, Button, Modal, Image, Typography, Card, Tag, message } from 'antd';
+import { EyeOutlined, HistoryOutlined, SyncOutlined, CalendarOutlined, ClockCircleOutlined } from '@ant-design/icons';
+import { api } from '../services/api'; 
 
 const { Title } = Typography;
 
@@ -9,72 +10,71 @@ const HistoryPage = () => {
     const [loading, setLoading] = useState(false);
     const [previewImage, setPreviewImage] = useState(null);
 
-    // Hàm gọi API lấy dữ liệu
     const fetchHistory = async () => {
         setLoading(true);
         try {
-            const response = await fetch('http://localhost:8000/api/alerts');
-            if (!response.ok) throw new Error('Failed to fetch history');
-            const data = await response.json();
-            setAlerts(data);
+            const response = await api.get('/api/video/history');
+            setAlerts(response.data);
         } catch (error) {
-            message.error('Lỗi tải lịch sử: ' + error.message);
+            console.error("Lỗi:", error);
         } finally {
             setLoading(false);
         }
     };
 
-    // Gọi API khi mới vào trang
     useEffect(() => {
         fetchHistory();
-
-        // (Optional) Tự động refresh mỗi 30s để cập nhật tin mới
-        const interval = setInterval(fetchHistory, 30000);
+        const interval = setInterval(fetchHistory, 10000);
         return () => clearInterval(interval);
     }, []);
 
-    // Cấu hình các cột cho bảng
     const columns = [
         {
-            title: 'Time',
+            title: 'Ngày ghi nhận',
             dataIndex: 'timestamp',
-            key: 'timestamp',
-            render: (text) => new Date(text).toLocaleString('vi-VN'), // Format ngày giờ Việt Nam
+            key: 'date',
+            align: 'center',
+            render: (text) => {
+                if (!text) return '-';
+                // FIX LỖI GIỜ: Thêm 'Z' vào cuối để báo đây là giờ UTC
+                // Thay khoảng trắng ' ' bằng 'T' để đúng chuẩn ISO (VD: 2024-12-26T13:00:00Z)
+                const dateObj = new Date(text.replace(' ', 'T') + 'Z');
+                return (
+                    <span style={{ fontSize: '16px', fontWeight: 500 }}>
+                        <CalendarOutlined style={{ marginRight: 8, color: '#1890ff' }} />
+                        {dateObj.toLocaleDateString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' })}
+                    </span>
+                );
+            },
         },
         {
-            title: 'Confidence',
-            dataIndex: 'confidence',
-            key: 'confidence',
-            render: (score) => {
-                const percent = (score * 100).toFixed(1);
-                let color = score > 0.8 ? 'red' : 'orange';
-                return <Tag color={color}>{percent}%</Tag>;
-            }
+            title: 'Thời gian',
+            dataIndex: 'timestamp', 
+            key: 'time',
+            align: 'center',
+            render: (text) => {
+                if (!text) return '-';
+                // FIX LỖI GIỜ TƯƠNG TỰ
+                const dateObj = new Date(text.replace(' ', 'T') + 'Z');
+                return (
+                    <Tag icon={<ClockCircleOutlined />} color="blue" style={{ fontSize: '14px', padding: '4px 10px' }}>
+                        {dateObj.toLocaleTimeString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' })}
+                    </Tag>
+                );
+            },
         },
         {
-            title: 'Status',
-            dataIndex: 'is_sent',
-            key: 'is_sent',
-            render: (sent) => (
-                sent
-                    ? <Tag icon={<CheckCircleOutlined />} color="success">Sent</Tag>
-                    : <Tag color="default">Pending</Tag>
-            )
-        },
-        {
-            title: 'Evidence',
-            key: 'action',
-            render: (_, record) => (
+            title: 'Hành động',
+            dataIndex: 'image_url',
+            key: 'image',
+            align: 'center',
+            render: (url) => (
                 <Button
                     icon={<EyeOutlined />}
-                    size="small"
-                    onClick={() => {
-                        // Backend mount folder 'evidence' vào đường dẫn '/static'
-                        // Filename trong DB là 'fall_xyz.jpg' -> Full URL: http://localhost:8000/static/fall_xyz.jpg
-                        setPreviewImage(`http://localhost:8000/static/${record.image_path}`);
-                    }}
+                    type="primary"
+                    onClick={() => setPreviewImage(url)}
                 >
-                    View
+                    Xem bằng chứng
                 </Button>
             )
         }
@@ -83,8 +83,8 @@ const HistoryPage = () => {
     return (
         <div style={{ padding: 24 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
-                <Title level={3} style={{ margin: 0 }}><HistoryOutlined /> Incident History</Title>
-                <Button icon={<SyncOutlined />} onClick={fetchHistory} loading={loading}>Refresh</Button>
+                <Title level={3} style={{ margin: 0 }}><HistoryOutlined /> Lịch Sử Cảnh Báo Ngã</Title>
+                <Button icon={<SyncOutlined />} onClick={fetchHistory} loading={loading}>Làm mới</Button>
             </div>
 
             <Card style={{ borderRadius: 8, boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
@@ -93,19 +93,24 @@ const HistoryPage = () => {
                     dataSource={alerts}
                     rowKey="id"
                     loading={loading}
-                    pagination={{ pageSize: 8 }}
+                    pagination={{ pageSize: 8, position: ['bottomCenter'] }}
+                    locale={{ emptyText: 'Không có dữ liệu cảnh báo' }}
                 />
             </Card>
 
-            {/* Modal xem ảnh phóng to */}
             <Modal
                 open={!!previewImage}
                 footer={null}
                 onCancel={() => setPreviewImage(null)}
-                title="Evidence Snapshot"
+                title="Hình ảnh hiện trường"
                 centered
+                width={800}
             >
-                <Image src={previewImage} style={{ width: '100%' }} />
+                <Image 
+                    src={previewImage} 
+                    style={{ width: '100%' }} 
+                    fallback="https://via.placeholder.com/800x600?text=Image+Not+Found"
+                />
             </Modal>
         </div>
     );

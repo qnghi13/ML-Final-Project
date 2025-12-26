@@ -1,13 +1,9 @@
-
-
 import React from 'react';
 import { Layout, Menu } from 'antd';
 import { useNavigate, useLocation } from 'react-router-dom';
 import {
     DashboardOutlined,
     HistoryOutlined,
-    // SettingOutlined,
-    LogoutOutlined,
     SafetyCertificateFilled
 } from '@ant-design/icons';
 
@@ -20,27 +16,17 @@ const Sidebar = ({ collapsed }) => {
     // Menu items definition
     const menuItems = [
         {
-            key: '/dashboard',
+            key: '/dashboard', // Key trùng với đường dẫn URL
             icon: <DashboardOutlined />,
             label: 'Live Monitoring',
         },
         {
-            key: '/dashboard/history',
+            // --- THAY ĐỔI Ở ĐÂY ---
+            key: '/history', // Đổi từ '/dashboard/history' thành '/history'
             icon: <HistoryOutlined />,
             label: 'Incident History',
         },
-        // {
-        //     key: '/dashboard/settings',
-        //     icon: <SettingOutlined />,
-        //     label: 'System Settings',
-        // },
     ];
-
-    // Handle logout (temporary navigation only)
-    const handleLogout = () => {
-        // Later: call authService.logout()
-        navigate('/login');
-    };
 
     return (
         <Sider
@@ -88,13 +74,13 @@ const Sidebar = ({ collapsed }) => {
             <Menu
                 theme="dark"
                 mode="inline"
-                selectedKeys={[location.pathname]}
-                onClick={({ key }) => navigate(key)}
+                // Tự động highlight menu dựa trên URL hiện tại
+                selectedKeys={[location.pathname]} 
+                // Khi click sẽ chuyển hướng theo key đã định nghĩa ở trên
+                onClick={({ key }) => navigate(key)} 
                 items={menuItems}
                 style={{ marginTop: '16px', fontSize: '15px' }}
             />
-
-
         </Sider>
     );
 };

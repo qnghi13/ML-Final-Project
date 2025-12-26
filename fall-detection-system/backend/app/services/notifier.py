@@ -1,58 +1,57 @@
 # app/services/notifier.py
 import requests
-import threading
 import os
-from datetime import datetime
+import threading
 from dotenv import load_dotenv
-from app.database import get_linked_chat_ids
-
-# --- THAY TOKEN GIỐNG BÊN FILE BOT ---
+# Import đúng tên hàm mới trong database
+from app.core.database import get_subscribers_by_phone, update_alert_sent_status
 
 load_dotenv()
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
 
-def send_alert_task(image_path, confidence):
-    """Hàm gửi tin nhắn thực sự"""
-    try:
-        # 1. Lấy danh sách người nhận
-        chat_ids = get_linked_chat_ids()
+def send_telegram_alert(user_phone: str, image_path: str, alert_id: int):
+    """
+    Hàm gửi cảnh báo tới TOÀN BỘ người thân của user_phone.
+    Chạy trong thread riêng để không làm đơ camera.
+    """
+    def _send_task():
+        # 1. Lấy danh sách Chat ID từ DB
+        chat_ids = get_subscribers_by_phone(user_phone)
+        
         if not chat_ids:
-            print("[Notify] Chưa có ai liên kết Telegram. Không gửi được.")
+            print(f"⚠️ [Notifier] Không tìm thấy người thân nào liên kết với SĐT: {user_phone}")
             return
 
-        # 2. Chuẩn bị nội dung
-        time_str = datetime.now().strftime("%H:%M:%S - %d/%m/%Y")
-        caption = (
-            f"🚨 CẢNH BÁO: PHÁT HIỆN NGÃ!\n"
-            f"🕒 Thời gian: {time_str}\n"
-            f"📊 Độ tin cậy: {confidence:.2f}\n"
-            f"⚠️ Vui lòng kiểm tra ngay!"
-        )
-        url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendPhoto"
+        print(f"🚨 [Notifier] Bắt đầu gửi cảnh báo tới {len(chat_ids)} người...")
+        
+        sent_count = 0
+        
+        # 2. Gửi ảnh cho từng người
+        for chat_id in chat_ids:
+            try:
+                with open(image_path, 'rb') as f:
+                    url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendPhoto"
+                    payload = {
+                        'chat_id': chat_id,
+                        'caption': f"🚨 CẢNH BÁO: Phát hiện té ngã!\nSĐT người thân: {user_phone}\nThời gian: Ngay lúc này."
+                    }
+                    files = {'photo': f}
+                    resp = requests.post(url, data=payload, files=files, timeout=10)
+                    
+                    if resp.status_code == 200:
+                        print(f" -> ✅ Đã gửi tới {chat_id}")
+                        sent_count += 1
+                    else:
+                        print(f" -> ❌ Lỗi gửi {chat_id}: {resp.text}")
+                        
+            except Exception as e:
+                print(f" -> ❌ Lỗi kết nối tới {chat_id}: {e}")
 
-        # 3. Gửi cho từng người
-        if os.path.exists(image_path):
-            with open(image_path, 'rb') as f:
-                img_data = f.read()
-                
-            for chat_id in chat_ids:
-                try:
-                    requests.post(
-                        url,
-                        data={'chat_id': chat_id, 'caption': caption},
-                        files={'photo': ('alert.jpg', img_data)},
-                        timeout=10
-                    )
-                    print(f"[Notify] -> Đã gửi tới {chat_id}")
-                except Exception as e:
-                    print(f"[Notify Error] Gửi tới {chat_id} thất bại: {e}")
-        else:
-            print("[Notify] Không tìm thấy file ảnh")
+        # 3. Nếu gửi được ít nhất cho 1 người -> Update trạng thái vào DB
+        if sent_count > 0:
+            update_alert_sent_status(alert_id, is_sent=True)
+            print("✅ [Notifier] Đã cập nhật trạng thái cảnh báo vào DB.")
 
-    except Exception as e:
-        print(f"[Notify Error] {e}")
-
-def run_async_telegram(image_path, confidence):
-    """Chạy đa luồng để không lag camera"""
-    t = threading.Thread(target=send_alert_task, args=(image_path, confidence))
-    t.start()
+    # Chạy ngầm trong luồng khác (Thread) để API video không bị khựng lại
+    thread = threading.Thread(target=_send_task)
+    thread.start()

@@ -1,217 +1,135 @@
-# # app/api/video.py
-# import cv2
-# import time
-# import os
-# from fastapi import APIRouter
-# from fastapi.responses import StreamingResponse
-# from app.services.detector import FallDetector
-# from app.services.camera import VideoCamera
-# from app.database import save_alert
-# from app.services.notifier import run_async_telegram # Import hàm gửi tin
-
-# router = APIRouter(tags=["Video Stream"])
-
-# EVIDENCE_DIR = "evidence"
-# os.makedirs(EVIDENCE_DIR, exist_ok=True)
-# COOLDOWN_SECONDS = 10.0 # Chỉnh lên 10s cho đỡ spam
-
-# print("[Video] Loading AI Model...")
-# detector = FallDetector(model_path='model/yolov8n.pt') 
-# global_last_alert_time = 0
-
-# # def generate_frames():
-# #     global global_last_alert_time
-# #     camera = VideoCamera(source=0)
-    
-# #     try:
-# #         while True:
-# #             frame = camera.get_frame()
-# #             if frame is None: break
-            
-# #             processed_frame, status_code, conf_score = detector.detect(frame)
-            
-# #             # --- LOGIC GỬI CẢNH BÁO ---
-# #             if status_code == 2:  # Báo động đỏ
-# #                 current_time = time.time()
-# #                 if (current_time - global_last_alert_time) > COOLDOWN_SECONDS:
-# #                     print("!!! PHÁT HIỆN NGÃ - TRIGGER ALERT !!!")
-                    
-# #                     # 1. Lưu ảnh
-# #                     ts = time.strftime("%Y%m%d_%H%M%S")
-# #                     filename = f"fall_{ts}.jpg"
-# #                     save_path = os.path.join(EVIDENCE_DIR, filename)
-# #                     cv2.imwrite(save_path, processed_frame)
-                    
-# #                     # 2. Lưu DB
-# #                     save_alert(conf_score, filename, True)
-                    
-# #                     # 3. GỬI TELEGRAM
-# #                     run_async_telegram(save_path, conf_score)
-                    
-# #                     global_last_alert_time = current_time
-
-# #             ret, buffer = cv2.imencode('.jpg', processed_frame)
-# #             if not ret: continue
-# #             yield (b'--frame\r\nContent-Type: image/jpeg\r\n\r\n' + buffer.tobytes() + b'\r\n')
-# #     finally:
-# #         del camera
-
-# # @router.get("/video_feed")
-# # def video_feed():
-# #     return StreamingResponse(generate_frames(), media_type="multipart/x-mixed-replace; boundary=frame")
-
-# async def generate_frames():
-#     global global_last_alert_time
-#     camera = VideoCamera(source=0)
-    
-#     try:
-#         while True:
-#             frame = camera.get_frame()
-#             if frame is None: break
-            
-#             # AI Xử lý
-#             processed_frame, status_code, conf_score = detector.detect(frame)
-            
-#             # --- LOGIC GỬI CẢNH BÁO ---
-#             if status_code == 2:  # Báo động đỏ
-#                 current_time = time.time()
-#                 if (current_time - global_last_alert_time) > COOLDOWN_SECONDS:
-#                     print("!!! PHÁT HIỆN NGÃ - TRIGGER ALERT !!!")
-                    
-#                     # 1. Lưu ảnh (Giữ nguyên)
-#                     ts = time.strftime("%Y%m%d_%H%M%S")
-#                     filename = f"fall_{ts}.jpg"
-#                     save_path = os.path.join(EVIDENCE_DIR, filename)
-#                     cv2.imwrite(save_path, processed_frame)
-                    
-#                     # 2. Lưu DB (Giữ nguyên)
-#                     save_alert(conf_score, filename, True)
-                    
-#                     # 3. Gửi Telegram (Giữ nguyên)
-#                     run_async_telegram(save_path, conf_score)
-
-#                     # 4. >>> BẮN SOCKET SANG FRONTEND <<< (MỚI)
-#                     # Convert ảnh sang base64 để hiển thị ngay trên popup
-#                     _, buffer_img = cv2.imencode('.jpg', processed_frame)
-#                     img_base64 = base64.b64encode(buffer_img).decode('utf-8')
-                    
-#                     await sio.emit('fall_detected', {
-#                         'timestamp': time.strftime("%H:%M:%S"),
-#                         'confidence': round(conf_score, 2),
-#                         'image': f"data:image/jpeg;base64,{img_base64}",
-#                         'location': 'Camera 01'
-#                     })
-                    
-#                     global_last_alert_time = current_time
-
-#             # Encode frame để stream (MJPEG)
-#             ret, buffer = cv2.imencode('.jpg', processed_frame)
-#             if not ret: continue
-            
-#             # Yield frame (Lưu ý: trong async generator không cần await ở yield)
-#             yield (b'--frame\r\nContent-Type: image/jpeg\r\n\r\n' + buffer.tobytes() + b'\r\n')
-            
-#             # Thêm sleep nhỏ để giả lập async non-blocking (giúp socket có thời gian thở)
-#             # await asyncio.sleep(0.01) # Cần import asyncio nếu muốn mượt hơn
-            
-#     finally:
-#         del camera
-
-# @router.get("/video_feed")
-# async def video_feed(): # Cũng phải đổi thành async
-#     return StreamingResponse(generate_frames(), media_type="multipart/x-mixed-replace; boundary=frame")
-
-
-
-
-
-
-
-# app/api/video.py
 import cv2
 import time
 import os
 import base64
-import asyncio # Import asyncio
-from fastapi import APIRouter
+import asyncio
+from fastapi import APIRouter, Query, Depends # Thêm Query để nhận tham số từ URL
 from fastapi.responses import StreamingResponse
+
+# 1. Import Class Detector & Camera
 from app.services.detector import FallDetector
-from app.services.camera import VideoCamera # Import class Singleton vừa sửa
-from app.database import save_alert
-from app.services.notifier import run_async_telegram
-from app.socket_manager import sio
+from app.services.camera import VideoCamera
+
+# 2. Import Database & Notifier
+from app.core.database import get_alerts_by_user_id, save_alert, get_user_by_username
+from app.api.auth import get_current_user# <--- Import thêm hàm lấy user
+from app.services.notifier import send_telegram_alert
+
+# 3. Import Socket
+try:
+    from app.core.socket_manager import sio
+except ImportError:
+    sio = None
 
 router = APIRouter(tags=["Video Stream"])
 
-EVIDENCE_DIR = "evidence"
+EVIDENCE_DIR = "alert_images"
 os.makedirs(EVIDENCE_DIR, exist_ok=True)
-COOLDOWN_SECONDS = 10.0
+COOLDOWN_SECONDS = 10.0 
 
-print("[Video] Loading AI Model...")
-detector = FallDetector(model_path='model/yolov8n.pt') 
+print("[API] Initializing Detector...")
+detector = FallDetector(model_path='model/yolov8n.pt')
 global_last_alert_time = 0
 
-async def generate_frames():
+# --- SỬA HÀM NÀY: Nhận thêm thông tin user (id, sđt) ---
+async def generate_frames(user_id, user_phone):
     global global_last_alert_time
     
-    # --- SỬA LỖI TẠI ĐÂY ---
-    # Gọi VideoCamera() sẽ luôn trả về instance duy nhất đã khởi tạo
-    # Không còn sợ lỗi "Device busy" nữa
-    camera = VideoCamera(source=0) 
-    
+    camera = VideoCamera(source=0)
+    print(f"📷 Bắt đầu stream cho User ID: {user_id} - SĐT nhận tin: {user_phone}")
+
     try:
         while True:
-            # Lấy frame từ luồng background
             frame = camera.get_frame()
-            
-            # Nếu chưa đọc được frame nào (lúc mới khởi động), đợi xíu
             if frame is None:
-                await asyncio.sleep(0.1)
+                await asyncio.sleep(1)
                 continue
             
-            # --- COPY LẠI FRAME ---
-            # Quan trọng: AI vẽ box lên ảnh. Nếu không copy, các luồng khác
-            # sẽ thấy cái box bị vẽ chồng chéo hoặc lỗi hình.
-            frame_to_process = frame.copy()
-
-            # AI Xử lý trên frame copy
-            processed_frame, status_code, conf_score = detector.detect(frame_to_process)
+            # Xử lý AI
+            processed_frame, status_code, conf_score = detector.detect(frame)
             
-            # ... (Giữ nguyên logic Gửi Cảnh Báo/Socket/Telegram cũ) ...
+            # LOGIC XỬ LÝ KHI PHÁT HIỆN NGÃ
             if status_code == 2:
                 current_time = time.time()
                 if (current_time - global_last_alert_time) > COOLDOWN_SECONDS:
-                    # ... (Logic xử lý ngã giữ nguyên) ...
-                    # Nhớ dùng await sio.emit(...)
+                    print(f"!!! PHÁT HIỆN NGÃ ({conf_score:.2f}) -> Gửi cho SĐT: {user_phone}")
                     
-                    # Ví dụ đoạn socket:
-                    _, buffer_img = cv2.imencode('.jpg', processed_frame)
-                    img_base64 = base64.b64encode(buffer_img).decode('utf-8')
-                    await sio.emit('fall_detected', {
-                        'timestamp': time.strftime("%H:%M:%S"),
-                        'confidence': round(conf_score, 2),
-                        'image': f"data:image/jpeg;base64,{img_base64}",
-                        'location': 'Camera 01'
-                    })
+                    # A. Lưu ảnh
+                    ts = time.strftime("%Y%m%d_%H%M%S")
+                    filename = f"fall_{ts}.jpg"
+                    save_path = os.path.join(EVIDENCE_DIR, filename)
+                    cv2.imwrite(save_path, processed_frame)
+                    
+                    # B. Lưu Database (Dùng user_id THẬT)
+                    alert_id = save_alert(user_id=user_id, image_path=save_path, confidence=conf_score)
+                    
+                    # C. Gửi Telegram (Dùng SĐT THẬT lấy từ DB)
+                    if user_phone:
+                        try:
+                            send_telegram_alert(user_phone, save_path, alert_id)
+                        except Exception as e:
+                            print(f"Lỗi gửi Telegram: {e}")
+                    else:
+                        print("⚠️ User này chưa cập nhật số điện thoại, không thể gửi tin!")
+
+                    # D. Gửi Socket
+                    if sio:
+                        try:
+                            _, buffer_img = cv2.imencode('.jpg', processed_frame)
+                            img_base64 = base64.b64encode(buffer_img).decode('utf-8')
+                            await sio.emit('fall_detected', {
+                                'timestamp': time.strftime("%H:%M:%S"),
+                                'confidence': round(conf_score, 2),
+                                'image': f"data:image/jpeg;base64,{img_base64}"
+                            })
+                        except Exception:
+                            pass
                     
                     global_last_alert_time = current_time
 
-            # Encode và Stream
             ret, buffer = cv2.imencode('.jpg', processed_frame)
             if not ret: continue
-            
             yield (b'--frame\r\nContent-Type: image/jpeg\r\n\r\n' + buffer.tobytes() + b'\r\n')
-            
-            # Kiểm soát FPS stream (ví dụ ~30fps)
-            await asyncio.sleep(0.03)
-            
-    except Exception as e:
-        print(f"Stream Error: {e}")
-    # finally:
-        # KHÔNG gọi camera.stop() ở đây nữa vì camera là dùng chung!
-        # Camera chỉ nên stop khi tắt hẳn server.
-        pass
+            await asyncio.sleep(0.01)
 
+    finally:
+        del camera
+
+# --- SỬA API NÀY: Yêu cầu truyền username vào URL ---
 @router.get("/video_feed")
-async def video_feed():
-    return StreamingResponse(generate_frames(), media_type="multipart/x-mixed-replace; boundary=frame")
+async def video_feed(username: str = Query(..., description="Tên đăng nhập của người dùng")):
+    """
+    Ví dụ gọi: http://localhost:8000/api/video/video_feed?username=admin
+    """
+    # 1. Tìm user trong DB xem có tồn tại không
+    user = get_user_by_username(username)
+    
+    if not user:
+        # Nếu không thấy user, trả về lỗi hoặc ảnh đen (ở đây mình return text lỗi cho nhanh)
+        return {"error": "User not found or not registered"}
+    
+    # 2. Lấy thông tin cần thiết
+    real_user_id = user['id']
+    real_phone = user['phone_number'] # Đây là SĐT lấy từ DB
+    
+    # 3. Truyền vào hàm generate_frames
+    return StreamingResponse(
+        generate_frames(user_id=real_user_id, user_phone=real_phone), 
+        media_type="multipart/x-mixed-replace; boundary=frame"
+    )
+
+
+
+@router.get("/history")
+async def get_history_api(current_user: dict = Depends(get_current_user)):
+    """
+    API này yêu cầu Token (đăng nhập).
+    Nó sẽ tự động lấy ID từ Token và chỉ trả về dữ liệu của người đó.
+    """
+    try:
+        user_id = current_user['id'] # Lấy ID từ token người đang gọi
+        results = get_alerts_by_user_id(user_id) # Chỉ lấy ảnh của ID này
+        return results
+    except Exception as e:
+        print(f"❌ Lỗi API History: {e}")
+        return []
