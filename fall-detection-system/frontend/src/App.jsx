@@ -4,10 +4,8 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import MainLayout from './components/Layout/MainLayout';
 import LandingPage from './pages/LandingPage';
 import Dashboard from './pages/Dashboard';
-import SettingsPage from './pages/SettingsPage';
+import HistoryPage from './pages/HistoryPage';
 // Mock component for pages not built yet
-const HistoryPage = () => <h2>Incident History</h2>;
-// const SettingsPage = () => <h2>System Settings</h2>;
 
 function App() {
   return (
@@ -18,10 +16,8 @@ function App() {
 
         {/* Sau khi login xong sẽ vào Dashboard layout */}
         <Route path="/dashboard" element={<MainLayout />}>
-          <Route path="settings" element={<SettingsPage />} />
           <Route index element={<Dashboard />} />
           <Route path="history" element={<HistoryPage />} />
-          {/* <Route path="settings" element={<SettingsPage />} /> */}
         </Route>
 
         {/* Bắt lỗi 404: Quay về trang login */}

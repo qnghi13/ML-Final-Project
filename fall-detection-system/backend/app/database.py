@@ -3,7 +3,7 @@ import os
 from sqlalchemy import create_engine, Column, Integer, String, Float, DateTime, Boolean
 from sqlalchemy.orm import sessionmaker, declarative_base
 from datetime import datetime
-
+# from app.database import Alert
 # 1. Cấu hình DB
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DB_PATH = os.path.join(BASE_DIR, "fall_data.db")
@@ -86,3 +86,13 @@ def get_linked_chat_ids():
         users = db.query(User).filter(User.telegram_chat_id != None).all()
         return [u.telegram_chat_id for u in users]
     finally: db.close()
+    
+    
+def get_all_alerts(limit: int = 50):
+    """Lấy danh sách 50 cảnh báo gần nhất"""
+    db = SessionLocal()
+    try:
+        # Sắp xếp giảm dần theo thời gian (mới nhất lên đầu)
+        return db.query(Alert).order_by(Alert.timestamp.desc()).limit(limit).all()
+    finally:
+        db.close()

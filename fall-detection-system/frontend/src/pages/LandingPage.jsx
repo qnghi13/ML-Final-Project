@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import apiClient from '../services/api';
 import { Form, Input, Button, Typography, Card, Tabs, message, Modal, List, Avatar, Spin, Result, Statistic } from 'antd';
 import {
     UserOutlined,
@@ -8,10 +9,86 @@ import {
     SafetyCertificateFilled,
     LoadingOutlined,
     ArrowLeftOutlined,
-    SafetyOutlined
+    SafetyOutlined,
+    PhoneOutlined
 } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
+// src/pages/LandingPage.jsx
 
+// 1. Import service
+import { authService } from '../services/authService';
+
+// ... (Bên trong LandingPage component) ...
+
+// === XỬ LÝ LOGIN THỰC TẾ ===
+const onLoginFinish = async (values) => {
+    setLoading(true);
+    try {
+        // Gọi Service Login
+        // const data = await authService.login(values.username, values.password);
+        const response = await apiClient.post('/api/auth/login', {
+            username: values.username,
+            password: values.password
+        });
+        // Lưu token (Backend trả về access_token)
+        localStorage.setItem('access_token', response.data.access_token);
+        localStorage.setItem('user_info', JSON.stringify(response.data.user)); // Nếu BE trả về user info
+
+        message.success('Login Successful!');
+        navigate('/dashboard');
+    } catch (error) {
+        message.error(error.message); // Hiển thị lỗi từ Backend (400/401)
+    } finally {
+        setLoading(false);
+    }
+};
+
+// === XỬ LÝ ĐĂNG KÝ (BƯỚC 1: NHẬP INFO) ===
+const onRegisterInfoSubmit = (values) => {
+    setLoading(true);
+    // Giả lập gửi OTP (Client side only)
+    setTimeout(() => {
+        setLoading(false);
+        setTempRegData(values); // Lưu username, pass, phone, fullname vào biến tạm
+        setRegisterStep(2);     // Chuyển sang nhập OTP
+        // Hiển thị thông báo gửi tới SĐT thay vì Email
+        message.info(`OTP Code sent to ${values.phone_number}`);
+    }, 1000);
+};
+
+// === XỬ LÝ OTP & GỌI API ĐĂNG KÝ (BƯỚC 2) ===
+const onOtpSubmit = async (values) => {
+    setLoading(true);
+
+    // Giả lập check OTP (Ví dụ cứ nhập đủ 6 số là đúng)
+    // Trong thực tế, bạn có thể hardcode '123456' để test
+    if (values.otp.length !== 6) {
+        setLoading(false);
+        message.error('Invalid OTP Code');
+        return;
+    }
+
+    try {
+        // OTP OK -> GỌI API ĐĂNG KÝ CỦA BACKEND
+        // Lấy dữ liệu từ bước 1 (tempRegData) để gửi đi
+        await authService.register({
+            username: tempRegData.username,
+            password: tempRegData.password,
+            full_name: tempRegData.full_name,
+            phone_number: tempRegData.phone_number
+        });
+
+        message.success('Account created successfully! Please Login.');
+        // Reset về Tab Login
+        setActiveTab('1');
+        setRegisterStep(1);
+
+    } catch (error) {
+        message.error(error.message); // Ví dụ: "Username đã tồn tại"
+    } finally {
+        setLoading(false);
+    }
+};
 const { Title, Text } = Typography;
 const { Countdown } = Statistic;
 
@@ -116,18 +193,96 @@ const LandingPage = () => {
     // 2. Form Register (Step 1 & Step 2)
     const RegisterContainer = () => {
         // STEP 1: NHẬP THÔNG TIN
+        // if (registerStep === 1) {
+        //     return (
+        //         <Form name="register_info" onFinish={onRegisterInfoSubmit} layout="vertical" size="large">
+        //             <Form.Item name="email" rules={[{ required: true, type: 'email', message: 'Invalid Email!' }]}>
+        //                 <Input prefix={<MailOutlined />} placeholder="Email Address" />
+        //             </Form.Item>
+        //             <Form.Item name="username" rules={[{ required: true, message: 'Username required!' }]}>
+        //                 <Input prefix={<UserOutlined />} placeholder="Username" />
+        //             </Form.Item>
+        //             <Form.Item name="password" rules={[{ required: true, message: 'Password required!' }]}>
+        //                 <Input.Password prefix={<LockOutlined />} placeholder="Password" />
+        //             </Form.Item>
+        //             <Form.Item>
+        //                 <Button type="primary" htmlType="submit" loading={loading} block style={{ height: '45px' }}>
+        //                     Next Step
+        //                 </Button>
+        //             </Form.Item>
+        //         </Form>
+        //     );
+        // }
+
+        // STEP 2: NHẬP OTP
+        // return (
+        //     <div style={{ textAlign: 'center' }}>
+        //         <Result
+        //             status="info"
+        //             icon={<SafetyOutlined style={{ color: '#1890ff' }} />}
+        //             title="Security Verification"
+        //             subTitle={
+        //                 <span>
+        //                     We sent a 6-digit code to <Text strong>{tempRegData?.email}</Text>.
+        //                     <br />Please enter it below to verify your identity.
+        //                 </span>
+        //             }
+        //             style={{ padding: '0 0 20px 0' }}
+        //         />
+
+        //         <Form name="register_otp" onFinish={onOtpSubmit} layout="vertical" size="large">
+        //             <Form.Item
+        //                 name="otp"
+        //                 rules={[
+        //                     { required: true, message: 'Please enter OTP!' },
+        //                     { len: 6, message: 'OTP must be 6 digits' }
+        //                 ]}
+        //             >
+        //                 <Input
+        //                     style={{ textAlign: 'center', letterSpacing: '8px', fontSize: '24px', fontWeight: 'bold' }}
+        //                     placeholder="• • • • • •"
+        //                     maxLength={6}
+        //                 />
+        //             </Form.Item>
+
+        //             <Form.Item>
+        //                 <Button type="primary" htmlType="submit" loading={loading} block style={{ height: '45px' }}>
+        //                     Verify & Register
+        //                 </Button>
+        //             </Form.Item>
+        //         </Form>
+
+        //         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 10 }}>
+        //             <Button type="link" icon={<ArrowLeftOutlined />} onClick={handleBackToRegisterInfo} size="small">
+        //                 Change Email
+        //             </Button>
+
+        //             <Text type="secondary" style={{ fontSize: '12px' }}>
+        //                 Resend in <Countdown value={Date.now() + 60 * 1000} format="mm:ss" valueStyle={{ fontSize: '12px', color: '#8c8c8c' }} onFinish={() => message.info('You can request new OTP now')} />
+        //             </Text>
+        //         </div>
+        //     </div>
+        // );
         if (registerStep === 1) {
             return (
                 <Form name="register_info" onFinish={onRegisterInfoSubmit} layout="vertical" size="large">
-                    <Form.Item name="email" rules={[{ required: true, type: 'email', message: 'Invalid Email!' }]}>
-                        <Input prefix={<MailOutlined />} placeholder="Email Address" />
+                    {/* THAY ĐỔI: Thay Email bằng Full Name và Phone */}
+                    <Form.Item name="full_name" rules={[{ required: true, message: 'Please input Full Name!' }]}>
+                        <Input prefix={<UserOutlined />} placeholder="Full Name (e.g. Nguyen Van A)" />
                     </Form.Item>
+
+                    <Form.Item name="phone_number" rules={[{ required: true, message: 'Phone number required!' }]}>
+                        <Input prefix={<PhoneOutlined />} placeholder="Phone Number (e.g. 0909...)" />
+                    </Form.Item>
+
                     <Form.Item name="username" rules={[{ required: true, message: 'Username required!' }]}>
                         <Input prefix={<UserOutlined />} placeholder="Username" />
                     </Form.Item>
+
                     <Form.Item name="password" rules={[{ required: true, message: 'Password required!' }]}>
                         <Input.Password prefix={<LockOutlined />} placeholder="Password" />
                     </Form.Item>
+
                     <Form.Item>
                         <Button type="primary" htmlType="submit" loading={loading} block style={{ height: '45px' }}>
                             Next Step
@@ -136,56 +291,6 @@ const LandingPage = () => {
                 </Form>
             );
         }
-
-        // STEP 2: NHẬP OTP
-        return (
-            <div style={{ textAlign: 'center' }}>
-                <Result
-                    status="info"
-                    icon={<SafetyOutlined style={{ color: '#1890ff' }} />}
-                    title="Security Verification"
-                    subTitle={
-                        <span>
-                            We sent a 6-digit code to <Text strong>{tempRegData?.email}</Text>.
-                            <br />Please enter it below to verify your identity.
-                        </span>
-                    }
-                    style={{ padding: '0 0 20px 0' }}
-                />
-
-                <Form name="register_otp" onFinish={onOtpSubmit} layout="vertical" size="large">
-                    <Form.Item
-                        name="otp"
-                        rules={[
-                            { required: true, message: 'Please enter OTP!' },
-                            { len: 6, message: 'OTP must be 6 digits' }
-                        ]}
-                    >
-                        <Input
-                            style={{ textAlign: 'center', letterSpacing: '8px', fontSize: '24px', fontWeight: 'bold' }}
-                            placeholder="• • • • • •"
-                            maxLength={6}
-                        />
-                    </Form.Item>
-
-                    <Form.Item>
-                        <Button type="primary" htmlType="submit" loading={loading} block style={{ height: '45px' }}>
-                            Verify & Register
-                        </Button>
-                    </Form.Item>
-                </Form>
-
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 10 }}>
-                    <Button type="link" icon={<ArrowLeftOutlined />} onClick={handleBackToRegisterInfo} size="small">
-                        Change Email
-                    </Button>
-
-                    <Text type="secondary" style={{ fontSize: '12px' }}>
-                        Resend in <Countdown value={Date.now() + 60 * 1000} format="mm:ss" valueStyle={{ fontSize: '12px', color: '#8c8c8c' }} onFinish={() => message.info('You can request new OTP now')} />
-                    </Text>
-                </div>
-            </div>
-        );
     };
 
     const items = [
