@@ -18,13 +18,13 @@ const Sidebar = ({ collapsed }) => {
         {
             key: '/dashboard', // Key trùng với đường dẫn URL
             icon: <DashboardOutlined />,
-            label: 'Live Monitoring',
+            label: 'Giám sát trực tiếp',
         },
         {
             // --- THAY ĐỔI Ở ĐÂY ---
             key: '/history', // Đổi từ '/dashboard/history' thành '/history'
             icon: <HistoryOutlined />,
-            label: 'Incident History',
+            label: 'Lịch sử sự cố',
         },
     ];
 
@@ -65,7 +65,7 @@ const Sidebar = ({ collapsed }) => {
                             whiteSpace: 'nowrap'
                         }}
                     >
-                        Safety Vision AI
+                        An Toàn AI
                     </span>
                 )}
             </div>
@@ -75,9 +75,9 @@ const Sidebar = ({ collapsed }) => {
                 theme="dark"
                 mode="inline"
                 // Tự động highlight menu dựa trên URL hiện tại
-                selectedKeys={[location.pathname]} 
+                selectedKeys={[location.pathname]}
                 // Khi click sẽ chuyển hướng theo key đã định nghĩa ở trên
-                onClick={({ key }) => navigate(key)} 
+                onClick={({ key }) => navigate(key)}
                 items={menuItems}
                 style={{ marginTop: '16px', fontSize: '15px' }}
             />
