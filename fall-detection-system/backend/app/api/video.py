@@ -5,7 +5,11 @@ import base64
 import asyncio
 from fastapi import APIRouter, Query, Depends # Thêm Query để nhận tham số từ URL
 from fastapi.responses import StreamingResponse
-
+from fastapi import APIRouter, HTTPException
+import sqlite3
+from app.core.database import DB_PATH
+from datetime import datetime, timedelta
+import pytz
 # 1. Import Class Detector & Camera
 from app.services.detector import FallDetector
 from app.services.camera import VideoCamera
@@ -133,3 +137,48 @@ async def get_history_api(current_user: dict = Depends(get_current_user)):
     except Exception as e:
         print(f"❌ Lỗi API History: {e}")
         return []
+    
+
+@router.get("/stats/today")
+async def get_today_stats():
+    conn = sqlite3.connect(DB_PATH)
+    c = conn.cursor()
+    
+    try:
+        # 1. Tính toán khung giờ (Logic cũ)
+        tz_VN = pytz.timezone('Asia/Ho_Chi_Minh')
+        now_vn = datetime.now(tz_VN)
+        
+        start_of_day_vn = now_vn.replace(hour=0, minute=0, second=0, microsecond=0)
+        end_of_day_vn = start_of_day_vn + timedelta(days=1)
+
+        start_utc = start_of_day_vn.astimezone(pytz.utc)
+        end_utc = end_of_day_vn.astimezone(pytz.utc)
+
+        # 2. Tạo chuỗi so sánh (Lấy 19 ký tự đầu: YYYY-MM-DD HH:MM:SS)
+        # Cách này giúp loại bỏ mili-giây nếu có
+        start_str = start_utc.strftime("%Y-%m-%d %H:%M:%S")
+        end_str = end_utc.strftime("%Y-%m-%d %H:%M:%S")
+
+        # 3. Query đếm (Dùng substr để so sánh 19 ký tự đầu tiên, bỏ qua mili-giây và chữ T)
+        # Hàm replace('T', ' ') giúp đổi 2025-12-27T19... thành 2025-12-27 19... để khớp format
+        query = """
+            SELECT COUNT(*) FROM alerts 
+            WHERE 
+                replace(substr(timestamp, 1, 19), 'T', ' ') >= ? 
+            AND 
+                replace(substr(timestamp, 1, 19), 'T', ' ') < ?
+        """
+        c.execute(query, (start_str, end_str))
+        
+        count = c.fetchone()[0]
+        print(f"✅ Kết quả đếm được: {count}")
+
+        display_date = now_vn.strftime("%Y-%m-%d")
+        return {"date": display_date, "count": count}
+        
+    except Exception as e:
+        print(f"❌ Lỗi: {e}")
+        return {"date": "", "count": 0}
+    finally:
+        conn.close()

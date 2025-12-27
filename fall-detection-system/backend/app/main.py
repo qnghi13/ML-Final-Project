@@ -13,10 +13,7 @@ from app.core.socket_manager import sio
 app = FastAPI()
 
 # Cấu hình CORS (Cho phép Web React kết nối)
-origins = [
-    "http://localhost:5173",
-    "*" 
-]
+
 
 app.add_middleware(
     CORSMiddleware,

@@ -4,7 +4,8 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import {
     DashboardOutlined,
     HistoryOutlined,
-    SafetyCertificateFilled
+    SafetyCertificateFilled,
+    KeyOutlined
 } from '@ant-design/icons';
 
 const { Sider } = Layout;
@@ -25,6 +26,12 @@ const Sidebar = ({ collapsed }) => {
             key: '/history', // Đổi từ '/dashboard/history' thành '/history'
             icon: <HistoryOutlined />,
             label: 'Lịch sử sự cố',
+        },
+
+        {
+            key: '/change-password', // Key phải khớp với path trong App.jsx
+            icon: <KeyOutlined />,
+            label: 'Đổi mật khẩu',
         },
     ];
 

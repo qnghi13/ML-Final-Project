@@ -4,6 +4,7 @@ import MainLayout from './components/Layout/MainLayout';
 import LandingPage from './pages/LandingPage';
 import Dashboard from './pages/Dashboard';
 import HistoryPage from './pages/HistoryPage';
+import ChangePasswordPage from './pages/ChangePasswordPage';
 
 function App() {
   return (
@@ -21,6 +22,8 @@ function App() {
 
           {/* Đường dẫn: localhost:5173/history (Tách riêng hẳn hoi) */}
           <Route path="/history" element={<HistoryPage />} />
+
+          <Route path="/change-password" element={<ChangePasswordPage />} />
 
         </Route>
 

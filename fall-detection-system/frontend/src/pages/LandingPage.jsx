@@ -167,7 +167,7 @@ const LandingPage = () => {
             <Form.Item name="username" rules={[{ required: true, message: 'Vui lòng nhập tên đăng nhập!' }]}>
                 <Input prefix={<UserOutlined />} placeholder="Tên đăng nhập" />
             </Form.Item>
-            <Form.Item name="password" rules={[{ required: true, message: 'Vui lòng nhập mật khẩu!' }]}>
+            <Form.Item name="password" rules={[{ required: true, message: 'Vui lòng nhập mật khẩu!' }, { min: 6, message: 'Mật khẩu phải ít nhất 6 ký tự' }]}>
                 <Input.Password prefix={<LockOutlined />} placeholder="Mật khẩu" />
             </Form.Item>
             <Form.Item>

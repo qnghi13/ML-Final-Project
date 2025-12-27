@@ -10,6 +10,8 @@ from telegram import Update
 from telegram.ext import ApplicationBuilder, ContextTypes, CommandHandler, Application
 from telegram.request import HTTPXRequest
 from pydantic import BaseModel, Field
+from app.core.database import DB_PATH
+import sqlite3
 
 # Import Schema
 from app.schemas.token import Token 
@@ -174,28 +176,72 @@ class UpdateProfileRequest(BaseModel):
 
 @router.post("/update-profile")
 async def update_profile(data: UpdateProfileRequest):
-    conn = get_db_connection()
+    print(f"📥 DEBUG: Nhận yêu cầu update cho user: {data.username}") # In ra để debug
+
+    conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     
-    # 1. Kiểm tra xem số điện thoại đã được dùng bởi USER KHÁC chưa
-    c.execute("SELECT username FROM users WHERE phone = ? AND username != ?", 
-              (data.phone_number, data.username))
-    existing_user = c.fetchone()
-    
-    if existing_user:
-        conn.close()
-        raise HTTPException(
-            status_code=400, 
-            detail=f"Số điện thoại này đã được đăng ký bởi tài khoản @{existing_user['username']}"
-        )
-
-    # 2. Cập nhật thông tin
     try:
+
+        # 2. Thực hiện Update
+        # Lưu ý: Cột trong DB là 'phone', nhưng schema gửi lên là 'phone_number'. Cần map đúng.
         c.execute("UPDATE users SET full_name = ?, phone = ? WHERE username = ?",
                   (data.full_name, data.phone_number, data.username))
+        
         conn.commit()
-        conn.close()
-        return {"message": "Cập nhật thành công", "full_name": data.full_name, "phone_number": data.phone_number}
+        
+        # Kiểm tra xem có dòng nào được update không
+        if c.rowcount == 0:
+             raise HTTPException(status_code=404, detail="Không tìm thấy user để cập nhật")
+
+        return {
+            "message": "Update thành công", 
+            "full_name": data.full_name, 
+            "phone_number": data.phone_number
+        }
+
+    except sqlite3.Error as e:
+        print(f"❌ SQL ERROR: {e}")
+        raise HTTPException(status_code=500, detail=f"Lỗi Database: {str(e)}")
+        
     except Exception as e:
-        conn.close()
+        print(f"❌ SERVER ERROR: {e}")
         raise HTTPException(status_code=500, detail=str(e))
+        
+    finally:
+        conn.close()
+
+
+class ChangePasswordRequest(BaseModel):
+    username: str
+    current_password: str
+    new_password: str
+
+@router.post("/change-password")
+async def change_password(data: ChangePasswordRequest):
+    conn = sqlite3.connect(DB_PATH)
+    c = conn.cursor()
+    
+    try:
+        # 1. Lấy mật khẩu cũ trong DB
+        c.execute("SELECT password FROM users WHERE username = ?", (data.username,))
+        row = c.fetchone()
+        
+        if not row:
+            raise HTTPException(status_code=404, detail="User không tồn tại")
+            
+        stored_password_hash = row[0]
+
+        # 2. Kiểm tra mật khẩu cũ có đúng không
+        if not verify_password(data.current_password, stored_password_hash):
+            raise HTTPException(status_code=400, detail="Mật khẩu hiện tại không đúng")
+
+        # 3. Hash mật khẩu mới và lưu vào DB
+        new_hash = get_password_hash(data.new_password)
+        c.execute("UPDATE users SET password = ? WHERE username = ?", (new_hash, data.username))
+        conn.commit()
+        
+        return {"message": "Đổi mật khẩu thành công"}
+        
+    finally:
+        conn.close()

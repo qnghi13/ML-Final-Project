@@ -12,21 +12,33 @@ export const registerUser = async (userData) => {
 
 export const loginUser = async (username, password) => {
     try {
+        // 1. Gọi API Login để lấy Token
         const response = await api.post('/api/auth/login', { 
             username, 
             password 
         });
         
-        // --- LOGIC FIX LỖI USERNAME UNDEFINED ---
-        if (response.data.access_token) {
-            // 1. Lưu Token
-            localStorage.setItem('access_token', response.data.access_token);
+        const { access_token } = response.data;
+
+        if (access_token) {
+            // 2. Lưu Token ngay lập tức
+            localStorage.setItem('access_token', access_token);
             
-            // 2. Lưu Username (Ưu tiên lấy từ Server, nếu không có thì lấy luôn cái user vừa nhập)
-            const userToSave = response.data.username || username;
-            localStorage.setItem('username', userToSave);
-            
-            console.log("✅ Đã lưu username:", userToSave); // Bật Console F12 để xem dòng này
+            // 3. QUAN TRỌNG: Gọi ngay API /me để lấy thông tin chi tiết (Fullname, Phone)
+            // Vì API login thường chỉ trả về Token, không trả về chi tiết user
+            try {
+                const userResponse = await api.get('/api/auth/me');
+                
+                // 4. Lưu toàn bộ object user vào 'user_info' để Modal có cái mà đọc
+                const userInfo = userResponse.data; 
+                // userInfo sẽ có dạng: { username: "...", full_name: "...", phone_number: "..." }
+                
+                localStorage.setItem('user_info', JSON.stringify(userInfo));
+                
+                console.log("✅ Đã lưu thông tin user:", userInfo);
+            } catch (err) {
+                console.error("Không lấy được thông tin user chi tiết:", err);
+            }
         }
         return response.data;
     } catch (error) {
@@ -36,11 +48,13 @@ export const loginUser = async (username, password) => {
 };
 
 export const logoutUser = () => {
-    localStorage.clear(); // Xóa sạch mọi thứ khi logout
+    localStorage.clear(); // Xóa sạch token và user_info
+    window.location.href = '/'; // Chuyển hướng về trang login
 };
 
 export const getCurrentUser = () => {
-    return localStorage.getItem('username');
+    const userInfo = localStorage.getItem('user_info');
+    return userInfo ? JSON.parse(userInfo) : null;
 };
 
 export const authService = {

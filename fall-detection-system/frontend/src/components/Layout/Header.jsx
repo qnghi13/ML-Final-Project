@@ -1,15 +1,13 @@
-
 import React, { useState } from 'react';
 
-import { Layout, Button, Avatar, Badge, Dropdown, Space, Typography } from 'antd';
+import { Layout, Button, Avatar, Dropdown, Space, Typography } from 'antd'; // Bỏ Badge
 import {
     MenuFoldOutlined,
     MenuUnfoldOutlined,
-    BellOutlined,
     UserOutlined
+    // Bỏ BellOutlined
 } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
-// Import component Profile vừa tạo
 import UserProfileModal from './UserProfileModal';
 import HelpCenterModal from './HelpCenterModal';
 
@@ -19,28 +17,42 @@ const { Text } = Typography;
 const Header = ({ collapsed, setCollapsed }) => {
     const navigate = useNavigate();
 
-    // State để bật tắt modal Profile
+    // State bật tắt modal
     const [isProfileOpen, setIsProfileOpen] = useState(false);
     const [isHelpOpen, setIsHelpOpen] = useState(false);
+
+    // --- LOGIC LẤY THÔNG TIN USER TỪ LOCALSTORAGE ---
+    const getUserInfo = () => {
+        try {
+            const stored = localStorage.getItem('user_info');
+            return stored ? JSON.parse(stored) : {};
+        } catch (error) {
+            return {};
+        }
+    };
+    
+    const userInfo = getUserInfo();
+    const displayName = userInfo.username || 'Admin'; // Ưu tiên hiện username
+    const subText = userInfo.full_name || 'Trung tâm giám sát'; // Dòng dưới hiện tên đầy đủ
+
     const handleLogout = () => {
+        localStorage.clear(); // Xóa data khi logout
         navigate('/');
     };
 
-    // Danh sách menu dropdown
     const userMenuItems = [
-        { key: 'profile', label: 'Tài khoản' }, // Key là 'profile'
+        { key: 'profile', label: 'Tài khoản' },
         { key: 'help', label: 'Hỗ trợ' },
         { type: 'divider' },
         { key: 'logout', label: 'Đăng xuất', danger: true },
     ];
 
-    // Xử lý sự kiện click menu
     const handleMenuClick = (e) => {
         if (e.key === 'logout') {
             handleLogout();
         } else if (e.key === 'profile') {
             setIsProfileOpen(true);
-        } else if (e.key === 'help') { // Thêm dòng này
+        } else if (e.key === 'help') {
             setIsHelpOpen(true);
         }
     };
@@ -68,26 +80,31 @@ const Header = ({ collapsed, setCollapsed }) => {
 
                 {/* Khu vực bên phải */}
                 <Space size="large">
-                    <Badge count={5} dot>
-                        <Button type="text" shape="circle" icon={<BellOutlined style={{ fontSize: '20px' }} />} />
-                    </Badge>
+                    {/* ĐÃ XÓA PHẦN CÁI CHUÔNG (BADGE & BELL) */}
 
                     <Dropdown
                         menu={{ items: userMenuItems, onClick: handleMenuClick }}
                         trigger={['click']}
                     >
                         <Space style={{ cursor: 'pointer' }}>
-                            <Avatar style={{ backgroundColor: '#1890ff' }} icon={<UserOutlined />} />
+                            {/* Avatar có thể dùng seed là username để tạo ảnh khác nhau nếu muốn */}
+                            <Avatar 
+                                style={{ backgroundColor: '#1890ff' }} 
+                                src={userInfo.username ? `https://api.dicebear.com/7.x/avataaars/svg?seed=${userInfo.username}` : null}
+                                icon={!userInfo.username && <UserOutlined />} 
+                            />
+                            
                             <div style={{ display: 'flex', flexDirection: 'column', lineHeight: '1.2' }}>
-                                <Text strong>Admin</Text>
-                                <Text type="secondary" style={{ fontSize: '12px' }}>Trung tâm giám sát</Text>
+                                {/* Hiển thị Username động */}
+                                <Text strong>@{displayName}</Text>
+                                {/* Hiển thị Họ tên hoặc text mặc định */}
+                                <Text type="secondary" style={{ fontSize: '12px' }}>{subText}</Text>
                             </div>
                         </Space>
                     </Dropdown>
                 </Space>
             </AntHeader>
 
-            {/* Đặt Modal Profile ở đây, nó ẩn cho đến khi isOpen=true */}
             <UserProfileModal
                 isOpen={isProfileOpen}
                 onClose={() => setIsProfileOpen(false)}
