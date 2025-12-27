@@ -28,10 +28,10 @@ const Header = ({ collapsed, setCollapsed }) => {
 
     // Danh sách menu dropdown
     const userMenuItems = [
-        { key: 'profile', label: 'My Profile' }, // Key là 'profile'
-        { key: 'help', label: 'Help Center' },
+        { key: 'profile', label: 'Tài khoản' }, // Key là 'profile'
+        { key: 'help', label: 'Hỗ trợ' },
         { type: 'divider' },
-        { key: 'logout', label: 'Logout', danger: true },
+        { key: 'logout', label: 'Đăng xuất', danger: true },
     ];
 
     // Xử lý sự kiện click menu
@@ -80,7 +80,7 @@ const Header = ({ collapsed, setCollapsed }) => {
                             <Avatar style={{ backgroundColor: '#1890ff' }} icon={<UserOutlined />} />
                             <div style={{ display: 'flex', flexDirection: 'column', lineHeight: '1.2' }}>
                                 <Text strong>Admin</Text>
-                                <Text type="secondary" style={{ fontSize: '12px' }}>Monitoring Center</Text>
+                                <Text type="secondary" style={{ fontSize: '12px' }}>Trung tâm giám sát</Text>
                             </div>
                         </Space>
                     </Dropdown>

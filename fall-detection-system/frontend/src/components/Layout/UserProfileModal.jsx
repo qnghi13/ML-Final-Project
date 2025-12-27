@@ -79,7 +79,7 @@ const UserProfileModal = ({ isOpen, onClose }) => {
             title={
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                     <UserOutlined />
-                    <span>Account Profile</span>
+                    <span>Thông tin cá nhân</span>
                 </div>
             }
             open={isOpen}
@@ -123,27 +123,27 @@ const UserProfileModal = ({ isOpen, onClose }) => {
                 </div>
                 {/* ------------------- */}
 
-                <div style={{ marginTop: 10, fontWeight: 'bold', fontSize: '16px' }}>Guardian / Admin</div>
+                <div style={{ marginTop: 10, fontWeight: 'bold', fontSize: '16px' }}>Admin</div>
             </div>
 
             <Divider />
 
             <Form form={form} layout="vertical" initialValues={initialValues}>
-                <Form.Item label="Full Name" name="fullname">
+                <Form.Item label="Họ tên" name="fullname">
                     <Input prefix={<UserOutlined />} />
                 </Form.Item>
 
-                <Form.Item label="Email Address" name="email">
+                <Form.Item label="Email" name="email">
                     <Input prefix={<MailOutlined />} disabled style={{ color: '#555', backgroundColor: '#f5f5f5' }} />
                     <div style={{ fontSize: '12px', color: '#888', marginTop: '4px' }}>
-                        *Used for monthly reports and password recovery.
+                        *Dùng để nhận báo cáo và khôi phục mật khẩu.
                     </div>
                 </Form.Item>
 
                 <Form.Item label={
                     <Space>
-                        <span>Emergency Contact Phone</span>
-                        {isVerified ? <Tag color="success" icon={<CheckCircleFilled />}>Verified</Tag> : <Tag color="warning">Unverified</Tag>}
+                        <span>SĐT</span>
+                        {isVerified ? <Tag color="success" icon={<CheckCircleFilled />}>Xác nhận</Tag> : <Tag color="warning">Unverified</Tag>}
                     </Space>
                 } name="phone">
                     <Space.Compact style={{ width: '100%' }}>
@@ -159,7 +159,7 @@ const UserProfileModal = ({ isOpen, onClose }) => {
                     </div>
                 </Form.Item>
 
-                <Form.Item label="Password" name="password">
+                <Form.Item label="Mật khẩu" name="password">
                     <Input.Password prefix={<LockOutlined />} disabled />
                 </Form.Item>
             </Form>
