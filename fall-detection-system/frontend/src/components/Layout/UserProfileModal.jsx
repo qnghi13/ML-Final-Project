@@ -1,166 +1,127 @@
-import React, { useState, useRef } from 'react';
-import { Modal, Form, Input, Button, Avatar, message, Tag, Space, Divider } from 'antd';
-import {
-    UserOutlined,
-    MailOutlined,
-    PhoneOutlined,
-    LockOutlined,
-    CameraOutlined,
-    CheckCircleFilled,
-    SafetyCertificateOutlined
-} from '@ant-design/icons';
+import React, { useState, useEffect } from 'react';
+import { Modal, Form, Input, Button, Avatar, message, Tag, Space, Divider, Typography } from 'antd';
+import { UserOutlined, PhoneOutlined, LockOutlined, IdcardOutlined } from '@ant-design/icons';
+import { api } from '../../services/api'; 
+
+// Đổi tên thành AntText để tránh lỗi "Failed to construct Text"
+const { Text: AntText } = Typography;
 
 const UserProfileModal = ({ isOpen, onClose }) => {
     const [form] = Form.useForm();
-    const [isVerified, setIsVerified] = useState(false);
-    const [verifying, setVerifying] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [userData, setUserData] = useState({});
 
-    // --- 1. LOGIC AVATAR (PREVIEW ONLY) ---
-    // Link ảnh mặc định
-    const defaultAvatar = "https://api.dicebear.com/7.x/avataaars/svg?seed=Admin";
-
-    // State chỉ giữ ảnh hiện tại, KHÔNG lấy từ LocalStorage nữa
-    const [avatarUrl, setAvatarUrl] = useState(defaultAvatar);
-
-    // Reference tới thẻ input ẩn
-    const fileInputRef = useRef(null);
-
-    // Bấm nút Camera -> Kích hoạt input file
-    const handleCameraClick = () => {
-        fileInputRef.current.click();
-    };
-
-    // Khi chọn file xong -> Đọc và hiển thị ngay
-    const handleFileChange = (event) => {
-        const file = event.target.files[0];
-        if (file) {
-            // Kiểm tra dung lượng < 2MB (Option)
-            const isLt2M = file.size / 1024 / 1024 < 2;
-            if (!isLt2M) {
-                message.error('Image must smaller than 2MB!');
-                return;
+    // Hàm lấy data an toàn từ localStorage
+    const fetchLocalData = () => {
+        try {
+            const rawData = localStorage.getItem('user_info');
+            if (rawData) {
+                const parsed = JSON.parse(rawData);
+                setUserData(parsed);
+                return parsed;
             }
-
-            // Đọc file để preview
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                // Chỉ set State để hiện ảnh lên ngay lập tức
-                setAvatarUrl(e.target.result);
-                message.success('Avatar preview updated!');
-            };
-            reader.readAsDataURL(file);
+        } catch (error) {
+            console.error("Lỗi đọc LocalStorage:", error);
         }
-    };
-    // --------------------------------------
-
-    const initialValues = {
-        fullname: 'Nguyen Van A',
-        email: 'admin@safetyvision.ai',
-        phone: '0909123456',
-        password: 'password123',
+        return {};
     };
 
-    const handleVerifyPhone = () => {
-        setVerifying(true);
-        setTimeout(() => {
-            setVerifying(false);
-            setIsVerified(true);
-            message.success('Phone number verified successfully!');
-        }, 2000);
-    };
+    // Cập nhật form mỗi khi mở Modal
+    useEffect(() => {
+        if (isOpen) {
+            const info = fetchLocalData();
+            form.setFieldsValue({
+                username: info.username || '',
+                fullname: info.full_name || '',
+                phone: info.phone_number || '',
+            });
+        }
+    }, [isOpen, form]);
 
-    const handleSave = () => {
-        message.success('Profile updated successfully');
-        onClose();
+    const handleSave = async () => {
+        try {
+            const values = await form.validateFields();
+            setLoading(true);
+
+            // Gửi lên server để check trùng và update
+            const response = await api.post('/api/auth/update-profile', {
+                username: userData.username,
+                full_name: values.fullname,
+                phone_number: values.phone
+            });
+
+            // Cập nhật lại LocalStorage
+            const updatedInfo = { 
+                ...userData, 
+                full_name: response.data.full_name, 
+                phone_number: response.data.phone_number 
+            };
+            localStorage.setItem('user_info', JSON.stringify(updatedInfo));
+
+            message.success('Cập nhật thành công!');
+            onClose();
+            // Reload để các thành phần khác cập nhật theo
+            window.location.reload(); 
+        } catch (error) {
+            const errorMsg = error.response?.data?.detail || "Lỗi cập nhật profile";
+            message.error(errorMsg);
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
         <Modal
-            title={
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                    <UserOutlined />
-                    <span>Account Profile</span>
-                </div>
-            }
+            title={<Space><UserOutlined /><span>Thông tin tài khoản</span></Space>}
             open={isOpen}
             onCancel={onClose}
             footer={[
-                <Button key="cancel" onClick={onClose}>Cancel</Button>,
-                <Button key="save" type="primary" onClick={handleSave}>Save Changes</Button>,
+                <Button key="cancel" onClick={onClose}>Hủy</Button>,
+                <Button key="save" type="primary" loading={loading} onClick={handleSave}>Lưu thay đổi</Button>,
             ]}
-            width={500}
             centered
+            destroyOnClose
         >
-            <div style={{ textAlign: 'center', marginBottom: 24, marginTop: 10 }}>
-
-                {/* --- PHẦN AVATAR --- */}
-                <div style={{ position: 'relative', display: 'inline-block' }}>
-                    <Avatar
-                        size={100}
-                        src={avatarUrl}
-                        icon={<UserOutlined />}
-                        style={{ border: '2px solid #1890ff', backgroundColor: '#f0f2f5' }}
-                    />
-
-                    {/* Nút Camera */}
-                    <Button
-                        type="primary"
-                        shape="circle"
-                        icon={<CameraOutlined />}
-                        size="small"
-                        onClick={handleCameraClick}
-                        style={{ position: 'absolute', bottom: 0, right: 0, boxShadow: '0 2px 8px rgba(0,0,0,0.2)' }}
-                    />
-
-                    {/* Input file ẩn */}
-                    <input
-                        type="file"
-                        ref={fileInputRef}
-                        style={{ display: 'none' }}
-                        accept="image/*"
-                        onChange={handleFileChange}
-                    />
+            <div style={{ textAlign: 'center', marginBottom: 20 }}>
+                {/* Sử dụng userData thay vì userInfo để tránh lỗi undefined */}
+                <Avatar 
+                    size={80} 
+                    src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${userData.username || 'user'}`} 
+                    style={{ border: '2px solid #1890ff' }}
+                />
+                <div style={{ marginTop: 8 }}>
+                    <Tag color="blue">@{userData.username || 'n/a'}</Tag>
                 </div>
-                {/* ------------------- */}
-
-                <div style={{ marginTop: 10, fontWeight: 'bold', fontSize: '16px' }}>Guardian / Admin</div>
             </div>
+            
+            <Form form={form} layout="vertical">
+                <Form.Item label="Tên đăng nhập (Username)" name="username">
+                    <Input prefix={<IdcardOutlined />} disabled style={{ backgroundColor: '#f5f5f5' }} />
+                </Form.Item>
 
-            <Divider />
-
-            <Form form={form} layout="vertical" initialValues={initialValues}>
-                <Form.Item label="Full Name" name="fullname">
+                <Form.Item 
+                    label="Họ và Tên" 
+                    name="fullname" 
+                    rules={[{ required: true, message: 'Vui lòng nhập họ tên' }]}
+                >
                     <Input prefix={<UserOutlined />} />
                 </Form.Item>
 
-                <Form.Item label="Email Address" name="email">
-                    <Input prefix={<MailOutlined />} disabled style={{ color: '#555', backgroundColor: '#f5f5f5' }} />
-                    <div style={{ fontSize: '12px', color: '#888', marginTop: '4px' }}>
-                        *Used for monthly reports and password recovery.
-                    </div>
+                <Form.Item 
+                    label="Số điện thoại" 
+                    name="phone"
+                    rules={[
+                        { required: true, message: 'Vui lòng nhập số điện thoại' },
+                        { pattern: /^[0-9]{10}$/, message: 'Số điện thoại phải đúng 10 chữ số' }
+                    ]}
+                >
+                    <Input prefix={<PhoneOutlined />} />
                 </Form.Item>
-
-                <Form.Item label={
-                    <Space>
-                        <span>Emergency Contact Phone</span>
-                        {isVerified ? <Tag color="success" icon={<CheckCircleFilled />}>Verified</Tag> : <Tag color="warning">Unverified</Tag>}
-                    </Space>
-                } name="phone">
-                    <Space.Compact style={{ width: '100%' }}>
-                        <Input prefix={<PhoneOutlined />} style={{ width: '75%' }} />
-                        {isVerified ? (
-                            <Button disabled style={{ width: '25%', backgroundColor: '#f6ffed', color: '#52c41a' }}><CheckCircleFilled /> OK</Button>
-                        ) : (
-                            <Button type="primary" loading={verifying} onClick={handleVerifyPhone} style={{ width: '25%' }} icon={<SafetyCertificateOutlined />}>Verify</Button>
-                        )}
-                    </Space.Compact>
-                    <div style={{ fontSize: '12px', color: '#ff4d4f', marginTop: '4px' }}>
-                        *Critical: This number will receive alerts via Zalo/SMS when a fall is detected.
-                    </div>
-                </Form.Item>
-
-                <Form.Item label="Password" name="password">
-                    <Input.Password prefix={<LockOutlined />} disabled />
+                
+                <Divider plain><AntText type="secondary" style={{ fontSize: '12px' }}>Bảo mật</AntText></Divider>
+                
+                <Form.Item label="Mật khẩu">
+                    <Input.Password prefix={<LockOutlined />} value="********" disabled />
                 </Form.Item>
             </Form>
         </Modal>

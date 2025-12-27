@@ -9,6 +9,7 @@ import os
 from telegram import Update
 from telegram.ext import ApplicationBuilder, ContextTypes, CommandHandler, Application
 from telegram.request import HTTPXRequest
+from pydantic import BaseModel, Field
 
 # Import Schema
 from app.schemas.token import Token 
@@ -164,3 +165,37 @@ async def reset_password(data: ResetRequest):
     update_password(data.username, new_hashed_pass)
 
     return {"message": "Đổi mật khẩu thành công. Hãy đăng nhập lại."}
+
+
+class UpdateProfileRequest(BaseModel):
+    username: str
+    full_name: str
+    phone_number: str = Field(..., pattern=r"^[0-9]{10}$")
+
+@router.post("/update-profile")
+async def update_profile(data: UpdateProfileRequest):
+    conn = get_db_connection()
+    c = conn.cursor()
+    
+    # 1. Kiểm tra xem số điện thoại đã được dùng bởi USER KHÁC chưa
+    c.execute("SELECT username FROM users WHERE phone = ? AND username != ?", 
+              (data.phone_number, data.username))
+    existing_user = c.fetchone()
+    
+    if existing_user:
+        conn.close()
+        raise HTTPException(
+            status_code=400, 
+            detail=f"Số điện thoại này đã được đăng ký bởi tài khoản @{existing_user['username']}"
+        )
+
+    # 2. Cập nhật thông tin
+    try:
+        c.execute("UPDATE users SET full_name = ?, phone = ? WHERE username = ?",
+                  (data.full_name, data.phone_number, data.username))
+        conn.commit()
+        conn.close()
+        return {"message": "Cập nhật thành công", "full_name": data.full_name, "phone_number": data.phone_number}
+    except Exception as e:
+        conn.close()
+        raise HTTPException(status_code=500, detail=str(e))
