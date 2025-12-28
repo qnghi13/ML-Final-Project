@@ -21,16 +21,16 @@ class FallDetector:
         
         # 2. Cấu hình Thời gian (Vấn đề 15/30 frame)
         # Thay vì đếm frame, ta đếm giây.
-        self.TIME_TO_CONFIRM_FALL = 1.0   # Phải phát hiện ngã liên tục 1.0s mới coi là ngã thật (tránh glitch)
-        self.TIME_TO_ALERT_STROKE = 5.0  # (Demo để 5s, thực tế nên 10-20s) Sau 5s nằm im -> Báo động Đỏ
+        self.TIME_TO_CONFIRM_FALL = 1.0  
+        self.TIME_TO_ALERT_STROKE = 5.0  
         
         # Biến lưu trạng thái thời gian
-        self.fall_start_time = None       # Thời điểm bắt đầu thấy ngã
-        self.confirmed_fall_time = None   # Thời điểm xác nhận đã ngã (sau 1s)
+        self.fall_start_time = None       
+        self.confirmed_fall_time = None   
         self.last_alert_time = 0
-        self.cooldown_duration = 60       # 60s không spam tin nhắn
+        self.cooldown_duration = 60       
         
-        self.is_falling_now = False       # Trạng thái tức thời của frame hiện tại
+        self.is_falling_now = False       
 
     def detect(self, frame):
         """

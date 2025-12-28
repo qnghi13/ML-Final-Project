@@ -2,7 +2,6 @@ import sqlite3
 import os
 from app.core.security import get_password_hash, verify_password
 
-# Xác định đường dẫn DB nằm ở thư mục gốc (ngang hàng với main.py)
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DB_PATH = os.path.join(BASE_DIR, "../../app_data.db")
 
@@ -67,11 +66,11 @@ def create_user(user_data):
     c = conn.cursor()
     
     if hasattr(user_data, 'model_dump'):
-        data = user_data.model_dump() # Pydantic v2
+        data = user_data.model_dump() 
     elif hasattr(user_data, 'dict'):
-        data = user_data.dict()       # Pydantic v1
+        data = user_data.dict()       
     else:
-        data = user_data              # Nó đã là Dict rồi
+        data = user_data              
 
     hashed_password = get_password_hash(data['password'])
     
@@ -165,21 +164,19 @@ def get_alerts_by_user_id(user_id):
     conn = get_db_connection() # Hoặc sqlite3.connect(...) tùy code cũ của bạn
     c = conn.cursor()
     
-    # Lấy dữ liệu thô từ DB
     c.execute("SELECT id, timestamp, confidence, image_path FROM alerts WHERE user_id = ? ORDER BY id DESC LIMIT 50", (user_id,))
     rows = c.fetchall()
     conn.close()
     
     results = []
     for row in rows:
-        db_image_path = row[3] # Đường dẫn file lưu trong máy (ví dụ: alert_images/fall_123.jpg)
+        db_image_path = row[3] 
         
-        # --- LOGIC QUAN TRỌNG: KIỂM TRA FILE CÓ TỒN TẠI KHÔNG ---
-        # Nếu file không tồn tại trên ổ cứng -> BỎ QUA LUÔN, KHÔNG TRẢ VỀ
+
         if not os.path.exists(db_image_path):
             continue 
             
-        # Nếu tồn tại thì mới tạo link
+
         img_filename = os.path.basename(db_image_path)
         img_url = f"http://localhost:8000/evidence/{img_filename}"
         
@@ -191,7 +188,6 @@ def get_alerts_by_user_id(user_id):
         })
     return results
 
-# Helper để các file khác có thể dùng connection nếu cần
 def get_db_connection():
     conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row
@@ -213,13 +209,12 @@ def get_otp_of_user(username):
     c.execute("SELECT reset_otp, otp_expiry FROM users WHERE username = ?", (username,))
     row = c.fetchone()
     conn.close()
-    return row # Trả về (otp, expiry)
+    return row 
 
 # --- THÊM HÀM ĐỔI MẬT KHẨU MỚI ---
 def update_password(username, new_hashed_password):
     conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
-    # Cập nhật pass mới và xóa luôn OTP cũ
     c.execute("UPDATE users SET password = ?, reset_otp = NULL, otp_expiry = NULL WHERE username = ?", 
               (new_hashed_password, username))
     conn.commit()

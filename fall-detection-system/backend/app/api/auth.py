@@ -153,10 +153,8 @@ async def reset_password(data: ResetRequest):
 
     # 3. Kiểm tra thời gian hết hạn
     try:
-        # Xử lý format thời gian của SQLite
         expiry_time = datetime.datetime.strptime(expiry_str, "%Y-%m-%d %H:%M:%S.%f")
     except ValueError:
-        # Fallback nếu format không có miliseconds
         expiry_time = datetime.datetime.strptime(expiry_str, "%Y-%m-%d %H:%M:%S")
 
     if datetime.datetime.now() > expiry_time:
@@ -176,21 +174,17 @@ class UpdateProfileRequest(BaseModel):
 
 @router.post("/update-profile")
 async def update_profile(data: UpdateProfileRequest):
-    print(f"📥 DEBUG: Nhận yêu cầu update cho user: {data.username}") # In ra để debug
+    print(f"📥 DEBUG: Nhận yêu cầu update cho user: {data.username}") 
 
     conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     
     try:
-
-        # 2. Thực hiện Update
-        # Lưu ý: Cột trong DB là 'phone', nhưng schema gửi lên là 'phone_number'. Cần map đúng.
         c.execute("UPDATE users SET full_name = ?, phone = ? WHERE username = ?",
                   (data.full_name, data.phone_number, data.username))
         
         conn.commit()
         
-        # Kiểm tra xem có dòng nào được update không
         if c.rowcount == 0:
              raise HTTPException(status_code=404, detail="Không tìm thấy user để cập nhật")
 

@@ -63,8 +63,6 @@ def get_current_user(token: str = Depends(oauth2_scheme)):
     except JWTError:
         raise credentials_exception
     
-    # --- QUAN TRỌNG: Import Local để tránh Circular Import ---
-    # Vì database.py đã import security.py, nên ta không được import ngược lại ở đầu file.
     from app.core.database import get_user_by_username 
     
     user = get_user_by_username(username)
