@@ -23,7 +23,6 @@ const MainLayout = () => {
                     </Footer>
                 </Content>
             </Layout>
-            {/* REMOVED AlertPopup from here */}
         </Layout>
     );
 };

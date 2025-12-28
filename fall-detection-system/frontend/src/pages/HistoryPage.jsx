@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Table, Button, Modal, Image, Typography, Card, Tag, message } from 'antd';
 import { EyeOutlined, HistoryOutlined, SyncOutlined, CalendarOutlined, ClockCircleOutlined } from '@ant-design/icons';
-import { api } from '../services/api'; 
+import { api } from '../services/api';
 
 const { Title } = Typography;
 
@@ -36,8 +36,6 @@ const HistoryPage = () => {
             align: 'center',
             render: (text) => {
                 if (!text) return '-';
-                // FIX LỖI GIỜ: Thêm 'Z' vào cuối để báo đây là giờ UTC
-                // Thay khoảng trắng ' ' bằng 'T' để đúng chuẩn ISO (VD: 2024-12-26T13:00:00Z)
                 const dateObj = new Date(text.replace(' ', 'T') + 'Z');
                 return (
                     <span style={{ fontSize: '16px', fontWeight: 500 }}>
@@ -49,12 +47,11 @@ const HistoryPage = () => {
         },
         {
             title: 'Thời gian',
-            dataIndex: 'timestamp', 
+            dataIndex: 'timestamp',
             key: 'time',
             align: 'center',
             render: (text) => {
                 if (!text) return '-';
-                // FIX LỖI GIỜ TƯƠNG TỰ
                 const dateObj = new Date(text.replace(' ', 'T') + 'Z');
                 return (
                     <Tag icon={<ClockCircleOutlined />} color="blue" style={{ fontSize: '14px', padding: '4px 10px' }}>
@@ -106,9 +103,9 @@ const HistoryPage = () => {
                 centered
                 width={800}
             >
-                <Image 
-                    src={previewImage} 
-                    style={{ width: '100%' }} 
+                <Image
+                    src={previewImage}
+                    style={{ width: '100%' }}
                     fallback="https://via.placeholder.com/800x600?text=Image+Not+Found"
                 />
             </Modal>

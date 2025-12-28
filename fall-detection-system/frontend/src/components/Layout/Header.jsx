@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 
-import { Layout, Button, Avatar, Dropdown, Space, Typography } from 'antd'; // Bỏ Badge
+import { Layout, Button, Avatar, Dropdown, Space, Typography } from 'antd';
 import {
     MenuFoldOutlined,
     MenuUnfoldOutlined,
     UserOutlined
-    // Bỏ BellOutlined
 } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import UserProfileModal from './UserProfileModal';
@@ -17,11 +16,9 @@ const { Text } = Typography;
 const Header = ({ collapsed, setCollapsed }) => {
     const navigate = useNavigate();
 
-    // State bật tắt modal
     const [isProfileOpen, setIsProfileOpen] = useState(false);
     const [isHelpOpen, setIsHelpOpen] = useState(false);
 
-    // --- LOGIC LẤY THÔNG TIN USER TỪ LOCALSTORAGE ---
     const getUserInfo = () => {
         try {
             const stored = localStorage.getItem('user_info');
@@ -30,13 +27,13 @@ const Header = ({ collapsed, setCollapsed }) => {
             return {};
         }
     };
-    
+
     const userInfo = getUserInfo();
-    const displayName = userInfo.username || 'Admin'; // Ưu tiên hiện username
-    const subText = userInfo.full_name || 'Trung tâm giám sát'; // Dòng dưới hiện tên đầy đủ
+    const displayName = userInfo.username || 'Admin';
+    const subText = userInfo.full_name || 'Trung tâm giám sát';
 
     const handleLogout = () => {
-        localStorage.clear(); // Xóa data khi logout
+        localStorage.clear();
         navigate('/');
     };
 
@@ -70,7 +67,7 @@ const Header = ({ collapsed, setCollapsed }) => {
                     zIndex: 1,
                 }}
             >
-                {/* Nút thu gọn Menu */}
+
                 <Button
                     type="text"
                     icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
@@ -78,26 +75,24 @@ const Header = ({ collapsed, setCollapsed }) => {
                     style={{ fontSize: '16px', width: 64, height: 64, marginLeft: -24 }}
                 />
 
-                {/* Khu vực bên phải */}
                 <Space size="large">
-                    {/* ĐÃ XÓA PHẦN CÁI CHUÔNG (BADGE & BELL) */}
 
                     <Dropdown
                         menu={{ items: userMenuItems, onClick: handleMenuClick }}
                         trigger={['click']}
                     >
                         <Space style={{ cursor: 'pointer' }}>
-                            {/* Avatar có thể dùng seed là username để tạo ảnh khác nhau nếu muốn */}
-                            <Avatar 
-                                style={{ backgroundColor: '#1890ff' }} 
+
+                            <Avatar
+                                style={{ backgroundColor: '#1890ff' }}
                                 src={userInfo.username ? `https://api.dicebear.com/7.x/avataaars/svg?seed=${userInfo.username}` : null}
-                                icon={!userInfo.username && <UserOutlined />} 
+                                icon={!userInfo.username && <UserOutlined />}
                             />
-                            
+
                             <div style={{ display: 'flex', flexDirection: 'column', lineHeight: '1.2' }}>
-                                {/* Hiển thị Username động */}
+
                                 <Text strong>@{displayName}</Text>
-                                {/* Hiển thị Họ tên hoặc text mặc định */}
+
                                 <Text type="secondary" style={{ fontSize: '12px' }}>{subText}</Text>
                             </div>
                         </Space>

@@ -1,4 +1,4 @@
-// src/components/Layout/HelpCenterModal.jsx
+
 import React from 'react';
 import { Modal, Collapse, Typography, Button, Card, Space, Divider, Alert } from 'antd';
 import {
@@ -15,7 +15,6 @@ const { Panel } = Collapse;
 
 const HelpCenterModal = ({ isOpen, onClose }) => {
 
-    // Danh sách câu hỏi thường gặp (Đã dịch)
     const faqItems = [
         {
             key: '1',
@@ -50,7 +49,6 @@ const HelpCenterModal = ({ isOpen, onClose }) => {
             width={700}
             centered
         >
-            {/* 1. MEDICAL RESOURCES (Link Wikipedia Tiếng Việt) */}
             <Card
                 type="inner"
                 title={<><ReadOutlined /> Kiến thức Y khoa cơ bản</>}
@@ -60,11 +58,11 @@ const HelpCenterModal = ({ isOpen, onClose }) => {
                     <div>
                         <Text strong style={{ fontSize: '16px' }}>Tìm hiểu về Đột quỵ (Tai biến mạch máu não)</Text>
                         <Paragraph style={{ color: '#666', marginTop: 5, marginBottom: 0 }}>
-                            Đột quỵ là tình trạng y tế khẩn cấp khi dòng máu lên não bị gián đoạn. 
+                            Đột quỵ là tình trạng y tế khẩn cấp khi dòng máu lên não bị gián đoạn.
                             Việc phát hiện sớm (quy tắc F.A.S.T) là cực kỳ quan trọng để cứu sống người bệnh.
-                            
 
-[Image of FAST stroke signs]
+
+                            [Image of FAST stroke signs]
 
                         </Paragraph>
                     </div>
@@ -79,11 +77,9 @@ const HelpCenterModal = ({ isOpen, onClose }) => {
                 </div>
             </Card>
 
-            {/* 2. FAQ Section */}
             <Title level={5}>Câu hỏi thường gặp (FAQ)</Title>
             <Collapse accordion items={faqItems} defaultActiveKey={['1']} style={{ marginBottom: 20 }} />
 
-            {/* 3. Contact Support */}
             <Divider orientation="left" style={{ borderColor: '#f0f0f0' }}>Cần thêm trợ giúp?</Divider>
             <Space size="large" style={{ width: '100%', justifyContent: 'center' }}>
                 <Button icon={<MailOutlined />} size="large">Gửi Email Hỗ trợ</Button>

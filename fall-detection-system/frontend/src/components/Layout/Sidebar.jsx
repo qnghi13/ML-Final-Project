@@ -14,22 +14,21 @@ const Sidebar = ({ collapsed }) => {
     const navigate = useNavigate();
     const location = useLocation();
 
-    // Menu items definition
     const menuItems = [
         {
-            key: '/dashboard', // Key trùng với đường dẫn URL
+            key: '/dashboard',
             icon: <DashboardOutlined />,
             label: 'Giám sát trực tiếp',
         },
         {
-            // --- THAY ĐỔI Ở ĐÂY ---
-            key: '/history', // Đổi từ '/dashboard/history' thành '/history'
+
+            key: '/history',
             icon: <HistoryOutlined />,
             label: 'Lịch sử sự cố',
         },
 
         {
-            key: '/change-password', // Key phải khớp với path trong App.jsx
+            key: '/change-password',
             icon: <KeyOutlined />,
             label: 'Đổi mật khẩu',
         },
@@ -47,7 +46,6 @@ const Sidebar = ({ collapsed }) => {
                 boxShadow: '2px 0 6px rgba(0,21,41,0.35)'
             }}
         >
-            {/* Logo Area */}
             <div
                 style={{
                     height: '64px',
@@ -77,13 +75,10 @@ const Sidebar = ({ collapsed }) => {
                 )}
             </div>
 
-            {/* Menu Items */}
             <Menu
                 theme="dark"
                 mode="inline"
-                // Tự động highlight menu dựa trên URL hiện tại
                 selectedKeys={[location.pathname]}
-                // Khi click sẽ chuyển hướng theo key đã định nghĩa ở trên
                 onClick={({ key }) => navigate(key)}
                 items={menuItems}
                 style={{ marginTop: '16px', fontSize: '15px' }}

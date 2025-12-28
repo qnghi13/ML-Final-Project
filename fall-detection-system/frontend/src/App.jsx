@@ -15,10 +15,9 @@ function App() {
         {/* 1. Trang Login */}
         <Route path="/" element={<LandingPage />} />
 
-        {/* 2. CẤU HÌNH LAYOUT CHUNG (Không set path ở đây) */}
-        {/* Route này chỉ có tác dụng bọc MainLayout cho các trang con bên trong */}
+        {/* 2. CẤU HÌNH LAYOUT CHUNG */}
         <Route element={<MainLayout />}>
-          
+
           {/* Đường dẫn: localhost:5173/dashboard */}
           <Route path="/dashboard" element={<Dashboard />} />
 

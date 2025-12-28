@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, Form, Input, Button, Avatar, message, Tag, Space, Divider, Typography } from 'antd';
 import { UserOutlined, PhoneOutlined, LockOutlined, IdcardOutlined } from '@ant-design/icons';
-import { api } from '../../services/api'; 
+import { api } from '../../services/api';
 
-// Đổi tên để tránh lỗi "Failed to construct Text"
 const { Text: AntText } = Typography;
 
 const UserProfileModal = ({ isOpen, onClose }) => {
@@ -11,15 +10,13 @@ const UserProfileModal = ({ isOpen, onClose }) => {
     const [loading, setLoading] = useState(false);
     const [userData, setUserData] = useState({});
 
-    // Hàm lấy data từ localStorage
     const loadProfileData = () => {
         try {
             const rawData = localStorage.getItem('user_info');
             if (rawData) {
                 const info = JSON.parse(rawData);
                 setUserData(info);
-                
-                // Đẩy data vào Form
+
                 form.setFieldsValue({
                     username: info.username || '',
                     fullname: info.full_name || '',
@@ -31,7 +28,6 @@ const UserProfileModal = ({ isOpen, onClose }) => {
         }
     };
 
-    // Chạy mỗi khi Modal mở ra
     useEffect(() => {
         if (isOpen) {
             loadProfileData();
@@ -43,26 +39,24 @@ const UserProfileModal = ({ isOpen, onClose }) => {
             const values = await form.validateFields();
             setLoading(true);
 
-            // Gọi API update
+
             const response = await api.post('/api/auth/update-profile', {
-                username: userData.username, // Username lấy từ state (không cho sửa)
+                username: userData.username,
                 full_name: values.fullname,
                 phone_number: values.phone
             });
 
-            // Cập nhật lại localStorage với data mới từ server trả về
-            const updatedInfo = { 
-                ...userData, 
-                full_name: response.data.full_name, 
-                phone_number: response.data.phone_number 
+            const updatedInfo = {
+                ...userData,
+                full_name: response.data.full_name,
+                phone_number: response.data.phone_number
             };
             localStorage.setItem('user_info', JSON.stringify(updatedInfo));
 
             message.success('Cập nhật thành công!');
             onClose();
-            
-            // Reload trang để Header cập nhật tên mới
-            window.location.reload(); 
+
+            window.location.reload();
         } catch (error) {
             message.error(error.response?.data?.detail || "Lỗi cập nhật");
         } finally {
@@ -83,16 +77,16 @@ const UserProfileModal = ({ isOpen, onClose }) => {
             destroyOnClose
         >
             <div style={{ textAlign: 'center', marginBottom: 20 }}>
-                <Avatar 
-                    size={80} 
-                    src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${userData.username || 'user'}`} 
+                <Avatar
+                    size={80}
+                    src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${userData.username || 'user'}`}
                     style={{ border: '2px solid #1890ff' }}
                 />
                 <div style={{ marginTop: 8 }}>
                     <Tag color="blue">@{userData.username || '...'}</Tag>
                 </div>
             </div>
-            
+
             <Form form={form} layout="vertical">
                 <Form.Item label="Tên đăng nhập" name="username">
                     <Input prefix={<IdcardOutlined />} disabled style={{ backgroundColor: '#f5f5f5' }} />
@@ -102,8 +96,8 @@ const UserProfileModal = ({ isOpen, onClose }) => {
                     <Input prefix={<UserOutlined />} />
                 </Form.Item>
 
-                <Form.Item 
-                    label="Số điện thoại" 
+                <Form.Item
+                    label="Số điện thoại"
                     name="phone"
                     rules={[
                         { required: true, message: 'Vui lòng nhập số điện thoại' },
@@ -112,7 +106,7 @@ const UserProfileModal = ({ isOpen, onClose }) => {
                 >
                     <Input prefix={<PhoneOutlined />} />
                 </Form.Item>
-                
+
                 <Divider plain><AntText type="secondary" style={{ fontSize: '12px' }}>Bảo mật</AntText></Divider>
                 <Form.Item label="Mật khẩu">
                     <Input.Password prefix={<LockOutlined />} value="********" disabled />

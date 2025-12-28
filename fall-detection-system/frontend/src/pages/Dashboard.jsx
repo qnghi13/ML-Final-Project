@@ -1,22 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { Row, Col, Card, Typography, Space, Statistic, Tooltip } from 'antd';
-import { 
-    VideoCameraOutlined, 
-    SafetyCertificateOutlined, 
+import {
+    VideoCameraOutlined,
+    SafetyCertificateOutlined,
     BellOutlined,
     SendOutlined,
     InfoCircleOutlined
 } from '@ant-design/icons';
-import { useNavigate } from 'react-router-dom'; // 1. Import useNavigate
+import { useNavigate } from 'react-router-dom';
 import LiveStream from '../components/VideoPlayer/LiveStream';
-import { api } from '../services/api'; 
+import { api } from '../services/api';
 
 const { Title, Text } = Typography;
 
 const Dashboard = () => {
-    const BOT_USERNAME = "canhbaodotquy_us_bot"; 
-    
-    // 2. Khởi tạo navigate
+    const BOT_USERNAME = "canhbaodotquy_us_bot";
+
     const navigate = useNavigate();
 
     const [todayCount, setTodayCount] = useState(0);
@@ -41,38 +40,35 @@ const Dashboard = () => {
             <Title level={2}>Theo dõi thời gian thực</Title>
 
             <Row gutter={16} style={{ marginBottom: 24 }}>
-                {/* Cột 1: Trạng thái */}
                 <Col span={8}>
                     <Card>
-                        <Statistic 
-                            title="Trạng thái hệ thống" 
-                            value="Hoạt động" 
-                            valueStyle={{ color: '#3f8600' }} 
-                            prefix={<SafetyCertificateOutlined />} 
+                        <Statistic
+                            title="Trạng thái hệ thống"
+                            value="Hoạt động"
+                            valueStyle={{ color: '#3f8600' }}
+                            prefix={<SafetyCertificateOutlined />}
                         />
                     </Card>
                 </Col>
 
-                {/* Cột 2: Cảnh báo hôm nay (ĐÃ SỬA: CÓ THỂ CLICK ĐỂ SANG LỊCH SỬ) */}
                 <Col span={8}>
                     <Card
-                        hoverable // Hiệu ứng nổi lên khi di chuột
-                        style={{ cursor: 'pointer' }} // Biến con trỏ thành bàn tay
-                        onClick={() => navigate('/history')} // Chuyển hướng sang trang /history
+                        hoverable
+                        style={{ cursor: 'pointer' }}
+                        onClick={() => navigate('/history')}
                     >
-                        <Statistic 
-                            title="Cảnh báo hôm nay (Nhấn để xem chi tiết)" 
-                            value={todayCount} 
-                            valueStyle={{ color: todayCount > 0 ? '#cf1322' : '#000' }} 
-                            prefix={<BellOutlined />} 
+                        <Statistic
+                            title="Cảnh báo hôm nay (Nhấn để xem chi tiết)"
+                            value={todayCount}
+                            valueStyle={{ color: todayCount > 0 ? '#cf1322' : '#000' }}
+                            prefix={<BellOutlined />}
                         />
                     </Card>
                 </Col>
 
-                {/* Cột 3: Hướng dẫn Telegram */}
                 <Col span={8}>
-                    <Card 
-                        hoverable 
+                    <Card
+                        hoverable
                         onClick={() => window.open(`https://t.me/${BOT_USERNAME}`, '_blank')}
                         style={{ cursor: 'pointer', borderColor: '#1890ff' }}
                     >
@@ -88,7 +84,7 @@ const Dashboard = () => {
                                     Kết nối ngay &rarr;
                                 </div>
                                 <Text type="secondary" style={{ fontSize: '12px' }}>
-                                    Cú pháp: <code style={{background: '#f5f5f5', padding: '2px 4px'}}>/login user pass</code>
+                                    Cú pháp: <code style={{ background: '#f5f5f5', padding: '2px 4px' }}>/login user pass</code>
                                 </Text>
                             </div>
                             <SendOutlined style={{ fontSize: '32px', color: '#1890ff', opacity: 0.8 }} />
@@ -97,20 +93,19 @@ const Dashboard = () => {
                 </Col>
             </Row>
 
-            {/* Camera Chính */}
             <Row gutter={[24, 24]}>
                 <Col span={24}>
-                    <Card 
-                        title={<Space><VideoCameraOutlined /> Trực tiếp từ camera</Space>} 
+                    <Card
+                        title={<Space><VideoCameraOutlined /> Trực tiếp từ camera</Space>}
                         style={{ width: '100%' }}
                     >
-                        <div style={{ 
-                            background: '#000', 
-                            borderRadius: '8px', 
-                            minHeight: '480px', 
-                            display: 'flex', 
-                            justifyContent: 'center', 
-                            overflow: 'hidden' 
+                        <div style={{
+                            background: '#000',
+                            borderRadius: '8px',
+                            minHeight: '480px',
+                            display: 'flex',
+                            justifyContent: 'center',
+                            overflow: 'hidden'
                         }}>
                             <LiveStream />
                         </div>

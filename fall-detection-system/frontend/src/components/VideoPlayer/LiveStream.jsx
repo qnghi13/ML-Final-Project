@@ -8,18 +8,14 @@ const LiveStream = () => {
     const [isConnected, setIsConnected] = useState(true);
 
     useEffect(() => {
-        // --- SỬA LOGIC LẤY USERNAME TẠI ĐÂY ---
-        let username = 'admin'; // Giá trị mặc định an toàn
+        let username = 'admin';
 
         try {
-            // 1. Lấy chuỗi JSON từ localStorage (key là 'user_info')
             const storedData = localStorage.getItem('user_info');
-            
+
             if (storedData) {
-                // 2. Parse chuỗi JSON thành Object
                 const userInfo = JSON.parse(storedData);
-                
-                // 3. Kiểm tra và lấy username
+
                 if (userInfo && userInfo.username) {
                     username = userInfo.username;
                 }
@@ -30,7 +26,6 @@ const LiveStream = () => {
 
         console.log("🎥 LiveStream đang chạy với user:", username);
 
-        // 4. Tạo URL kết nối tới Backend
         const url = `${API_BASE_URL}/api/video/video_feed?username=${username}`;
         setStreamUrl(url);
     }, []);
@@ -39,7 +34,6 @@ const LiveStream = () => {
         setIsConnected(true);
         setStreamUrl(prev => {
             if (!prev) return prev;
-            // Thêm tham số t=... để ép trình duyệt tải lại ảnh mới nhất
             const baseUrl = prev.split('&t=')[0];
             return `${baseUrl}&t=${Date.now()}`;
         });
@@ -57,9 +51,9 @@ const LiveStream = () => {
                     <Tag color={isConnected ? "success" : "error"}>
                         {isConnected ? "TRỰC TUYẾN" : "MẤT TÍN HIỆU"}
                     </Tag>
-                    <Button 
-                        icon={<ReloadOutlined />} 
-                        size="small" 
+                    <Button
+                        icon={<ReloadOutlined />}
+                        size="small"
                         onClick={handleReload}
                         type="dashed"
                     >
@@ -67,19 +61,19 @@ const LiveStream = () => {
                     </Button>
                 </Space>
             }
-            style={{ 
-                width: '100%', 
-                borderRadius: '12px', 
-                overflow: 'hidden', 
-                background: '#1f1f1f', // Màu nền tối cho khung camera
+            style={{
+                width: '100%',
+                borderRadius: '12px',
+                overflow: 'hidden',
+                background: '#1f1f1f',
                 border: '1px solid #434343'
             }}
-            bodyStyle={{ 
-                padding: 0, 
-                textAlign: 'center', 
-                minHeight: '480px', 
-                display: 'flex', 
-                alignItems: 'center', 
+            bodyStyle={{
+                padding: 0,
+                textAlign: 'center',
+                minHeight: '480px',
+                display: 'flex',
+                alignItems: 'center',
                 justifyContent: 'center',
                 background: '#000',
                 position: 'relative'
@@ -89,11 +83,11 @@ const LiveStream = () => {
                 <img
                     src={streamUrl}
                     alt="Camera Feed"
-                    style={{ 
-                        width: '100%', 
-                        height: '100%', 
-                        objectFit: 'contain', // Giữ tỉ lệ khung hình chuẩn
-                        display: 'block' 
+                    style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'contain',
+                        display: 'block'
                     }}
                     onError={() => setIsConnected(false)}
                     onLoad={() => setIsConnected(true)}
@@ -101,15 +95,15 @@ const LiveStream = () => {
             ) : (
                 <div style={{ color: '#8c8c8c' }}>Đang khởi tạo kết nối...</div>
             )}
-            
+
             {!isConnected && (
-                <div style={{ 
-                    position: 'absolute', 
-                    top: '50%', left: '50%', 
+                <div style={{
+                    position: 'absolute',
+                    top: '50%', left: '50%',
                     transform: 'translate(-50%, -50%)',
-                    color: '#ff4d4f', 
-                    background: 'rgba(0,0,0,0.85)', 
-                    padding: '20px 40px', 
+                    color: '#ff4d4f',
+                    background: 'rgba(0,0,0,0.85)',
+                    padding: '20px 40px',
                     borderRadius: '8px',
                     textAlign: 'center',
                     border: '1px solid #ff4d4f'

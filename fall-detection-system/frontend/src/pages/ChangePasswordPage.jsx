@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Card, Form, Input, Button, Typography, message, Row, Col } from 'antd';
 import { LockOutlined, CheckCircleOutlined } from '@ant-design/icons';
-import { api } from '../services/api'; 
+import { api } from '../services/api';
 import { useNavigate } from 'react-router-dom';
 
 const { Title } = Typography;
@@ -14,10 +14,9 @@ const ChangePasswordPage = () => {
     const onFinish = async (values) => {
         try {
             setLoading(true);
-            
-            // Lấy username từ localStorage để gửi kèm (nếu backend cần)
+
             const userInfo = JSON.parse(localStorage.getItem('user_info') || '{}');
-            
+
             await api.post('/api/auth/change-password', {
                 username: userInfo.username,
                 current_password: values.currentPassword,
@@ -25,11 +24,10 @@ const ChangePasswordPage = () => {
             });
 
             message.success('Đổi mật khẩu thành công! Vui lòng đăng nhập lại.');
-            
-            // Đăng xuất để người dùng đăng nhập lại bằng pass mới
+
             localStorage.clear();
             navigate('/');
-            
+
         } catch (error) {
             message.error(error.response?.data?.detail || "Mật khẩu cũ không đúng hoặc lỗi hệ thống");
         } finally {

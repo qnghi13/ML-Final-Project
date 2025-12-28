@@ -12,21 +12,18 @@ import {
 } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import { authService } from '../services/authService';
-import apiClient from '../services/api'; // Import api client để gọi endpoint quên mk
+import apiClient from '../services/api';
 
 const { Title, Text } = Typography;
 
 const LandingPage = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
-    const [activeTab, setActiveTab] = useState('1'); // '1': Login, '2': Register
-
-    // --- STATES CHO QUÊN MẬT KHẨU ---
+    const [activeTab, setActiveTab] = useState('1');
     const [isForgotModalOpen, setIsForgotModalOpen] = useState(false);
-    const [forgotStep, setForgotStep] = useState(1); // 1: Nhập user, 2: Nhập OTP & Pass mới
-    const [resetUsername, setResetUsername] = useState(''); // Lưu tạm username đang reset
+    const [forgotStep, setForgotStep] = useState(1);
+    const [resetUsername, setResetUsername] = useState('');
 
-    // === 1. XỬ LÝ ĐĂNG NHẬP ===
     const onLoginFinish = async (values) => {
         setLoading(true);
         try {
@@ -42,7 +39,6 @@ const LandingPage = () => {
         }
     };
 
-    // === 2. XỬ LÝ ĐĂNG KÝ ===
     const onRegisterSubmit = async (values) => {
         setLoading(true);
         try {
@@ -66,22 +62,17 @@ const LandingPage = () => {
         }
     };
 
-    // === 3. XỬ LÝ QUÊN MẬT KHẨU (Gửi OTP Telegram) ===
 
-    // Bước 1: Gửi yêu cầu lấy OTP
+
+
     const onRequestOtp = async (values) => {
         setLoading(true);
         try {
-            // Gọi API Backend: /api/auth/forgot-password/request
-            // Body: { username: values.username }
-            // Backend sẽ tìm user, lấy ChatID telegram và gửi mã
 
-            // --- Code giả lập hoặc gọi API thực tế ---
             await apiClient.post('/api/auth/forgot-password/request', { username: values.username });
 
-            // Nếu thành công:
             setResetUsername(values.username);
-            setForgotStep(2); // Chuyển sang bước nhập OTP
+            setForgotStep(2);
             message.success(`Mã OTP đã được gửi đến Telegram của tài khoản ${values.username}`);
         } catch (error) {
             console.error(error);
@@ -92,12 +83,9 @@ const LandingPage = () => {
         }
     };
 
-    // Bước 2: Xác thực OTP và Đổi mật khẩu
     const onResetPassword = async (values) => {
         setLoading(true);
         try {
-            // Gọi API Backend: /api/auth/forgot-password/reset
-            // Body: { username: resetUsername, otp: values.otp, new_password: values.new_password }
 
             await apiClient.post('/api/auth/forgot-password/reset', {
                 username: resetUsername,
@@ -106,9 +94,9 @@ const LandingPage = () => {
             });
 
             message.success('Đổi mật khẩu thành công! Vui lòng đăng nhập lại.');
-            setIsForgotModalOpen(false); // Đóng modal
-            setForgotStep(1); // Reset về bước 1
-            setActiveTab('1'); // Chuyển về tab Login
+            setIsForgotModalOpen(false);
+            setForgotStep(1);
+            setActiveTab('1');
         } catch (error) {
             console.error(error);
             const msg = error.response?.data?.detail || "Mã OTP không đúng hoặc hết hạn.";
@@ -118,9 +106,6 @@ const LandingPage = () => {
         }
     };
 
-    // === COMPONENTS CON ===
-
-    // 1. Form Login (Đã thêm nút Quên mật khẩu)
     const LoginForm = () => (
         <Form name="login" onFinish={onLoginFinish} layout="vertical" size="large">
             <Form.Item name="username" rules={[{ required: true, message: 'Vui lòng nhập tên đăng nhập!' }]}>
@@ -130,7 +115,6 @@ const LandingPage = () => {
                 <Input.Password prefix={<LockOutlined />} placeholder="Mật khẩu" />
             </Form.Item>
 
-            {/* --- NÚT QUÊN MẬT KHẨU --- */}
             <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: 24 }}>
                 <a
                     onClick={(e) => { e.preventDefault(); setIsForgotModalOpen(true); }}
@@ -148,7 +132,6 @@ const LandingPage = () => {
         </Form>
     );
 
-    // 2. Form Register
     const RegisterForm = () => (
         <Form name="register" onFinish={onRegisterSubmit} layout="vertical" size="large">
             <Form.Item name="full_name" rules={[{ required: true, message: 'Vui lòng nhập Họ tên!' }]}>
@@ -196,7 +179,6 @@ const LandingPage = () => {
                 bodyStyle={{ padding: 0, height: '100%' }}
             >
                 <div style={{ display: 'flex', height: '100%' }}>
-                    {/* CỘT TRÁI */}
                     <div style={{
                         flex: 1,
                         background: 'url(https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80) center/cover no-repeat',
@@ -210,7 +192,6 @@ const LandingPage = () => {
                         </div>
                     </div>
 
-                    {/* CỘT PHẢI */}
                     <div style={{ flex: 1, padding: '60px 50px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                         <div style={{ textAlign: 'center', marginBottom: 30 }}>
                             <Title level={3}>Bảo vệ Người thân của bạn</Title>
@@ -221,7 +202,6 @@ const LandingPage = () => {
                 </div>
             </Card>
 
-            {/* --- MODAL QUÊN MẬT KHẨU --- */}
             <Modal
                 open={isForgotModalOpen}
                 title="Khôi phục mật khẩu qua Telegram"
@@ -231,7 +211,6 @@ const LandingPage = () => {
             >
                 <div style={{ padding: '20px 0' }}>
                     {forgotStep === 1 ? (
-                        // BƯỚC 1: NHẬP USERNAME
                         <Form onFinish={onRequestOtp} layout="vertical">
                             <Text type="secondary" style={{ display: 'block', marginBottom: 15 }}>
                                 Nhập Username của bạn. Hệ thống sẽ gửi mã OTP đến tài khoản Telegram đã liên kết.
@@ -246,7 +225,6 @@ const LandingPage = () => {
                             </Form.Item>
                         </Form>
                     ) : (
-                        // BƯỚC 2: NHẬP OTP & PASS MỚI
                         <Form onFinish={onResetPassword} layout="vertical">
                             <Text type="secondary" style={{ display: 'block', marginBottom: 15 }}>
                                 Mã OTP đã được gửi. Vui lòng kiểm tra Telegram.
