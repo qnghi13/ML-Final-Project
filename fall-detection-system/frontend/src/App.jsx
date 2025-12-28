@@ -5,10 +5,12 @@ import LandingPage from './pages/LandingPage';
 import Dashboard from './pages/Dashboard';
 import HistoryPage from './pages/HistoryPage';
 import ChangePasswordPage from './pages/ChangePasswordPage';
+import AlertPopup from './components/Layout/AlertPopup';
 
 function App() {
   return (
     <BrowserRouter>
+      <AlertPopup />
       <Routes>
         {/* 1. Trang Login */}
         <Route path="/" element={<LandingPage />} />

@@ -9,7 +9,8 @@ export const VIDEO_STREAM_URL = `${API_BASE_URL}/api/video/video_feed`;
 
 // 2. Khởi tạo Socket Client
 export const socket = io(API_BASE_URL, {
-    transports: ['websocket'],
+    transports: ['websocket', 'polling'],
+    withCredentials: true,
     autoConnect: true,
     reconnection: true,
 });

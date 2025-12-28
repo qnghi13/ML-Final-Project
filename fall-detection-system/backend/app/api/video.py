@@ -18,6 +18,7 @@ from app.services.camera import VideoCamera
 from app.core.database import get_alerts_by_user_id, save_alert, get_user_by_username
 from app.api.auth import get_current_user# <--- Import thêm hàm lấy user
 from app.services.notifier import send_telegram_alert
+from app.core.socket_manager import sio
 
 # 3. Import Socket
 try:
@@ -172,7 +173,6 @@ async def get_today_stats():
         c.execute(query, (start_str, end_str))
         
         count = c.fetchone()[0]
-        print(f"✅ Kết quả đếm được: {count}")
 
         display_date = now_vn.strftime("%Y-%m-%d")
         return {"date": display_date, "count": count}
