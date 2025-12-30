@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.12.13)  29 DEC 2025 23:12
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.12.13)  30 DEC 2025 10:20
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1126,59 +1126,59 @@ File: Images/notfallen008_pred.jpg Graphic file (type jpg)
 Package pdftex.def Info: Images/notfallen008_pred.jpg  used on input line 874.
 (pdftex.def)             Requested size: 215.10094pt x 215.09996pt.
  [27 <./Images/notfallen008_gt.jpg> <./Images/notfallen008_pred.jpg>]
-<Images/architecture.jpg, id=273, 1027.84pt x 647.41875pt>
-File: Images/architecture.jpg Graphic file (type jpg)
-<use Images/architecture.jpg>
-Package pdftex.def Info: Images/architecture.jpg  used on input line 901.
-(pdftex.def)             Requested size: 448.13095pt x 282.267pt.
- [28 <./Images/architecture.jpg>] [29]
-<Images/register.png, id=289, 1927.2pt x 1084.05pt>
+<Images/architecture.png, id=273, 1274.7625pt x 634.37pt>
+File: Images/architecture.png Graphic file (type png)
+<use Images/architecture.png>
+Package pdftex.def Info: Images/architecture.png  used on input line 901.
+(pdftex.def)             Requested size: 448.13095pt x 223.0008pt.
+ [28 <./Images/architecture.png>] [29]
+<Images/register.png, id=290, 1927.2pt x 1084.05pt>
 File: Images/register.png Graphic file (type png)
 <use Images/register.png>
 Package pdftex.def Info: Images/register.png  used on input line 998.
 (pdftex.def)             Requested size: 448.13095pt x 252.0721pt.
  [30]
-<Images/dashboard.png, id=296, 1927.2pt x 1084.05pt>
+<Images/dashboard.png, id=297, 1927.2pt x 1084.05pt>
 File: Images/dashboard.png Graphic file (type png)
 <use Images/dashboard.png>
 Package pdftex.def Info: Images/dashboard.png  used on input line 1015.
 (pdftex.def)             Requested size: 448.13095pt x 252.0721pt.
  [31 <./Images/register.png>]
-<Images/noti_web.png, id=306, 626.34pt x 771.88374pt>
+<Images/noti_web.png, id=307, 626.34pt x 771.88374pt>
 File: Images/noti_web.png Graphic file (type png)
 <use Images/noti_web.png>
 Package pdftex.def Info: Images/noti_web.png  used on input line 1032.
 (pdftex.def)             Requested size: 268.8813pt x 331.37352pt.
  [32 <./Images/dashboard.png>]
-<Images/history.png, id=314, 1926.19624pt x 1083.04625pt>
+<Images/history.png, id=315, 1926.19624pt x 1083.04625pt>
 File: Images/history.png Graphic file (type png)
 <use Images/history.png>
 Package pdftex.def Info: Images/history.png  used on input line 1047.
 (pdftex.def)             Requested size: 448.13095pt x 251.9709pt.
  [33 <./Images/noti_web.png>]
-<Images/pass.png, id=322, 1926.19624pt x 1083.04625pt>
+<Images/pass.png, id=323, 1926.19624pt x 1083.04625pt>
 File: Images/pass.png Graphic file (type png)
 <use Images/pass.png>
 Package pdftex.def Info: Images/pass.png  used on input line 1054.
 (pdftex.def)             Requested size: 448.13095pt x 251.9709pt.
-<Images/profile.png, id=323, 531.9875pt x 626.34pt>
+<Images/profile.png, id=324, 531.9875pt x 626.34pt>
 File: Images/profile.png Graphic file (type png)
 <use Images/profile.png>
 Package pdftex.def Info: Images/profile.png  used on input line 1061.
 (pdftex.def)             Requested size: 268.8813pt x 316.57156pt.
  [34 <./Images/history.png> <./Images/pass.png>]
-<Images/help.png, id=332, 721.69624pt x 665.48625pt>
+<Images/help.png, id=333, 721.69624pt x 665.48625pt>
 File: Images/help.png Graphic file (type png)
 <use Images/help.png>
 Package pdftex.def Info: Images/help.png  used on input line 1068.
 (pdftex.def)             Requested size: 268.8813pt x 247.932pt.
-<Images/link_tele.png, id=333, 506.89375pt x 219.82124pt>
+<Images/link_tele.png, id=334, 506.89375pt x 219.82124pt>
 File: Images/link_tele.png Graphic file (type png)
 <use Images/link_tele.png>
 Package pdftex.def Info: Images/link_tele.png  used on input line 1077.
 (pdftex.def)             Requested size: 358.50612pt x 155.47375pt.
  [35 <./Images/profile.png> <./Images/help.png>]
-<Images/tele.png, id=342, 498.86375pt x 436.63126pt>
+<Images/tele.png, id=343, 498.86375pt x 436.63126pt>
 File: Images/tele.png Graphic file (type png)
 <use Images/tele.png>
 Package pdftex.def Info: Images/tele.png  used on input line 1084.
@@ -1198,9 +1198,9 @@ Here is how much of TeX's memory you used:
  1141 hyphenation exceptions out of 8191
  108i,14n,108p,11263b,669s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\GIGABYTE\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1200.pk><C:/Users/GIGABYTE/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/GIGABYTE/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/GIGABYTE/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/GIGABYTE/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/GIGABYTE/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/GIGABYTE/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vnbx12.pfb><C:/Users/GIGABYTE/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vnr10.pfb><C:/Users/GIGABYTE/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vnr12.pfb><C:/Users/GIGABYTE/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vnssbx10.pfb><C:/Users/GIGABYTE/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vnti12.pfb><C:/Users/GIGABYTE/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vntt12.pfb>
-Output written on main.pdf (41 pages, 5327903 bytes).
+Output written on main.pdf (41 pages, 5293251 bytes).
 PDF statistics:
- 547 PDF objects out of 1000 (max. 8388607)
+ 548 PDF objects out of 1000 (max. 8388607)
  156 named destinations out of 1000 (max. 500000)
  376 words of extra memory for PDF output out of 10000 (max. 10000000)
 

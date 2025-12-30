@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1767024758.54905 "f:/Machine learning/Project/documents/ML_final_report/main.tex" "main.pdf" "main" 1767024764.00194 0
+["pdflatex"] 1767064847.07548 "f:/Machine learning/Project/documents/ML_final_report/main.tex" "main.pdf" "main" 1767064852.45678 0
   "C:/Users/GIGABYTE/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1766733711 88371 b965f57369ed322039596060d18f4416 ""
   "C:/Users/GIGABYTE/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/tcrm1200.pk" 1765643237 14064 0fa7a75bca3e0aa811f06688b51cdfd5 ""
   "C:/Users/GIGABYTE/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1765642853 13334964 f27c40c4bdad9027e0a66ef51b245ac4 ""
@@ -250,7 +250,7 @@
   "Images/YOLOv8n/baseline.png" 1766733439 422695 4bb83d9c2e19815662b29ab741576640 ""
   "Images/YOLOv8n/confusion_matrix_normalized.png" 1766733439 141582 3116c87fc12e19c94a0e96ad93d18e97 ""
   "Images/YOLOv8n/results.png" 1766733439 347256 dd9d4fcaa564ec736210f91ee22893e5 ""
-  "Images/architecture.jpg" 1766938528 62234 e3971b2b93635bbf8c1a9080dc1acf46 ""
+  "Images/architecture.png" 1767064588 76714 e452caab98d14efe7a6d1346df252586 ""
   "Images/dashboard.png" 1766931633 51481 8c8dcb99eb5b235363d5acbd2d6a8a85 ""
   "Images/fall003_gt.jpg" 1766733439 50769 4abe60801e26621b3f05f592ec503e21 ""
   "Images/fall003_pred.jpg" 1766733439 50797 5c9bc8b3cd09ba02c87f088da4286b4e ""
@@ -266,11 +266,11 @@
   "Images/profile.png" 1766933644 29012 65191d72011c8d80c976ab19d6e99883 ""
   "Images/register.png" 1766931629 594391 22cf6f1afc9e6ee398ff4b2b284be6ea ""
   "Images/tele.png" 1766931660 253967 03124142abdf0a79b748ef958b3c2ac0 ""
-  "f:/Machine learning/Project/documents/ML_final_report/main.tex" 1767024757 75032 cc7aa3cb7875b591a96a697a80fbcfae ""
+  "f:/Machine learning/Project/documents/ML_final_report/main.tex" 1767064846 75031 25b46f250882a9d3d578a8232941cc20 ""
   "hust.png" 1766733439 22528 4b85c67bfaa967802e70d404b61937be ""
-  "main.aux" 1767024763 28264 7d2e17528097cefea4e08bbda21f956d "pdflatex"
-  "main.tex" 1767024757 75032 cc7aa3cb7875b591a96a697a80fbcfae ""
-  "main.toc" 1767024763 7818 de6f8f973fed35cdd3e93576917165b4 "pdflatex"
+  "main.aux" 1767064852 28264 7d2e17528097cefea4e08bbda21f956d "pdflatex"
+  "main.tex" 1767064846 75031 25b46f250882a9d3d578a8232941cc20 ""
+  "main.toc" 1767064852 7818 de6f8f973fed35cdd3e93576917165b4 "pdflatex"
   (generated)
   "main.aux"
   "main.log"
