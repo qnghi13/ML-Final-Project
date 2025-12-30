@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.12.13)  28 DEC 2025 23:17
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.12.13)  29 DEC 2025 23:12
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -984,17 +984,17 @@ File: t5cmss.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 \openout4 = `main.toc'.
 
  [2]
-Underfull \hbox (badness 10000) in paragraph at lines 169--170
-[]|\T5/cmr/m/n/12 -- X¥y düng ùng döng Demo (Web
+Underfull \hbox (badness 1502) in paragraph at lines 167--168
+[]|\T5/cmr/m/n/12 -- Lüa chån mæ h¼nh hu§n luy»n (YOLOv8,
  []
 
 
-Overfull \hbox (22.55615pt too wide) in paragraph at lines 144--179
+Overfull \hbox (22.55615pt too wide) in paragraph at lines 144--195
  [][] 
  []
 
 [3] [4] [5] [6]
-Overfull \hbox (5.11182pt too wide) in paragraph at lines 308--309
+Overfull \hbox (5.11182pt too wide) in paragraph at lines 324--325
 \T5/cmr/m/n/12 640$\OMS/cmsy/m/n/12 ^^B$\T5/cmr/m/n/12 640 pix-els. ^^^¥y l  k½ch th÷îc ti¶u chu©n (imgsz) cho c¡c mæ h¼nh YOLOv8/v10,
  []
 
@@ -1002,37 +1002,37 @@ Overfull \hbox (5.11182pt too wide) in paragraph at lines 308--309
 <Images/61.png, id=109, 615.0177pt x 398.2077pt>
 File: Images/61.png Graphic file (type png)
 <use Images/61.png>
-Package pdftex.def Info: Images/61.png  used on input line 344.
+Package pdftex.def Info: Images/61.png  used on input line 360.
 (pdftex.def)             Requested size: 336.0982pt x 217.61739pt.
 <Images/62.png, id=110, 570.933pt x 354.123pt>
 File: Images/62.png Graphic file (type png)
 <use Images/62.png>
-Package pdftex.def Info: Images/62.png  used on input line 350.
+Package pdftex.def Info: Images/62.png  used on input line 366.
 (pdftex.def)             Requested size: 336.0982pt x 208.47145pt.
  [8 <./Images/61.png>]
 <Images/63.png, id=118, 612.1269pt x 511.6716pt>
 File: Images/63.png Graphic file (type png)
 <use Images/63.png>
-Package pdftex.def Info: Images/63.png  used on input line 372.
+Package pdftex.def Info: Images/63.png  used on input line 388.
 (pdftex.def)             Requested size: 268.8813pt x 224.75363pt.
  [9 <./Images/62.png>]
 <Images/64.png, id=126, 505.1673pt x 509.5035pt>
 File: Images/64.png Graphic file (type png)
 <use Images/64.png>
-Package pdftex.def Info: Images/64.png  used on input line 382.
+Package pdftex.def Info: Images/64.png  used on input line 398.
 (pdftex.def)             Requested size: 268.8813pt x 271.19394pt.
  [10 <./Images/63.png>]
 <Images/65.png, id=133, 1076.1003pt x 715.473pt>
 File: Images/65.png Graphic file (type png)
 <use Images/65.png>
-Package pdftex.def Info: Images/65.png  used on input line 397.
+Package pdftex.def Info: Images/65.png  used on input line 413.
 (pdftex.def)             Requested size: 448.13095pt x 297.94199pt.
  [11 <./Images/64.png>]
-LaTeX Font Info:    Trying to load font information for T5+cmtt on input line 411.
+LaTeX Font Info:    Trying to load font information for T5+cmtt on input line 427.
  (C:\Users\GIGABYTE\AppData\Local\Programs\MiKTeX\tex/latex/vntex\t5cmtt.fd
 File: t5cmtt.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 ) [12 <./Images/65.png>] [13]
-Overfull \hbox (6.89394pt too wide) in paragraph at lines 475--476
+Overfull \hbox (6.89394pt too wide) in paragraph at lines 491--492
 []\T5/cmr/bx/n/12 YOLOv10 (Nano ver-sion): \T5/cmr/m/n/12 L  phi¶n b£n c£i ti¸n mîi nh§t (n«m 2024), YOLOv10
  []
 
@@ -1040,148 +1040,148 @@ Overfull \hbox (6.89394pt too wide) in paragraph at lines 475--476
 <Images/YOLOv8n/baseline.png, id=166, 2055.68pt x 1626.075pt>
 File: Images/YOLOv8n/baseline.png Graphic file (type png)
 <use Images/YOLOv8n/baseline.png>
-Package pdftex.def Info: Images/YOLOv8n/baseline.png  used on input line 497.
+Package pdftex.def Info: Images/YOLOv8n/baseline.png  used on input line 513.
 (pdftex.def)             Requested size: 287.7305pt x 227.59932pt.
  [15 <./Images/YOLOv8n/baseline.png>]
 <Images/YOLOv10n/baseline.png, id=175, 853.1875pt x 793.96625pt>
 File: Images/YOLOv10n/baseline.png Graphic file (type png)
 <use Images/YOLOv10n/baseline.png>
-Package pdftex.def Info: Images/YOLOv10n/baseline.png  used on input line 514.
+Package pdftex.def Info: Images/YOLOv10n/baseline.png  used on input line 530.
 (pdftex.def)             Requested size: 244.593pt x 227.61537pt.
 <Images/RTDETR/baseline.png, id=176, 1927.2pt x 635.37375pt>
 File: Images/RTDETR/baseline.png Graphic file (type png)
 <use Images/RTDETR/baseline.png>
-Package pdftex.def Info: Images/RTDETR/baseline.png  used on input line 531.
+Package pdftex.def Info: Images/RTDETR/baseline.png  used on input line 547.
 (pdftex.def)             Requested size: 313.68091pt x 103.41667pt.
  [16 <./Images/YOLOv10n/baseline.png>] [17 <./Images/RTDETR/baseline.png>] [18]
 <Images/YOLOv8n/results.png, id=200, 867.24pt x 433.62pt>
 File: Images/YOLOv8n/results.png Graphic file (type png)
 <use Images/YOLOv8n/results.png>
-Package pdftex.def Info: Images/YOLOv8n/results.png  used on input line 597.
+Package pdftex.def Info: Images/YOLOv8n/results.png  used on input line 613.
 (pdftex.def)             Requested size: 425.72302pt x 212.86603pt.
  [19 <./Images/YOLOv8n/results.png>]
 <Images/YOLOv8n/confusion_matrix_normalized.png, id=209, 867.24pt x 650.43pt>
 File: Images/YOLOv8n/confusion_matrix_normalized.png Graphic file (type png)
 <use Images/YOLOv8n/confusion_matrix_normalized.png>
-Package pdftex.def Info: Images/YOLOv8n/confusion_matrix_normalized.png  used on input line 628.
+Package pdftex.def Info: Images/YOLOv8n/confusion_matrix_normalized.png  used on input line 644.
 (pdftex.def)             Requested size: 358.50612pt x 268.88132pt.
 <Images/YOLOv10n/results.png, id=210, 867.24pt x 433.62pt>
 File: Images/YOLOv10n/results.png Graphic file (type png)
 <use Images/YOLOv10n/results.png>
-Package pdftex.def Info: Images/YOLOv10n/results.png  used on input line 645.
+Package pdftex.def Info: Images/YOLOv10n/results.png  used on input line 661.
 (pdftex.def)             Requested size: 425.72302pt x 212.86603pt.
  [20 <./Images/YOLOv8n/confusion_matrix_normalized.png>]
 <Images/YOLOv10n/confusion_matrix_normalized.png, id=218, 867.24pt x 650.43pt>
 File: Images/YOLOv10n/confusion_matrix_normalized.png Graphic file (type png)
 <use Images/YOLOv10n/confusion_matrix_normalized.png>
-Package pdftex.def Info: Images/YOLOv10n/confusion_matrix_normalized.png  used on input line 672.
+Package pdftex.def Info: Images/YOLOv10n/confusion_matrix_normalized.png  used on input line 688.
 (pdftex.def)             Requested size: 358.50612pt x 268.88132pt.
  [21 <./Images/YOLOv10n/results.png>]
 <Images/RTDETR/results.png, id=225, 867.24pt x 433.62pt>
 File: Images/RTDETR/results.png Graphic file (type png)
 <use Images/RTDETR/results.png>
-Package pdftex.def Info: Images/RTDETR/results.png  used on input line 688.
+Package pdftex.def Info: Images/RTDETR/results.png  used on input line 704.
 (pdftex.def)             Requested size: 425.72302pt x 212.86603pt.
  [22 <./Images/YOLOv10n/confusion_matrix_normalized.png>]
 <Images/RTDETR/confusion_matrix_normalized.png, id=233, 867.24pt x 650.43pt>
 File: Images/RTDETR/confusion_matrix_normalized.png Graphic file (type png)
 <use Images/RTDETR/confusion_matrix_normalized.png>
-Package pdftex.def Info: Images/RTDETR/confusion_matrix_normalized.png  used on input line 715.
+Package pdftex.def Info: Images/RTDETR/confusion_matrix_normalized.png  used on input line 731.
 (pdftex.def)             Requested size: 358.50612pt x 268.88132pt.
  [23 <./Images/RTDETR/results.png>] [24 <./Images/RTDETR/confusion_matrix_normalized.png>]
 
-LaTeX Warning: Command \h invalid in math mode on input line 752.
+LaTeX Warning: Command \h invalid in math mode on input line 768.
 
 Missing character: There is no £ in font cmr12!
 <Images/fall003_gt.jpg, id=248, 355.3275pt x 354.57469pt>
 File: Images/fall003_gt.jpg Graphic file (type jpg)
 <use Images/fall003_gt.jpg>
-Package pdftex.def Info: Images/fall003_gt.jpg  used on input line 797.
+Package pdftex.def Info: Images/fall003_gt.jpg  used on input line 813.
 (pdftex.def)             Requested size: 215.10094pt x 214.6509pt.
 <Images/fall003_pred.jpg, id=249, 357.58594pt x 370.38374pt>
 File: Images/fall003_pred.jpg Graphic file (type jpg)
 <use Images/fall003_pred.jpg>
-Package pdftex.def Info: Images/fall003_pred.jpg  used on input line 797.
+Package pdftex.def Info: Images/fall003_pred.jpg  used on input line 813.
 (pdftex.def)             Requested size: 215.10094pt x 222.80276pt.
 [25]
 <Images/fall010_gt.jpg, id=257, 356.83313pt x 356.83313pt>
 File: Images/fall010_gt.jpg Graphic file (type jpg)
 <use Images/fall010_gt.jpg>
-Package pdftex.def Info: Images/fall010_gt.jpg  used on input line 828.
+Package pdftex.def Info: Images/fall010_gt.jpg  used on input line 844.
 (pdftex.def)             Requested size: 215.10094pt x 215.10336pt.
 <Images/fall010_pred.jpg, id=258, 356.83313pt x 356.83313pt>
 File: Images/fall010_pred.jpg Graphic file (type jpg)
 <use Images/fall010_pred.jpg>
-Package pdftex.def Info: Images/fall010_pred.jpg  used on input line 828.
+Package pdftex.def Info: Images/fall010_pred.jpg  used on input line 844.
 (pdftex.def)             Requested size: 215.10094pt x 215.10336pt.
  [26 <./Images/fall003_gt.jpg> <./Images/fall003_pred.jpg> <./Images/fall010_gt.jpg> <./Images/fall010_pred.jpg>]
 <Images/notfallen008_gt.jpg, id=266, 356.83313pt x 356.83313pt>
 File: Images/notfallen008_gt.jpg Graphic file (type jpg)
 <use Images/notfallen008_gt.jpg>
-Package pdftex.def Info: Images/notfallen008_gt.jpg  used on input line 858.
+Package pdftex.def Info: Images/notfallen008_gt.jpg  used on input line 874.
 (pdftex.def)             Requested size: 215.10094pt x 215.10336pt.
 <Images/notfallen008_pred.jpg, id=267, 360.59718pt x 360.59718pt>
 File: Images/notfallen008_pred.jpg Graphic file (type jpg)
 <use Images/notfallen008_pred.jpg>
-Package pdftex.def Info: Images/notfallen008_pred.jpg  used on input line 858.
+Package pdftex.def Info: Images/notfallen008_pred.jpg  used on input line 874.
 (pdftex.def)             Requested size: 215.10094pt x 215.09996pt.
  [27 <./Images/notfallen008_gt.jpg> <./Images/notfallen008_pred.jpg>]
 <Images/architecture.jpg, id=273, 1027.84pt x 647.41875pt>
 File: Images/architecture.jpg Graphic file (type jpg)
 <use Images/architecture.jpg>
-Package pdftex.def Info: Images/architecture.jpg  used on input line 885.
+Package pdftex.def Info: Images/architecture.jpg  used on input line 901.
 (pdftex.def)             Requested size: 448.13095pt x 282.267pt.
  [28 <./Images/architecture.jpg>] [29]
 <Images/register.png, id=289, 1927.2pt x 1084.05pt>
 File: Images/register.png Graphic file (type png)
 <use Images/register.png>
-Package pdftex.def Info: Images/register.png  used on input line 982.
+Package pdftex.def Info: Images/register.png  used on input line 998.
 (pdftex.def)             Requested size: 448.13095pt x 252.0721pt.
  [30]
 <Images/dashboard.png, id=296, 1927.2pt x 1084.05pt>
 File: Images/dashboard.png Graphic file (type png)
 <use Images/dashboard.png>
-Package pdftex.def Info: Images/dashboard.png  used on input line 999.
+Package pdftex.def Info: Images/dashboard.png  used on input line 1015.
 (pdftex.def)             Requested size: 448.13095pt x 252.0721pt.
  [31 <./Images/register.png>]
 <Images/noti_web.png, id=306, 626.34pt x 771.88374pt>
 File: Images/noti_web.png Graphic file (type png)
 <use Images/noti_web.png>
-Package pdftex.def Info: Images/noti_web.png  used on input line 1016.
+Package pdftex.def Info: Images/noti_web.png  used on input line 1032.
 (pdftex.def)             Requested size: 268.8813pt x 331.37352pt.
  [32 <./Images/dashboard.png>]
 <Images/history.png, id=314, 1926.19624pt x 1083.04625pt>
 File: Images/history.png Graphic file (type png)
 <use Images/history.png>
-Package pdftex.def Info: Images/history.png  used on input line 1031.
+Package pdftex.def Info: Images/history.png  used on input line 1047.
 (pdftex.def)             Requested size: 448.13095pt x 251.9709pt.
  [33 <./Images/noti_web.png>]
 <Images/pass.png, id=322, 1926.19624pt x 1083.04625pt>
 File: Images/pass.png Graphic file (type png)
 <use Images/pass.png>
-Package pdftex.def Info: Images/pass.png  used on input line 1038.
+Package pdftex.def Info: Images/pass.png  used on input line 1054.
 (pdftex.def)             Requested size: 448.13095pt x 251.9709pt.
 <Images/profile.png, id=323, 531.9875pt x 626.34pt>
 File: Images/profile.png Graphic file (type png)
 <use Images/profile.png>
-Package pdftex.def Info: Images/profile.png  used on input line 1045.
+Package pdftex.def Info: Images/profile.png  used on input line 1061.
 (pdftex.def)             Requested size: 268.8813pt x 316.57156pt.
  [34 <./Images/history.png> <./Images/pass.png>]
 <Images/help.png, id=332, 721.69624pt x 665.48625pt>
 File: Images/help.png Graphic file (type png)
 <use Images/help.png>
-Package pdftex.def Info: Images/help.png  used on input line 1052.
+Package pdftex.def Info: Images/help.png  used on input line 1068.
 (pdftex.def)             Requested size: 268.8813pt x 247.932pt.
 <Images/link_tele.png, id=333, 506.89375pt x 219.82124pt>
 File: Images/link_tele.png Graphic file (type png)
 <use Images/link_tele.png>
-Package pdftex.def Info: Images/link_tele.png  used on input line 1061.
+Package pdftex.def Info: Images/link_tele.png  used on input line 1077.
 (pdftex.def)             Requested size: 358.50612pt x 155.47375pt.
  [35 <./Images/profile.png> <./Images/help.png>]
 <Images/tele.png, id=342, 498.86375pt x 436.63126pt>
 File: Images/tele.png Graphic file (type png)
 <use Images/tele.png>
-Package pdftex.def Info: Images/tele.png  used on input line 1068.
+Package pdftex.def Info: Images/tele.png  used on input line 1084.
 (pdftex.def)             Requested size: 358.50612pt x 313.79463pt.
  [36 <./Images/link_tele.png> <./Images/tele.png>] [37] [38] [39] [40] [41] (main.aux)
  ***********
@@ -1192,13 +1192,13 @@ L3 programming layer <2025-11-06>
 Here is how much of TeX's memory you used:
  40593 strings out of 467871
  948503 string characters out of 5416923
- 1693404 words of memory out of 5000000
+ 1694404 words of memory out of 5000000
  68733 multiletter control sequences out of 15000+600000
  646391 words of font info for 74 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  108i,14n,108p,11263b,669s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\GIGABYTE\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1200.pk><C:/Users/GIGABYTE/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/GIGABYTE/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/GIGABYTE/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/GIGABYTE/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/GIGABYTE/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/GIGABYTE/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vnbx12.pfb><C:/Users/GIGABYTE/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vnr10.pfb><C:/Users/GIGABYTE/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vnr12.pfb><C:/Users/GIGABYTE/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vnssbx10.pfb><C:/Users/GIGABYTE/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vnti12.pfb><C:/Users/GIGABYTE/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vntt12.pfb>
-Output written on main.pdf (41 pages, 5327662 bytes).
+Output written on main.pdf (41 pages, 5327903 bytes).
 PDF statistics:
  547 PDF objects out of 1000 (max. 8388607)
  156 named destinations out of 1000 (max. 500000)
